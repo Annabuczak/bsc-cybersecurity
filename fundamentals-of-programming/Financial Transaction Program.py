@@ -1,44 +1,36 @@
 #Financial Transaction Program
 # Display the main menu options to the user
-print("choose from the following options:")
-print("1. Add income")
-print("2. Add expense")
-print("3. Exit")
+transactions = []
+def show_menu():
+ print("\n--Financial Transaction Program--")
+ print("1. Add income")
+ print("2. Add expense")
+ print("3. View transactions")
+ print("4. View balance")
+while True:
+    show_menu()
+    choice = input("Enter your choice: ").strip()
+    if choice == "1":
+     print("1.Salary")
+     print("2.Freelance")
+     print("3.Other")
+    income_choice = input("Enter your choice: ")
 
-# Get the user's main menu choice
-main_choice = input("Enter your choice: ")
-
-# Check if the user wants to add income
-if main_choice == "1":
-# Display income categories
-    print("1.Salary")
-    print("2.Freelance")
-    print("3.Other")
-# Get the user's choice of income type
-income_choice = input("Enter your choice: ")
-# If user selects Salary
-if income_choice == "1":
- # Ask user to enter the income amount
+    if income_choice == "1":
        amount = input("Enter amount")
-# Display confirmation
        print("Salary added" , amount)
 
-# If user selects Freelance
-elif income_choice == "2":
-# Ask user to enter the income amount
+    elif income_choice == "2":
         amount = input("Enter amount")
-# Display confirmation
         print("Freelance added" , amount)
 
-# If user selects Other
-elif income_choice  == "3":
-# Ask user to enter the income amount
-        amount = input("Enter amount")
-# Display confirmation
-        print("Other" , amount)
+    elif income_choice  == "3":
+         amount = input("Enter amount")
+         print("Other" , "amount")
 
+    elif income_choice == "4":
+        print("Exiting...")
 
-
-
-
+    else:
+        print("Invalid input. Please choose 1-4.")
 
