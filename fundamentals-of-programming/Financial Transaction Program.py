@@ -1,3 +1,4 @@
+#Income
 transactions = []
 
 def show_menu():
@@ -39,12 +40,17 @@ while True:
             add_transaction("income", amount, date, "Freelance")
 
         elif income_choice == "3":
-            amount = float(input("Enter amount: "))
-            date = input("Enter date (YYYY-MM-DD): ")
-            add_transaction("income", amount, date, "Other")
+             amount = float(input("Enter amount: "))
+             date = input("Enter date (YYYY-MM-DD): ")
+             add_transaction("income", amount, date, "Other")
+
         else:
-            print("Invalid income option")
-    else:
-        print("Invalid input. Please choose 1-4.")
+           print("Invalid income option.")
 
+    elif choice == "3":
 
+        if not transactions:
+            print("No transactions yet.")
+        else:
+            for item in transactions:
+                print(f"Date: {item['date']} | {item['category']} ({item['type']}) | ${item['amount']}")
