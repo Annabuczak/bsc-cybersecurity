@@ -16,22 +16,19 @@ def add_transaction(t_type, t_amount, t_date, t_category):
         "category": t_category
     })
     print(f"Success: ${t_amount} added to {t_category} on {t_date}.")
-
-expense =[]
-
-def add_expense(e_amount, e_date, e_category):
-    expense.append({
-        "amount": e_amount,
-        "date": e_date,
-        "category": e_category
+def show_balance(t_type, t_amount, t_date, t_category):
+    transactions.append({
+        "type": t_type,
+        "amount": t_amount,
+        "date": t_date,
+        "category": t_category
     })
-    print(f"Success: ${e_amount} added to {e_category} on {e_date}")
-
+    print(f"Success: ${t_amount} added to {t_category} on {t_date}.")
 while True:
     show_menu()
 
     choice = input("Enter your choice: ")
-
+#income
     if choice == "1":
         print("1. Salary")
         print("2. Freelance")
@@ -63,49 +60,45 @@ while True:
            else:
                for item in transactions:
                    print(f"Date: {item['date']} | {item['category']} ({item['type']}) | ${item['amount']}")
+#expenses
+    elif choice == "2":
+     print("1. Set bills")
+     print("2. Groceries")
+     print("3. Transport")
+     print("4. Entertainment")
+     print("5. Other")
+     print("6. Unexpected")
 
-    while True:
-     show_menu()
+    expense_choice = input("Enter your choice: ")
 
-     choice = input("Enter your choice: ")
+    if expense_choice == "1":
+     amount = float(input("Enter amount: "))
+     date = input("Enter date (YYYY-MM-DD): ")
+     add_transaction("expense", amount, date, "Bills")
 
-     if choice == "2":
-        print("1. Set bills")
-        print("2. Groceries")
-        print("3. Transport")
-        print("4. Entertainment")
-        print("5. Other")
-        print("6. Unexpected")
 
-        expense_choice = input("Enter your choice: ")
-
-        if expense_choice == "1":
-           amount = float(input("Enter amount: "))
-           date = input("Enter date (YYYY-MM-DD): ")
-           add_transaction("expense", amount, date, "Bills")
-
-        elif expense_choice == "2":
+    elif expense_choice == "2":
+            amount = float(input("Enter amount: "))
+            date = input("Enter date (YYYY-MM-DD): ")
+            add_transaction("expense", amount, date, "Groceries")
+    elif expense_choice == "3":
             amount = float(input("Enter amount: "))
             date = input("Enter date (YYYY-MM-DD): ")
             add_transaction("expense", amount, date, "Transport")
-        elif expense_choice == "3":
+    elif expense_choice == "4":
+            amount = float(input("Enter amount: "))
+            date = input("Enter date (YYYY-MM-DD): ")
+            add_transaction("expense", amount, date, "Entertainment")
+    elif expense_choice == "5":
             amount = float(input("Enter amount: "))
             date = input("Enter date (YYYY-MM-DD): ")
             add_transaction("expense", amount, date, "Other")
-        elif expense_choice == "4":
+    elif expense_choice == "6":
             amount = float(input("Enter amount: "))
             date = input("Enter date (YYYY-MM-DD): ")
-            add_transaction("expense", amount, date, "Other")
-        elif expense_choice == "5":
-            amount = float(input("Enter amount: "))
-            date = input("Enter date (YYYY-MM-DD): ")
-            add_transaction("expense", amount, date, "Other")
-        elif expense_choice == "6":
-            amount = float(input("Enter amount: "))
-            date = input("Enter date (YYYY-MM-DD): ")
-            add_transaction("expense", amount, date, "Other")
+            add_transaction("expense", amount, date, "Unexpected")
 
-        else:
+    else:
            print("Invalid expense option.")
 
            if not transactions:
@@ -116,4 +109,4 @@ while True:
 
 
 
-
+#balance
