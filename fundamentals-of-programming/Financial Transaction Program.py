@@ -107,6 +107,6 @@ while True:
                for item in transactions:
                    print(f"Date: {item['date']} | {item['category']} ({item['type']}) | ${item['amount']}")
 
-
+   ##
 
 #balance
