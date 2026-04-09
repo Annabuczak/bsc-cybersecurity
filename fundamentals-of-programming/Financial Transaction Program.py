@@ -7,6 +7,7 @@ def show_menu():
     print("2. Add expense")
     print("3. View transactions")
     print("4. View balance")
+    print("5. Go to main menu")
 
 def add_transaction(t_type, t_amount, t_date, t_category):
     transactions.append({
