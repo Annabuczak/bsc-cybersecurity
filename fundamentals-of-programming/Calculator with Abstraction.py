@@ -49,51 +49,6 @@ class Extended(Calculator):
         return result
 
 
-def main():
-    print("\nCalculator")
-    while True:
-        print("1. Add")
-        print("2. Subtract")
-        print("3. Multiply")
-        print("4. Divide")
-        print("5. Extended")  # Updated
-        print("6. Exit")
-
-        print("\nSelect an operation:")
-        choice = input("Enter your choice: ")
-        calc = Calculator()
-
-        if choice == "1":
-            a = float(input("Enter first amount: "))
-            b = float(input("Enter second amount: "))
-            result = calc.add(a, b)
-            print(result)
-        elif choice == "2":
-            a = float(input("Enter first amount:"))
-            b = float(input("Enter second amount: "))
-            result = calc.subtract(a, b)
-            print(result)
-        elif choice == "3":
-            a = float(input("Enter first amount: "))
-            b = float(input("Enter second amount: "))
-            result = calc.multiply(a, b)
-            print(result)
-        elif choice == "4":
-            a = float(input("Enter first amount: "))
-            b = float(input("Enter second amount: "))
-            result = calc.divide(a, b)
-            print(result)
-
-        elif choice == "5":
-            Extended()
-        elif choice == "6":
-            break
-
-
-if __name__ == "__main__":
-    main()
-
-
 def extended():
     print("\nExtended Calculator")
     while True:
@@ -161,5 +116,52 @@ def extended():
             print("Exit")
 
 
-if __name__ == "__extended__":
-    extended()
+def main():
+    print("\nCalculator")
+    while True:
+        print("1. Add")
+        print("2. Subtract")
+        print("3. Multiply")
+        print("4. Divide")
+        print("5. Extended")  # Updated
+        print("6. Exit")
+
+        print("\nSelect an operation:")
+        try:
+            choice = input("Enter your choice: ")
+        except KeyboardInterrupt:
+            print("\nExiting calculator...")
+            break
+
+        calc = Calculator()
+
+        if choice == "1":
+            a = float(input("Enter first amount: "))
+            b = float(input("Enter second amount: "))
+            result = calc.add(a, b)
+            print(result)
+        elif choice == "2":
+            a = float(input("Enter first amount:"))
+            b = float(input("Enter second amount: "))
+            result = calc.subtract(a, b)
+            print(result)
+        elif choice == "3":
+            a = float(input("Enter first amount: "))
+            b = float(input("Enter second amount: "))
+            result = calc.multiply(a, b)
+            print(result)
+        elif choice == "4":
+            a = float(input("Enter first amount: "))
+            b = float(input("Enter second amount: "))
+            result = calc.divide(a, b)
+            print(result)
+
+        elif choice == "5":
+
+            extended()
+        elif choice == "6":
+            break
+
+
+if __name__ == "__main__":
+    main()
