@@ -27,7 +27,9 @@ class Extended(Calculator):
         return a // b
 
     def percent(self, a, b):
-        return (a % b) * 100
+        if b == 0:
+            return "Error: Cannot divide by zero"
+        return (a * b) / 100
 
     def average(self, a, b):
         return (a + b) / 2
@@ -75,6 +77,10 @@ def extended():
             a = float(input("Enter first amount:"))
             b = float(input("Enter second amount: "))
             result = ext.modulo(a, b)
+            if isinstance(result, float) and result.is_integer():
+                print(int(result))
+            else:
+                print(result)
             print(result)
         elif choice == "3":
             a = float(input("Enter first amount: "))
