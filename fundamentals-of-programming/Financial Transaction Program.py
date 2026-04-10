@@ -41,6 +41,28 @@ def show_balance(t_type, t_amount, t_date, t_category, t_note, ):
     print(f"Success: ${t_amount} added to {t_category} on {t_date}.")
 
 
+def monthly_summary():
+    if len(transactions) == 0:
+        print("No transactions added.")
+        return
+
+
+import datetime
+
+current_month_prefix = datetime.date.today().strftime("%Y-%m")
+
+total_income = 0.0
+total_expense = 0.0
+for t in transactions:
+    t_type = t["type"]
+    t_amount = t["amount"]
+net_balance = total_income - total_expense
+
+print("\n--Monthly Summary--")
+print(f"Total Income: {total_income}")
+print(f"Total Expense: {total_expense}")
+print(f"Net Balance: {net_balance}")
+
 while True:
     menu()
 
@@ -115,3 +137,17 @@ while True:
             if note.strip() == "":
                 note = "None"
             add_transactions("expenses", amount, today_date, category, note, )
+
+
+    elif choice == "3":
+        while True:
+            print("1. Monthly Summary")
+            print("2. Total Income: $", total_income)
+            print("3. Total Expense: $", total_expense)
+            print("4. Net Balance: $", total_income - total_expense)
+            print("5. Go to main menu")
+
+    reports_choice = input("Enter your choice: ")
+    if reports_choice == "6":
+        print("Go to main menu")
+        break
