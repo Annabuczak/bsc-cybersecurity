@@ -36,8 +36,9 @@ while True:
     menu()
 
     choice = input("Enter your choice: ")
-    while True:
-        if choice == "1":
+
+    if choice == "1":
+        while True:
             print("1. Salary")
             print("2. Freelance")
             print("3. Other")
@@ -65,7 +66,8 @@ while True:
             break
 
 
-        elif choice == "2":
+    elif choice == "2":
+        while True:
             print("1. Bills")
             print("2. Groceries")
             print("3. Transport")
@@ -74,31 +76,31 @@ while True:
             print("6. Exit to main menu")
 
             expense_choice = input("Enter your choice: ")
-    while True:
-        if expense_choice == "1":
-            amount = float(input("Enter amount: "))
-            date = input("Enter date (dd/mm/yyyy): ")
-            add_transactions("expense", amount, date, "Bills")
+
+            if expense_choice == "1":
+                amount = float(input("Enter amount: "))
+                date = input("Enter date (dd/mm/yyyy): ")
+                add_transactions("expense", amount, date, "Bills")
 
 
-        elif expense_choice == "2":
-            amount = float(input("Enter amount: "))
-            date = input("Enter date (dd/mm/yyyy): ")
-            add_transactions("expense", amount, date, "Groceries")
-        elif expense_choice == "3":
-            amount = float(input("Enter amount: "))
-            date = input("Enter date (dd/mm/yyyy): ")
-            add_transactions("expense", amount, date, "Transport")
-        elif expense_choice == "4":
-            amount = float(input("Enter amount: "))
-            date = input("Enter date (dd/mm/yyyy): ")
-            add_transactions("expense", amount, date, "Entertainment")
-        elif expense_choice == "5":
-            amount = float(input("Enter amount: "))
-            date = input("Enter date (dd/mm/yyyy): ")
-            add_transactions("expense", amount, date, "Other")
+            elif expense_choice == "2":
+                amount = float(input("Enter amount: "))
+                date = input("Enter date (dd/mm/yyyy): ")
+                add_transactions("expense", amount, date, "Groceries")
+            elif expense_choice == "3":
+                amount = float(input("Enter amount: "))
+                date = input("Enter date (dd/mm/yyyy): ")
+                add_transactions("expense", amount, date, "Transport")
+            elif expense_choice == "4":
+                amount = float(input("Enter amount: "))
+                date = input("Enter date (dd/mm/yyyy): ")
+                add_transactions("expense", amount, date, "Entertainment")
+            elif expense_choice == "5":
+                amount = float(input("Enter amount: "))
+                date = input("Enter date (dd/mm/yyyy): ")
+                add_transactions("expense", amount, date, "Other")
 
-        else:
-            expense_choice == "6"
-            print("Go to main menu")
-        break
+            else:
+                expense_choice == "6"
+                print("Go to main menu")
+            break
