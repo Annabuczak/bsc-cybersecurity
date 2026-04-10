@@ -1,3 +1,9 @@
+import datetime
+
+datetime.date.today()
+today_date = datetime.date.today()
+print(today_date)
+
 transactions = []
 
 
@@ -48,17 +54,29 @@ while True:
 
             if income_choice == "1":
                 amount = float(input("Enter amount: "))
-                date = input("Enter date (dd/mm/yyyy): ")
+                date_choice = input("Do you want to use today's date? (y/n): ")
+                if date_choice == 'y':
+                    date = today_date
+                else:
+                    date = input("Enter date (YYYY-MM-DD): ")
                 add_transactions("income", amount, date, "Salary")
 
             elif income_choice == "2":
                 amount = float(input("Enter amount: "))
-                date = input("Enter date (dd/mm/yyyy): ")
+                date_choice = input("Do you want to use today's date? (y/n): ")
+                if date_choice == 'y':
+                    date = today_date
+                else:
+                    date = input("Enter date (YYYY-MM-DD): ")
                 add_transactions("income", amount, date, "Freelance")
 
             elif income_choice == "3":
                 amount = float(input("Enter amount: "))
-                date = input("Enter date (dd/mm/yyyy): ")
+                date_choice = input("Do you want to use today's date? (y/n): ")
+                if date_choice == 'y':
+                    date = today_date
+                else:
+                    date = input("Enter date (YYYY-MM-DD): ")
                 add_transactions("income", amount, date, "Other")
 
             elif income_choice == "4":
@@ -79,25 +97,45 @@ while True:
 
             if expense_choice == "1":
                 amount = float(input("Enter amount: "))
-                date = input("Enter date (dd/mm/yyyy): ")
+                date_choice = input("Do you want to use today's date? (y/n): ")
+                if date_choice == 'y':
+                    date = today_date
+                else:
+                    date = input("Enter date (YYYY-MM-DD): ")
                 add_transactions("expense", amount, date, "Bills")
 
 
             elif expense_choice == "2":
                 amount = float(input("Enter amount: "))
-                date = input("Enter date (dd/mm/yyyy): ")
+                date_choice = input("Do you want to use today's date? (y/n): ")
+                if date_choice == 'y':
+                    date = today_date
+                else:
+                    date = input("Enter date (YYYY-MM-DD): ")
                 add_transactions("expense", amount, date, "Groceries")
             elif expense_choice == "3":
                 amount = float(input("Enter amount: "))
-                date = input("Enter date (dd/mm/yyyy): ")
+                date_choice = input("Do you want to use today's date? (y/n): ")
+                if date_choice == 'y':
+                    date = today_date
+                else:
+                    date = input("Enter date (YYYY-MM-DD): ")
                 add_transactions("expense", amount, date, "Transport")
             elif expense_choice == "4":
                 amount = float(input("Enter amount: "))
-                date = input("Enter date (dd/mm/yyyy): ")
+                date_choice = input("Do you want to use today's date? (y/n): ")
+                if date_choice == 'y':
+                    date = today_date
+                else:
+                    date = input("Enter date (YYYY-MM-DD): ")
                 add_transactions("expense", amount, date, "Entertainment")
             elif expense_choice == "5":
                 amount = float(input("Enter amount: "))
-                date = input("Enter date (dd/mm/yyyy): ")
+                date_choice = input("Do you want to use today's date? (y/n): ")
+                if date_choice == 'y':
+                    date = today_date
+                else:
+                    date = input("Enter date (YYYY-MM-DD): ")
                 add_transactions("expense", amount, date, "Other")
 
             else:
