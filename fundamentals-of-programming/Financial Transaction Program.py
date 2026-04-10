@@ -1,4 +1,5 @@
 import datetime
+from idlelib.window import add_windows_to_menu
 
 datetime.date.today()
 today_date = datetime.date.today()
@@ -17,23 +18,25 @@ def menu():
     print("6. Go to main menu")
 
 
-def add_transactions(t_type, t_amount, t_date, t_category):
+def add_transactions(t_type, t_amount, t_date, t_category, t_note, ):
     transactions.append({
         "type": t_type,
         "amount": t_amount,
         "date": t_date,
-        "category": t_category
+        "category": t_category,
+        "note": t_note,
     })
 
     print(f"Success: ${t_amount} added to {t_category} on {t_date}.")
 
 
-def show_balance(t_type, t_amount, t_date, t_category):
+def show_balance(t_type, t_amount, t_date, t_category, t_note, ):
     transactions.append({
         "type": t_type,
         "amount": t_amount,
         "date": t_date,
-        "category": t_category
+        "category": t_category,
+        "note": t_note,
     })
     print(f"Success: ${t_amount} added to {t_category} on {t_date}.")
 
@@ -65,13 +68,15 @@ while True:
                 continue
             amount = float(input("Enter amount: "))
 
-            add_transactions("income", amount, today_date, category)
             date_choice = input("Do you want to use today's date? (y/n): ").strip().lower()
             if date_choice == "y":
                 date = datetime.date.today()
             else:
                 date = input("Enter date (YYYY-MM-DD): ")
-
+            note = input("Enter a note (or press Enter to skip): ")
+            if note.strip() == "":
+                note = "None"
+            add_transactions("income", amount, today_date, category, note, )
 
     elif choice == "2":
         while True:
@@ -101,9 +106,12 @@ while True:
                 continue
             amount = float(input("Enter amount: "))
 
-            add_transactions("expenses", amount, today_date, category)
             date_choice = input("Do you want to use today's date? (y/n): ").strip().lower()
             if date_choice == "y":
                 date = datetime.date.today()
             else:
                 date = input("Enter date (YYYY-MM-DD): ")
+            note = input("Enter a note (or press Enter to skip): ")
+            if note.strip() == "":
+                note = "None"
+            add_transactions("expenses", amount, today_date, category, note, )
