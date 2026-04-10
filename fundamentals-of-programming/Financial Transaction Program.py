@@ -51,38 +51,22 @@ while True:
             print("4. Exit to main menu")
 
             income_choice = input("Enter your choice: ")
-
-            if income_choice == "1":
-                amount = float(input("Enter amount: "))
-                date_choice = input("Do you want to use today's date? (y/n): ")
-                if date_choice == 'y':
-                    date = today_date
-                else:
-                    date = input("Enter date (YYYY-MM-DD): ")
-                add_transactions("income", amount, date, "Salary")
-
-            elif income_choice == "2":
-                amount = float(input("Enter amount: "))
-                date_choice = input("Do you want to use today's date? (y/n): ")
-                if date_choice == 'y':
-                    date = today_date
-                else:
-                    date = input("Enter date (YYYY-MM-DD): ")
-                add_transactions("income", amount, date, "Freelance")
-
-            elif income_choice == "3":
-                amount = float(input("Enter amount: "))
-                date_choice = input("Do you want to use today's date? (y/n): ")
-                if date_choice == 'y':
-                    date = today_date
-                else:
-                    date = input("Enter date (YYYY-MM-DD): ")
-                add_transactions("income", amount, date, "Other")
-
-            elif income_choice == "4":
+            if income_choice == "4":
                 print("Go to main menu")
-            break
+                break
+            if income_choice == "1":
+                category = "Salary"
+            elif income_choice == "2":
+                category = "Freelance"
+            elif income_choice == "3":
+                category = "Other"
+            else:
+                print("Invalid choice. Try again.")
+                continue
 
+            amount = float(input("Enter amount: "))
+            date_choice = input("Do you want to use today's date? (y/n): ")
+            add_transactions("income", amount, today_date, category)
 
     elif choice == "2":
         while True:
@@ -94,51 +78,19 @@ while True:
             print("6. Exit to main menu")
 
             expense_choice = input("Enter your choice: ")
-
-            if expense_choice == "1":
-                amount = float(input("Enter amount: "))
-                date_choice = input("Do you want to use today's date? (y/n): ")
-                if date_choice == 'y':
-                    date = today_date
-                else:
-                    date = input("Enter date (YYYY-MM-DD): ")
-                add_transactions("expense", amount, date, "Bills")
-
-
-            elif expense_choice == "2":
-                amount = float(input("Enter amount: "))
-                date_choice = input("Do you want to use today's date? (y/n): ")
-                if date_choice == 'y':
-                    date = today_date
-                else:
-                    date = input("Enter date (YYYY-MM-DD): ")
-                add_transactions("expense", amount, date, "Groceries")
-            elif expense_choice == "3":
-                amount = float(input("Enter amount: "))
-                date_choice = input("Do you want to use today's date? (y/n): ")
-                if date_choice == 'y':
-                    date = today_date
-                else:
-                    date = input("Enter date (YYYY-MM-DD): ")
-                add_transactions("expense", amount, date, "Transport")
-            elif expense_choice == "4":
-                amount = float(input("Enter amount: "))
-                date_choice = input("Do you want to use today's date? (y/n): ")
-                if date_choice == 'y':
-                    date = today_date
-                else:
-                    date = input("Enter date (YYYY-MM-DD): ")
-                add_transactions("expense", amount, date, "Entertainment")
-            elif expense_choice == "5":
-                amount = float(input("Enter amount: "))
-                date_choice = input("Do you want to use today's date? (y/n): ")
-                if date_choice == 'y':
-                    date = today_date
-                else:
-                    date = input("Enter date (YYYY-MM-DD): ")
-                add_transactions("expense", amount, date, "Other")
-
-            else:
-                expense_choice == "6"
+            if expense_choice == "6":
                 print("Go to main menu")
-            break
+                break
+            if expense_choice == "1":
+                category = "Bills"
+            elif expense_choice == "2":
+                category = "Groceries"
+            elif expense_choice == "3":
+                category = "Transport"
+            elif expense_choice == "4":
+                category = "Entertainment"
+            elif expense_choice == "5":
+                category = "Other"
+            else:
+                print("Invalid choice. Try again.")
+                continue
