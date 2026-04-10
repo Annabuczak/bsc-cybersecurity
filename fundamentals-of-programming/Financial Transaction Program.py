@@ -63,10 +63,11 @@ while True:
             else:
                 print("Invalid choice. Try again.")
                 continue
-
-            amount = float(input("Enter amount: "))
-            date_choice = input("Do you want to use today's date? (y/n): ")
             add_transactions("income", amount, today_date, category)
+            amount = float(input("Enter amount: "))
+            date_choice = input("Do you want to use today's date? (y/n): ").strip().lower()
+
+
 
     elif choice == "2":
         while True:
@@ -94,3 +95,6 @@ while True:
             else:
                 print("Invalid choice. Try again.")
                 continue
+            add_transactions("expenses", amount, today_date, category)
+            amount = float(input("Enter amount: "))
+            date_choice = input("Do you want to use today's date? (y/n): ").strip().lower()
