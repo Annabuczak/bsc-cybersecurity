@@ -1,5 +1,4 @@
 import datetime
-from unicodedata import category
 
 datetime.date.today()
 today_date = datetime.date.today()
@@ -54,9 +53,9 @@ def monthly_summary():
         if str(t["date"]).startswith(current_month_prefix):
             if t["type"] == "income":
                 total_income += t["amount"]
-            elif t["type"] == "expense":
+            elif t["type"] == "expenses":
                 total_expense += t["amount"]
-            import datetime
+
     net_balance = total_income - total_expense
 
     print("\n--Monthly Summary--")
@@ -119,7 +118,7 @@ while True:
             else:
                 print("Invalid choice. Try again.")
                 continue
-            amount = float(input("Enter amount: "))
+            amount = len(input("Enter amount: "))
 
             date_choice = input("Do you want to use today's date? (y/n): ").strip().lower()
             if date_choice == "y":
@@ -157,7 +156,7 @@ while True:
             else:
                 print("Invalid choice. Try again.")
                 continue
-            amount = float(input("Enter amount: "))
+            amount = len(input("Enter amount: "))
 
             date_choice = input("Do you want to use today's date? (y/n): ").strip().lower()
             if date_choice == "y":
@@ -167,7 +166,7 @@ while True:
             note = input("Enter a note (or press Enter to skip): ")
             if note.strip() == "":
                 note = "None"
-            add_transactions("expense", amount, date, category, note, )
+            add_transactions("expenses", amount, date, category, note, )
 
 
     elif choice == "3":
@@ -185,11 +184,14 @@ while True:
 
         if reports_choice == "1":
             monthly_summary()
-        elif reports_choice == "2":
-            print(f"Total Income: £{total_income}")
+        elif reports_choice in ["2", "3", "4"]:
+            t_income = sum(t["amount"] for t in transactions if t["type"] == "income")
+            t_expense = sum(t["amount"] for t in transactions if t["type"] == "expenses")
+        if reports_choice == "2":
+            print(f"\nTotal Lifetime Income: £{t_income:.2f}")
         elif reports_choice == "3":
-            print(f"Total Expense: £{total_expense}")
+            print(f"\nTotal Lifetime Expense: £{t_expense:.2f}")
         elif reports_choice == "4":
-            print(f"Net Balance: £{total_income - total_expense}")
+            print(f"\nTotal Net Balance: £{t_income - t_expense:.2f}")
         else:
             print("Invalid choice. Try again.")
