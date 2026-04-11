@@ -1,7 +1,7 @@
-import datetime
-
+from datetime import datetime
 today_date = datetime.date.today()
 print(today_date)
+
 
 transactions = []
 
@@ -28,15 +28,10 @@ def add_transactions(t_type, t_amount, t_date, t_category, t_note, ):
     print(f"Success: £{t_amount} added to {t_category} on {t_date}.")
 
 
-def show_balance(t_type, t_amount, t_date, t_category, t_note, ):
-    transactions.append({
-        "type": t_type,
-        "amount": t_amount,
-        "date": t_date,
-        "category": t_category,
-        "note": t_note,
-    })
-    print(f"Success: £{t_amount} added to {t_category} on {t_date}.")
+def show_balance():
+    income = sum(t["amount"] for t in transactions if t["type"] == "income")
+    expense = sum(t["amount"] for t in transactions if t["type"] == "expense")
+    print(f"\nCurrent Balance: £{income - expense:.2f}")
 
 
 def monthly_summary():
@@ -122,6 +117,8 @@ while True:
                 continue
 
             amount = float(input("Enter amount: "))
+            except ValueError:
+            print("Invalid number. Try again.")
 
             date_choice = input("Do you want to use today's date? (y/n): ").strip().lower()
             if date_choice == "y":
@@ -161,6 +158,8 @@ while True:
                 continue
 
             amount = float(input("Enter amount: "))
+            except ValueError:
+            print("Invalid number. Try again.")
 
             date_choice = input("Do you want to use today's date? (y/n): ").strip().lower()
             if date_choice == "y":
