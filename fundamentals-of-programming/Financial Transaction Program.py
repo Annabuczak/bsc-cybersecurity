@@ -1,6 +1,5 @@
 import datetime
 
-datetime.date.today()
 today_date = datetime.date.today()
 print(today_date)
 
@@ -53,7 +52,7 @@ def monthly_summary():
         if str(t["date"]).startswith(current_month_prefix):
             if t["type"] == "income":
                 total_income += t["amount"]
-            elif t["type"] == "expenses":
+            elif t["type"] == "expense":  # FIX 1
                 total_expense += t["amount"]
 
     net_balance = total_income - total_expense
@@ -69,28 +68,31 @@ def category_summary():
         print("No transactions added.")
         return
 
-    total_income = 0.0
-    total_expense = 0.0
+    income_totals = {}
+    expense_totals = {}
 
     for t in transactions:
-        category.append(t["category"])
-    amount = t["amount"]
-    if t["type"] == "income":
-        total_income += amount
-    elif t["type"] == "expenses":
-        total_expense += amount
+        cat = t["category"]
+        amount = t["amount"]
+
+        if t["type"] == "income":
+            income_totals[cat] = income_totals.get(cat, 0) + amount
+        elif t["type"] == "expense":  # FIX 1
+            expense_totals[cat] = expense_totals.get(cat, 0) + amount
+
     print("\nIncome by category:")
-    if len(total_income) == 0:
+    if not income_totals:
         print("  No income recorded.")
     else:
-        for cat, total in total_income.items():
-            print(f"  - {cat}: ${total:.2f}")
-        print("\n Expense by category:")
-        if len(total_expense) == 0:
-            print("  No income recorded.")
-        else:
-            for cat, total in total_expense.items():
-                print(f"  - {cat}: ${total:.2f}")
+        for cat, total in income_totals.items():
+            print(f"  - {cat}: £{total:.2f}")
+
+    print("\nExpense by category:")
+    if not expense_totals:
+        print("  No expense recorded.")
+    else:
+        for cat, total in expense_totals.items():
+            print(f"  - {cat}: £{total:.2f}")
 
 
 while True:
@@ -118,7 +120,8 @@ while True:
             else:
                 print("Invalid choice. Try again.")
                 continue
-            amount = len(input("Enter amount: "))
+
+            amount = float(input("Enter amount: "))
 
             date_choice = input("Do you want to use today's date? (y/n): ").strip().lower()
             if date_choice == "y":
@@ -156,7 +159,8 @@ while True:
             else:
                 print("Invalid choice. Try again.")
                 continue
-            amount = len(input("Enter amount: "))
+
+            amount = float(input("Enter amount: "))
 
             date_choice = input("Do you want to use today's date? (y/n): ").strip().lower()
             if date_choice == "y":
@@ -166,32 +170,42 @@ while True:
             note = input("Enter a note (or press Enter to skip): ")
             if note.strip() == "":
                 note = "None"
-            add_transactions("expenses", amount, date, category, note, )
+            add_transactions("expense", amount, date, category, note, )  # FIX 1
 
 
     elif choice == "3":
         while True:
+            print("\n-- Reports Menu --")
             print("1. Monthly Summary")
-            print("2. Total Income: £")
-            print("3. Total Expense: £")
-            print("4. Net Balance: £")
-            print("5. Go to main menu")
+            print("2. Total Income")
+            print("3. Total Expense")
+            print("4. Net Balance")
+            print("5. Category Breakdown")
+            print("6. Go to main menu")
 
             reports_choice = input("Enter your choice: ")
-            if reports_choice == "6":
-                print("Go to main menu")
-            break
 
-        if reports_choice == "1":
-            monthly_summary()
-        elif reports_choice in ["2", "3", "4"]:
-            t_income = sum(t["amount"] for t in transactions if t["type"] == "income")
-            t_expense = sum(t["amount"] for t in transactions if t["type"] == "expenses")
-        if reports_choice == "2":
-            print(f"\nTotal Lifetime Income: £{t_income:.2f}")
-        elif reports_choice == "3":
-            print(f"\nTotal Lifetime Expense: £{t_expense:.2f}")
-        elif reports_choice == "4":
-            print(f"\nTotal Net Balance: £{t_income - t_expense:.2f}")
-        else:
-            print("Invalid choice. Try again.")
+            if reports_choice == "6":
+                break
+
+            if reports_choice == "1":
+                monthly_summary()
+
+            elif reports_choice == "2":
+                t_income = sum(t["amount"] for t in transactions if t["type"] == "income")
+                print(f"\nTotal Income: £{t_income:.2f}")
+
+            elif reports_choice == "3":
+                t_expense = sum(t["amount"] for t in transactions if t["type"] == "expense")
+                print(f"\nTotal Expense: £{t_expense:.2f}")
+
+            elif reports_choice == "4":
+                t_income = sum(t["amount"] for t in transactions if t["type"] == "income")
+                t_expense = sum(t["amount"] for t in transactions if t["type"] == "expense")
+                print(f"\nNet Balance: £{t_income - t_expense:.2f}")
+
+            elif reports_choice == "5":
+                category_summary()
+
+            else:
+                print("Invalid choice. Try again.")
