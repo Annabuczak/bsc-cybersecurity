@@ -1,5 +1,5 @@
 import datetime
-from idlelib.window import add_windows_to_menu
+from unicodedata import category
 
 datetime.date.today()
 today_date = datetime.date.today()
@@ -46,22 +46,53 @@ def monthly_summary():
         print("No transactions added.")
         return
 
+    current_month_prefix = datetime.date.today().strftime("%Y-%m")
+    total_income = 0.0
+    total_expense = 0.0
 
-import datetime
+    for t in transactions:
+        if str(t["date"]).startswith(current_month_prefix):
+            if t["type"] == "income":
+                total_income += t["amount"]
+            elif t["type"] == "expenses":
+                total_expense += t["amount"]
 
-current_month_prefix = datetime.date.today().strftime("%Y-%m")
+    net_balance = total_income - total_expense
 
-total_income = 0.0
-total_expense = 0.0
-for t in transactions:
-    t_type = t["type"]
-    t_amount = t["amount"]
-net_balance = total_income - total_expense
+    print("\n--Monthly Summary--")
+    print(f"Total Income: £{total_income}")
+    print(f"Total Expense: £{total_expense}")
+    print(f"Net Balance: £{net_balance}")
 
-print("\n--Monthly Summary--")
-print(f"Total Income: {total_income}")
-print(f"Total Expense: {total_expense}")
-print(f"Net Balance: {net_balance}")
+
+def category_summary():
+    if len(transactions) == 0:
+        print("No transactions added.")
+        return
+
+    total_income = 0.0
+    total_expense = 0.0
+
+    for t in transactions:
+        category.append(t["category"])
+    amount = t["amount"]
+    if t["type"] == "income":
+        total_income += amount
+    elif t["type"] == "expenses":
+        total_expense += amount
+    print("\nIncome by category:")
+    if len(total_income) == 0:
+        print("  No income recorded.")
+    else:
+        for cat, total in total_income.items():
+            print(f"  - {cat}: ${total:.2f}")
+        print("\n Expense by category:")
+        if len(total_expense) == 0:
+            print("  No income recorded.")
+        else:
+            for cat, total in total_expense.items():
+                print(f"  - {cat}: ${total:.2f}")
+
 
 while True:
     menu()
@@ -98,7 +129,7 @@ while True:
             note = input("Enter a note (or press Enter to skip): ")
             if note.strip() == "":
                 note = "None"
-            add_transactions("income", amount, today_date, category, note, )
+            add_transactions("income", amount, date, category, note, )
 
     elif choice == "2":
         while True:
@@ -136,21 +167,22 @@ while True:
             note = input("Enter a note (or press Enter to skip): ")
             if note.strip() == "":
                 note = "None"
-            add_transactions("expenses", amount, today_date, category, note, )
+            add_transactions("expenses", amount, date, category, note, )
 
 
     elif choice == "3":
         while True:
             print("1. Monthly Summary")
-            print("2. Total Income: £", total_income)
-            print("3. Total Expense: £", total_expense)
-            print("4. Net Balance: £", total_income - total_expense)
+            print("2. Total Income: £")
+            print("3. Total Expense: £")
+            print("4. Net Balance: £")
             print("5. Go to main menu")
 
             reports_choice = input("Enter your choice: ")
             if reports_choice == "6":
                 print("Go to main menu")
             break
+
         if reports_choice == "1":
             monthly_summary()
         elif reports_choice == "2":
