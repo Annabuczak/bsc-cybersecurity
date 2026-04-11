@@ -27,7 +27,7 @@ def add_transactions(t_type, t_amount, t_date, t_category, t_note, ):
         "note": t_note,
     })
 
-    print(f"Success: ${t_amount} added to {t_category} on {t_date}.")
+    print(f"Success: £{t_amount} added to {t_category} on {t_date}.")
 
 
 def show_balance(t_type, t_amount, t_date, t_category, t_note, ):
@@ -38,7 +38,7 @@ def show_balance(t_type, t_amount, t_date, t_category, t_note, ):
         "category": t_category,
         "note": t_note,
     })
-    print(f"Success: ${t_amount} added to {t_category} on {t_date}.")
+    print(f"Success: £{t_amount} added to {t_category} on {t_date}.")
 
 
 def monthly_summary():
@@ -142,12 +142,22 @@ while True:
     elif choice == "3":
         while True:
             print("1. Monthly Summary")
-            print("2. Total Income: $", total_income)
-            print("3. Total Expense: $", total_expense)
-            print("4. Net Balance: $", total_income - total_expense)
+            print("2. Total Income: £", total_income)
+            print("3. Total Expense: £", total_expense)
+            print("4. Net Balance: £", total_income - total_expense)
             print("5. Go to main menu")
 
-    reports_choice = input("Enter your choice: ")
-    if reports_choice == "6":
-        print("Go to main menu")
-        break
+            reports_choice = input("Enter your choice: ")
+            if reports_choice == "6":
+                print("Go to main menu")
+            break
+        if reports_choice == "1":
+            monthly_summary()
+        elif reports_choice == "2":
+            print(f"Total Income: £{total_income}")
+        elif reports_choice == "3":
+            print(f"Total Expense: £{total_expense}")
+        elif reports_choice == "4":
+            print(f"Net Balance: £{total_income - total_expense}")
+        else:
+            print("Invalid choice. Try again.")
