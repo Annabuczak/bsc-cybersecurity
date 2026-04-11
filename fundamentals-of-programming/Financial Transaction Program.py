@@ -54,9 +54,9 @@ def monthly_summary():
         if str(t["date"]).startswith(current_month_prefix):
             if t["type"] == "income":
                 total_income += t["amount"]
-            elif t["type"] == "expenses":
+            elif t["type"] == "expense":
                 total_expense += t["amount"]
-
+            import datetime
     net_balance = total_income - total_expense
 
     print("\n--Monthly Summary--")
@@ -167,7 +167,7 @@ while True:
             note = input("Enter a note (or press Enter to skip): ")
             if note.strip() == "":
                 note = "None"
-            add_transactions("expenses", amount, date, category, note, )
+            add_transactions("expense", amount, date, category, note, )
 
 
     elif choice == "3":
