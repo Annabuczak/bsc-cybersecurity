@@ -1,9 +1,19 @@
-from datetime import datetime
+import datetime
+
 today_date = datetime.date.today()
 print(today_date)
 
-
 transactions = []
+
+
+def get_valid_date():
+    while True:
+        date_input = input("Enter date (YYYY-MM-DD): ")
+        try:
+            datetime.datetime.strptime(date_input, "%Y-%m-%d")
+            return date_input
+        except ValueError:
+            print("Invalid date format. Try again.")
 
 
 def menu():
@@ -12,11 +22,11 @@ def menu():
     print("2. Add expense")
     print("3. Reports")
     print("4. Balance")
-    print("5. Data")
-    print("6. Go to main menu")
+    print("5. Data (Search/Filter)")
+    print("6. Exit")
 
 
-def add_transactions(t_type, t_amount, t_date, t_category, t_note, ):
+def add_transactions(t_type, t_amount, t_date, t_category, t_note):
     transactions.append({
         "type": t_type,
         "amount": t_amount,
@@ -25,7 +35,7 @@ def add_transactions(t_type, t_amount, t_date, t_category, t_note, ):
         "note": t_note,
     })
 
-    print(f"Success: £{t_amount} added to {t_category} on {t_date}.")
+    print(f"Success: £{t_amount:.2f} added to {t_category} on {t_date}.")
 
 
 def show_balance():
@@ -47,15 +57,15 @@ def monthly_summary():
         if str(t["date"]).startswith(current_month_prefix):
             if t["type"] == "income":
                 total_income += t["amount"]
-            elif t["type"] == "expense":  # FIX 1
+            elif t["type"] == "expense":
                 total_expense += t["amount"]
 
     net_balance = total_income - total_expense
 
     print("\n--Monthly Summary--")
-    print(f"Total Income: £{total_income}")
-    print(f"Total Expense: £{total_expense}")
-    print(f"Net Balance: £{net_balance}")
+    print(f"Total Income: £{total_income:.2f}")
+    print(f"Total Expense: £{total_expense:.2f}")
+    print(f"Net Balance: £{net_balance:.2f}")
 
 
 def category_summary():
@@ -72,7 +82,7 @@ def category_summary():
 
         if t["type"] == "income":
             income_totals[cat] = income_totals.get(cat, 0) + amount
-        elif t["type"] == "expense":  # FIX 1
+        elif t["type"] == "expense":
             expense_totals[cat] = expense_totals.get(cat, 0) + amount
 
     print("\nIncome by category:")
@@ -90,6 +100,30 @@ def category_summary():
             print(f"  - {cat}: £{total:.2f}")
 
 
+def search_transactions():
+    if len(transactions) == 0:
+        print("No transactions added.")
+        return
+
+    print("\n-- 🔎 Filter Transactions --")
+    target_month = input("Enter month (YYYY-MM) or press Enter for all: ").strip()
+    target_category = input("Enter category (e.g., Groceries) or press Enter for all: ").strip()
+
+    print("\n-- Search Results --")
+    found_any = False
+
+    for t in transactions:
+        match_month = (target_month == "") or str(t["date"]).startswith(target_month)
+        match_category = (target_category == "") or (t["category"].lower() == target_category.lower())
+
+        if match_month and match_category:
+            print(f"[{t['date']}] {t['type'].capitalize()} | {t['category']} | £{t['amount']:.2f} | Note: {t['note']}")
+            found_any = True
+
+    if not found_any:
+        print("No transactions found matching those filters.")
+
+
 while True:
     menu()
 
@@ -97,15 +131,18 @@ while True:
 
     if choice == "1":
         while True:
+            print("\n-- Add Income --")
             print("1. Salary")
             print("2. Freelance")
             print("3. Other")
             print("4. Exit to main menu")
 
             income_choice = input("Enter your choice: ")
+
             if income_choice == "4":
-                print("Go to main menu")
+                print("Returning to main menu...")
                 break
+
             if income_choice == "1":
                 category = "Salary"
             elif income_choice == "2":
@@ -116,22 +153,35 @@ while True:
                 print("Invalid choice. Try again.")
                 continue
 
-            amount = float(input("Enter amount: "))
-            except ValueError:
-            print("Invalid number. Try again.")
+            while True:
+                try:
+                    amount = float(input("Enter amount: "))
+                    break
+                except ValueError:
+                    print("Invalid number. Please enter digits only. Try again.")
 
             date_choice = input("Do you want to use today's date? (y/n): ").strip().lower()
             if date_choice == "y":
-                date = datetime.date.today()
+                date = datetime.date.today().strftime("%Y-%m-%d")
             else:
-                date = input("Enter date (YYYY-MM-DD): ")
+                while True:
+                    date_input = input("Enter date (YYYY-MM-DD): ")
+                    try:
+                        datetime.datetime.strptime(date_input, "%Y-%m-%d")
+                        date = date_input
+                        break
+                    except ValueError:
+                        print("Invalid date format. Try again.")
+
             note = input("Enter a note (or press Enter to skip): ")
             if note.strip() == "":
                 note = "None"
-            add_transactions("income", amount, date, category, note, )
+
+            add_transactions("income", amount, date, category, note)
 
     elif choice == "2":
         while True:
+            print("\n-- Add Expense --")
             print("1. Bills")
             print("2. Groceries")
             print("3. Transport")
@@ -140,9 +190,11 @@ while True:
             print("6. Exit to main menu")
 
             expense_choice = input("Enter your choice: ")
+
             if expense_choice == "6":
-                print("Go to main menu")
+                print("Returning to main menu...")
                 break
+
             if expense_choice == "1":
                 category = "Bills"
             elif expense_choice == "2":
@@ -157,20 +209,31 @@ while True:
                 print("Invalid choice. Try again.")
                 continue
 
-            amount = float(input("Enter amount: "))
-            except ValueError:
-            print("Invalid number. Try again.")
+            while True:
+                try:
+                    amount = float(input("Enter amount: "))
+                    break
+                except ValueError:
+                    print("Invalid number. Please enter digits only. Try again.")
 
             date_choice = input("Do you want to use today's date? (y/n): ").strip().lower()
             if date_choice == "y":
-                date = datetime.date.today()
+                date = datetime.date.today().strftime("%Y-%m-%d")
             else:
-                date = input("Enter date (YYYY-MM-DD): ")
+                while True:
+                    date_input = input("Enter date (YYYY-MM-DD): ")
+                    try:
+                        datetime.datetime.strptime(date_input, "%Y-%m-%d")
+                        date = date_input
+                        break
+                    except ValueError:
+                        print("Invalid date format. Try again.")
+
             note = input("Enter a note (or press Enter to skip): ")
             if note.strip() == "":
                 note = "None"
-            add_transactions("expense", amount, date, category, note, )  # FIX 1
 
+            add_transactions("expense", amount, date, category, note)
 
     elif choice == "3":
         while True:
@@ -208,3 +271,16 @@ while True:
 
             else:
                 print("Invalid choice. Try again.")
+
+    elif choice == "4":
+        show_balance()
+
+    elif choice == "5":
+        search_transactions()
+
+    elif choice == "6":
+        print("Goodbye!")
+        break
+
+    else:
+        print("Invalid choice. Try again.")
