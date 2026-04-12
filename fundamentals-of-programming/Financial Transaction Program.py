@@ -1,9 +1,22 @@
 import datetime
+import json
 
 today_date = datetime.date.today()
 print(today_date)
 
 transactions = []
+
+
+def load_data():
+    global transactions
+    try:
+        with open("transactions.json", "r") as file:
+            transactions = json.load(file)
+    except FileNotFoundError:
+        transactions = []
+
+
+load_data()
 
 
 def get_valid_date():
@@ -16,14 +29,45 @@ def get_valid_date():
             print("Invalid date format. Try again.")
 
 
+def reset_all_data():
+    global transactions
+    confirm = input("Are you sure you want to delete ALL data? (yes/no): ")
+
+    if confirm.lower() == "yes":
+        transactions = []
+        save_data()
+        print("All data has been reset.")
+    else:
+        print("Cancelled.")
+
+
+def delete_transaction():
+    if not transactions:
+        print("No transactions to delete.")
+        return
+
+    print("\n-- Transactions --")
+    for i, t in enumerate(transactions):
+        print(f"{i}: {t['category']} | £{t['amount']:.2f} | {t['date']}")
+
+    try:
+        index = int(input("Enter number to delete: "))
+        removed = transactions.pop(index)
+        save_data()
+        print(f"Deleted: £{removed['amount']:.2f} from {removed['category']}")
+    except (ValueError, IndexError):
+        print("Invalid selection.")
+
+
 def menu():
     print("\n--Financial Transactions Program--")
     print("1. Add income")
     print("2. Add expense")
     print("3. Reports")
     print("4. Balance")
-    print("5. Data (Search/Filter)")
-    print("6. Exit")
+    print("5. Data")
+    print("6. Reset all data")
+    print("7. Exit")
 
 
 def add_transactions(t_type, t_amount, t_date, t_category, t_note):
@@ -34,14 +78,25 @@ def add_transactions(t_type, t_amount, t_date, t_category, t_note):
         "category": t_category,
         "note": t_note,
     })
-
+    save_data()
     print(f"Success: £{t_amount:.2f} added to {t_category} on {t_date}.")
 
 
 def show_balance():
     income = sum(t["amount"] for t in transactions if t["type"] == "income")
     expense = sum(t["amount"] for t in transactions if t["type"] == "expense")
-    print(f"\nCurrent Balance: £{income - expense:.2f}")
+    balance = income - expense
+    if balance > 0:
+        print("Status: Positive balance")
+    elif balance < 0:
+        print("Status: Overspending")
+    else:
+        print("Status: Balanced")
+
+    print("\n-- Balance Summary --")
+    print(f"Total Income : £{income:.2f}")
+    print(f"Total Expense: £{expense:.2f}")
+    print(f"Net Balance  : £{balance:.2f}")
 
 
 def monthly_summary():
@@ -122,6 +177,20 @@ def search_transactions():
 
     if not found_any:
         print("No transactions found matching those filters.")
+
+
+def save_data():
+    with open("transactions.json", "w") as file:
+        json.dump(transactions, file)
+
+
+def load_data():
+    global transactions
+    try:
+        with open("transactions.json", "r") as file:
+            transactions = json.load(file)
+    except FileNotFoundError:
+        transactions = []
 
 
 while True:
@@ -275,10 +344,27 @@ while True:
     elif choice == "4":
         show_balance()
 
-    elif choice == "5":
-        search_transactions()
 
+    elif choice == "5":
+
+        while True:
+            print("\n-- Data Menu --")
+            print("1. Search")
+            print("2. Delete")
+            print("3. Back")
+
+            data_choice = input("Enter choice: ")
+            if data_choice == "1":
+                search_transactions()
+            elif data_choice == "2":
+                delete_transaction()
+            elif data_choice == "3":
+                break
+            else:
+                print("Invalid choice.")
     elif choice == "6":
+        reset_all_data()
+    elif choice == "7":
         print("Goodbye!")
         break
 
