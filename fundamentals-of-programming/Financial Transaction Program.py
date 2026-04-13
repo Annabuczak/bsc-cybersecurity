@@ -1,41 +1,42 @@
+# Built-in libraries used for saving date (datetime) and data (json)
 import datetime
 import json
 
-today_date = datetime.date.today()
-print(today_date)
+today_date = datetime.date.today()  # Display today's date when program starts
+print(today_date)  # print today's date to the user
 
-transactions = []
+transactions = []  # List to store all transactions in memory
 
 
-def get_valid_date():
+def get_valid_date():  # This function ensures user enters date in correct format (YYYY-MM-DD)
     while True:
-        date_input = input("Enter date (YYYY-MM-DD): ")
+        date_input = input("Enter date (YYYY-MM-DD): ")  # Prompt user for date input
         try:
             datetime.datetime.strptime(date_input, "%Y-%m-%d")
             return date_input
-        except ValueError:
+        except ValueError:  # If invalid format, show error and ask again
             print("Invalid date format. Try again.")
 
 
-def load_data():
-    global transactions
+def load_data():  # This function loads transactions from a JSON file when the program starts. If the file doesn't exist, it starts with empty list
+    global transactions  # Allow modification of the global transactions list
     try:
         with open("transactions.json", "r") as file:
             transactions = json.load(file)
-    except FileNotFoundError:
+    except FileNotFoundError:  # If the file doesn't exist, start with an empty list
         transactions = []
 
 
-load_data()
+load_data()  # Load existing data from file when program starts
 
 
-def reset_all_data():
+def reset_all_data():  # This function allows the user to reset all data by clearing the transactions list and saving the empty list to the file. It asks for confirmation before doing so.
     global transactions
     confirm = input("Are you sure you want to delete ALL data? (y/n): ")
 
-    if confirm.lower() == "y":
-        transactions = []
-        save_data()
+    if confirm.lower() == "y":  # If user confirms, clear transactions and save empty list to file
+        transactions = []  # Clear the transactions list
+        save_data()  # Save the empty list to the file, effectively resetting all data
         print("All data has been reset.")
     else:
         print("Cancelled.")
