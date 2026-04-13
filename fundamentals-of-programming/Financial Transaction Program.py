@@ -31,9 +31,9 @@ def get_valid_date():
 
 def reset_all_data():
     global transactions
-    confirm = input("Are you sure you want to delete ALL data? (yes/no): ")
+    confirm = input("Are you sure you want to delete ALL data? (y/n): ")
 
-    if confirm.lower() == "yes":
+    if confirm.lower() == "y":
         transactions = []
         save_data()
         print("All data has been reset.")
