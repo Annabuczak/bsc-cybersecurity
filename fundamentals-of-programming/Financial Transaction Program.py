@@ -66,8 +66,9 @@ def menu():
     print("3. Reports")
     print("4. Balance")
     print("5. Data")
-    print("6. Reset all data")
-    print("7. Exit")
+    print("6. Highest and Lowest Expense")
+    print("7. Reset all data")
+    print("8. Exit")
 
 
 def add_transactions(t_type, t_amount, t_date, t_category, t_note):
@@ -97,6 +98,26 @@ def show_balance():
     print(f"Total Income : £{income:.2f}")
     print(f"Total Expense: £{expense:.2f}")
     print(f"Net Balance  : £{balance:.2f}")
+
+
+def highest_lowest_expense():
+    expense_totals = {}
+
+    for t in transactions:
+        if t["type"] == "expense":
+            cat = t["category"]
+            expense_totals[cat] = expense_totals.get(cat, 0) + t["amount"]
+
+    if expense_totals:
+        highest = max(expense_totals, key=expense_totals.get)
+        lowest = min(expense_totals, key=expense_totals.get)
+
+        print(f"Highest expense: {highest} (£{expense_totals[highest]:.2f})")
+        print(f"Lowest expense: {lowest} (£{expense_totals[lowest]:.2f})")
+
+    if not expense_totals:
+        print("No expense data available.")
+        return
 
 
 def monthly_summary():
@@ -363,8 +384,10 @@ while True:
             else:
                 print("Invalid choice.")
     elif choice == "6":
-        reset_all_data()
+        highest_lowest_expense()
     elif choice == "7":
+        reset_all_data()
+    elif choice == "8":
         print("Goodbye!")
         break
 
