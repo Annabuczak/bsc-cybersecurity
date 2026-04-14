@@ -136,12 +136,12 @@ def category_summary():  # This function generates a summary of transactions by 
     for cat, total in income_totals.items():
         print(f"  - {cat}: £{total:.2f}")
 
-    print("\nExpense by category:"))
+    print("\nExpense by category:")
     for cat, total in expense_totals.items():
         print(f"  - {cat}: £{total:.2f}")
 
 
-def highest_lowest_expense():  # This function identifies and displays the highest and lowest expense categories. It first checks if there are any transactions to analyze. If there are, it iterates through the transactions and sums up the expenses for each category. It then finds the category with the highest total expense and the category with the lowest total expense, and prints the results in a formatted manner.
+def highest_lowest_expense():  # This function identifies and displays the highest and lowest expense categories.It first checks if there are any transactions to analyze. If there are, it iterates through the transactions and sums up the expenses for each category. It then finds the category with the highest total expense and the category with the lowest total expense, and prints the results in a formatted manner.
     expense_totals = {}
 
     for t in transactions:  # Iterate through the transactions and sum up the expenses for each category. If the transaction type is "expense", it adds the amount to the corresponding category in the expense_totals dictionary.
