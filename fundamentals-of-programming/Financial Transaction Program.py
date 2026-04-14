@@ -42,12 +42,13 @@ def reset_all_data():  # This function allows the user to reset all data by clea
         print("Cancelled.")
 
 
-def save_data():
+def save_data():  # This function saves the current transactions list to a JSON file. It is called whenever a transaction is added or deleted to ensure data persistence.
     with open("transactions.json", "w") as file:
-        json.dump(transactions, file)
+        json.dump(transactions, file)  # Save the transactions list to the file in JSON format
 
 
-def add_transactions(t_type, t_amount, t_date, t_category, t_note):
+def add_transactions(t_type, t_amount, t_date, t_category,
+                     t_note):  # This function adds a new transaction to the transactions list. It takes the type (income or expense), amount, date, category, and note as parameters. After adding the transaction to the list, it calls save_data() to save the updated list to the file.
     transactions.append({
         "type": t_type,
         "amount": t_amount,
@@ -55,29 +56,31 @@ def add_transactions(t_type, t_amount, t_date, t_category, t_note):
         "category": t_category,
         "note": t_note,
     })
-    save_data()
+    save_data()  # Save the updated transactions list to the file after adding a new transaction
     print(f"Success: £{t_amount:.2f} added to {t_category} on {t_date}.")
 
 
-def delete_transaction():
+def delete_transaction():  # This function allows the user to delete a transaction from the transactions list. It first checks if there are any transactions to delete. If there are, it displays them with an index number. The user can then enter the index number of the transaction they want to delete. The function removes the selected transaction from the list and saves the updated list to the file. If the user enters an invalid index, it shows an error message.
     if not transactions:
         print("No transactions to delete.")
-        return
+        return  # If there are no transactions, inform the user and exit the function
 
-    print("\n-- Transactions --")
-    for i, t in enumerate(transactions):
+    print("\n-- Transactions --")  # Display the list of transactions with index numbers for the user to select from
+    for i, t in enumerate(
+            transactions):  # Loop through the transactions and print each one with its index number, category, amount, and date
         print(f"{i}: {t['category']} | £{t['amount']:.2f} | {t['date']}")
 
     try:
         index = int(input("Enter number to delete: "))
-        removed = transactions.pop(index)
-        save_data()
+        removed = transactions.pop(
+            index)  # Remove the selected transaction from the list using the index provided by the user
+        save_data()  # Save the updated transactions list to the file after deleting a transaction
         print(f"Deleted: £{removed['amount']:.2f} from {removed['category']}")
-    except (ValueError, IndexError):
+    except (ValueError, IndexError):  # Handle invalid input or index errors
         print("Invalid selection.")
 
 
-def show_balance():
+def show_balance():  # This function calculates and displays the total income, total expense, and net balance. It sums up all transactions of type "income" and "expense" separately, then calculates the net balance by subtracting total expenses from total income. Finally, it prints the results in a formatted manner.
     income = sum(t["amount"] for t in transactions if t["type"] == "income")
     expense = sum(t["amount"] for t in transactions if t["type"] == "expense")
     balance = income - expense
@@ -88,12 +91,12 @@ def show_balance():
     print(f"Net Balance  : £{balance:.2f}")
 
 
-def monthly_summary():
-    if len(transactions) == 0:
+def monthly_summary():  # This function generates a summary of transactions for the current month. It first checks if there are any transactions to summarize. If there are, it calculates the total income and total expenses for the current month by checking if the transaction date starts with the current month prefix (YYYY-MM). It then calculates the net balance for the month and prints the results in a formatted manner.
+    if len(transactions) == 0:  # Check if there are any transactions to summarize. If not, inform the user and exit the function
         print("No transactions added.")
         return
 
-    current_month_prefix = datetime.date.today().strftime("%Y-%m")
+    current_month_prefix = datetime.date.today().strftime("%Y-%m")  #
     total_income = 0.0
     total_expense = 0.0
 
@@ -104,7 +107,7 @@ def monthly_summary():
             elif t["type"] == "expense":
                 total_expense += t["amount"]
 
-    net_balance = total_income - total_expense
+    net_balance = total_income - total_expense  # Calculate net balance for the month by subtracting total expenses from total income
 
     print("\n--Monthly Summary--")
     print(f"Total Income: £{total_income:.2f}")
@@ -112,7 +115,7 @@ def monthly_summary():
     print(f"Net Balance: £{net_balance:.2f}")
 
 
-def category_summary():
+def category_summary():  # This function generates a summary of transactions by category. It first checks if there are any transactions to summarize. If there are, it iterates through the transactions and sums up the amounts for each category separately for income and expenses. It then prints the total income and total expenses for each category in a formatted manner.
     if len(transactions) == 0:
         print("No transactions added.")
         return
@@ -138,15 +141,15 @@ def category_summary():
         print(f"  - {cat}: £{total:.2f}")
 
 
-def highest_lowest_expense():
+def highest_lowest_expense():  # This function identifies and displays the highest and lowest expense categories. It first checks if there are any transactions to analyze. If there are, it iterates through the transactions and sums up the expenses for each category. It then finds the category with the highest total expense and the category with the lowest total expense, and prints the results in a formatted manner.
     expense_totals = {}
 
-    for t in transactions:
+    for t in transactions:  # Iterate through the transactions and sum up the expenses for each category. If the transaction type is "expense", it adds the amount to the corresponding category in the expense_totals dictionary.
         if t["type"] == "expense":
             cat = t["category"]
             expense_totals[cat] = expense_totals.get(cat, 0) + t["amount"]
 
-    if not expense_totals:
+    if not expense_totals:  # Check if there are any expenses to analyze. If not, inform the user and exit the function
         print("No expense data available.")
         return
 
@@ -157,7 +160,7 @@ def highest_lowest_expense():
     print(f"Lowest expense: {lowest} (£{expense_totals[lowest]:.2f})")
 
 
-def search_transactions():
+def search_transactions():  # This function allows the user to search for transactions based on month and/or category. It first checks if there are any transactions to search through. If there are, it prompts the user to enter a month (in YYYY-MM format) and a category (or press Enter to search for all). It then iterates through the transactions and checks if each transaction matches the specified month and category criteria. If a transaction matches, it is printed in a formatted manner. If no transactions match the criteria, it informs the user that no transactions were found.
     if len(transactions) == 0:
         print("No transactions added.")
         return
@@ -181,7 +184,7 @@ def search_transactions():
         print("No transactions found.")
 
 
-def menu():
+def menu():  # This function displays the main menu options to the user. It is called in a loop to continuously show the menu after each action until the user chooses to exit. The menu includes options for adding income, adding expenses, viewing reports, checking balance, searching data, resetting all data, and exiting the program.
     print("\n--Financial Transactions Program--")
     print("1. Add income")
     print("2. Add expense")
@@ -192,11 +195,11 @@ def menu():
     print("7. Exit")
 
 
-while True:
-    menu()
+while True:  # Main program loop that continuously shows the menu and processes user input until the user chooses to exit. It calls the appropriate functions based on the user's choice and handles invalid input by showing an error message.
+    menu()  # Display the main menu options to the user
     choice = input("Enter your choice: ")
 
-    if choice == "1":
+    if choice == "1":  #
         category = input("Enter income category: ")
         amount = float(input("Enter amount: "))
         date = get_valid_date()
