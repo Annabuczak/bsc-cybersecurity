@@ -76,7 +76,7 @@ def add_transactions(t_type, t_amount, t_date, t_category, t_note):
         "amount": t_amount,
         "date": t_date,
         "category": t_category,
-        "note": t_note,
+        "note": t_note if t_note.strip() else "None",  # FIX: keep note meaningful if empty
     })
     save_data()
     print(f"Success: £{t_amount:.2f} added to {t_category} on {t_date}.")
@@ -155,6 +155,26 @@ def category_summary():
             print(f"  - {cat}: £{total:.2f}")
 
 
+# FIX: restored missing feature (you had this before)
+def highest_lowest_expense():
+    expense_totals = {}
+
+    for t in transactions:
+        if t["type"] == "expense":
+            cat = t["category"]
+            expense_totals[cat] = expense_totals.get(cat, 0) + t["amount"]
+
+    if not expense_totals:
+        print("No expense data available.")
+        return
+
+    highest = max(expense_totals, key=expense_totals.get)
+    lowest = min(expense_totals, key=expense_totals.get)
+
+    print(f"\nHighest expense: {highest} (£{expense_totals[highest]:.2f})")
+    print(f"Lowest expense: {lowest} (£{expense_totals[lowest]:.2f})")
+
+
 def search_transactions():
     if len(transactions) == 0:
         print("No transactions added.")
@@ -184,13 +204,7 @@ def save_data():
         json.dump(transactions, file)
 
 
-def load_data():
-    global transactions
-    try:
-        with open("transactions.json", "r") as file:
-            transactions = json.load(file)
-    except FileNotFoundError:
-        transactions = []
+# FIX: removed duplicate load_data() definition
 
 
 while True:
@@ -233,18 +247,9 @@ while True:
             if date_choice == "y":
                 date = datetime.date.today().strftime("%Y-%m-%d")
             else:
-                while True:
-                    date_input = input("Enter date (YYYY-MM-DD): ")
-                    try:
-                        datetime.datetime.strptime(date_input, "%Y-%m-%d")
-                        date = date_input
-                        break
-                    except ValueError:
-                        print("Invalid date format. Try again.")
+                date = get_valid_date()  # FIX: reused your function
 
             note = input("Enter a note (or press Enter to skip): ")
-            if note.strip() == "":
-                note = "None"
 
             add_transactions("income", amount, date, category, note)
 
@@ -289,18 +294,9 @@ while True:
             if date_choice == "y":
                 date = datetime.date.today().strftime("%Y-%m-%d")
             else:
-                while True:
-                    date_input = input("Enter date (YYYY-MM-DD): ")
-                    try:
-                        datetime.datetime.strptime(date_input, "%Y-%m-%d")
-                        date = date_input
-                        break
-                    except ValueError:
-                        print("Invalid date format. Try again.")
+                date = get_valid_date()  # FIX
 
             note = input("Enter a note (or press Enter to skip): ")
-            if note.strip() == "":
-                note = "None"
 
             add_transactions("expense", amount, date, category, note)
 
@@ -312,41 +308,34 @@ while True:
             print("3. Total Expense")
             print("4. Net Balance")
             print("5. Category Breakdown")
-            print("6. Go to main menu")
+            print("6. Highest & Lowest Expense")
+            print("7. Go to main menu")
 
             reports_choice = input("Enter your choice: ")
 
-            if reports_choice == "6":
+            if reports_choice == "7":
                 break
-
-            if reports_choice == "1":
+            elif reports_choice == "1":
                 monthly_summary()
-
             elif reports_choice == "2":
                 t_income = sum(t["amount"] for t in transactions if t["type"] == "income")
                 print(f"\nTotal Income: £{t_income:.2f}")
-
             elif reports_choice == "3":
                 t_expense = sum(t["amount"] for t in transactions if t["type"] == "expense")
                 print(f"\nTotal Expense: £{t_expense:.2f}")
-
             elif reports_choice == "4":
-                t_income = sum(t["amount"] for t in transactions if t["type"] == "income")
-                t_expense = sum(t["amount"] for t in transactions if t["type"] == "expense")
-                print(f"\nNet Balance: £{t_income - t_expense:.2f}")
-
+                show_balance()
             elif reports_choice == "5":
                 category_summary()
-
+            elif reports_choice == "6":
+                highest_lowest_expense()
             else:
                 print("Invalid choice. Try again.")
 
     elif choice == "4":
         show_balance()
 
-
     elif choice == "5":
-
         while True:
             print("\n-- Data Menu --")
             print("1. Search")
@@ -362,6 +351,7 @@ while True:
                 break
             else:
                 print("Invalid choice.")
+
     elif choice == "6":
         reset_all_data()
     elif choice == "7":
