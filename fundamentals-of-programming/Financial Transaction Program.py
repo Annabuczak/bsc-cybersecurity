@@ -1,25 +1,25 @@
-import datetime
-import json
+import datetime  # handles dates
+import json  # handles saving/loading data in a structured format
 
 today_date = datetime.date.today()
 print(today_date)
 
-transactions = []
+transactions = []  # list to store all transactions in memory
 
 
-def load_data():
+def load_data():  # loads transactions from a JSON file if it exists, otherwise starts with an empty list
     global transactions
     try:
         with open("transactions.json", "r") as file:
             transactions = json.load(file)
     except FileNotFoundError:
-        transactions = []
+        transactions = []  # start empty if file not found
 
 
-load_data()
+load_data()  # run on startup
 
 
-def get_valid_date():
+def get_valid_date():  # ensure correct date format
     while True:
         date_input = input("Enter date (YYYY-MM-DD): ")
         try:
@@ -29,7 +29,7 @@ def get_valid_date():
             print("Invalid date format. Try again.")
 
 
-def reset_all_data():
+def reset_all_data():  # delete all stored transactions
     global transactions
     confirm = input("Are you sure you want to delete ALL data? (y/n): ")
 
@@ -41,7 +41,7 @@ def reset_all_data():
         print("Cancelled.")
 
 
-def delete_transaction():
+def delete_transaction():  # remove a selected transaction
     if not transactions:
         print("No transactions to delete.")
         return
@@ -59,7 +59,7 @@ def delete_transaction():
         print("Invalid selection.")
 
 
-def menu():
+def menu():  # main menu options
     print("\n--Financial Transactions Program--")
     print("1. Add income")
     print("2. Add expense")
@@ -70,23 +70,23 @@ def menu():
     print("7. Exit")
 
 
-def add_transactions(t_type, t_amount, t_date, t_category, t_note):
+def add_transactions(t_type, t_amount, t_date, t_category, t_note):  # add new transaction
     transactions.append({
         "type": t_type,
         "amount": t_amount,
         "date": t_date,
         "category": t_category,
-        "note": t_note if t_note.strip() else "None",  # FIX: keep note meaningful if empty
+        "note": t_note if t_note.strip() else "None",  ## default note if empty
     })
     save_data()
     print(f"Success: £{t_amount:.2f} added to {t_category} on {t_date}.")
 
 
-def show_balance():
+def show_balance():  # calculate and display totals
     income = sum(t["amount"] for t in transactions if t["type"] == "income")
     expense = sum(t["amount"] for t in transactions if t["type"] == "expense")
     balance = income - expense
-    if balance > 0:
+    if balance > 0:  # show status
         print("Status: Positive balance")
     elif balance < 0:
         print("Status: Overspending")
@@ -99,7 +99,7 @@ def show_balance():
     print(f"Net Balance  : £{balance:.2f}")
 
 
-def monthly_summary():
+def monthly_summary():  # summary for current month
     if len(transactions) == 0:
         print("No transactions added.")
         return
@@ -109,7 +109,7 @@ def monthly_summary():
     total_expense = 0.0
 
     for t in transactions:
-        if str(t["date"]).startswith(current_month_prefix):
+        if str(t["date"]).startswith(current_month_prefix):  # filter by month
             if t["type"] == "income":
                 total_income += t["amount"]
             elif t["type"] == "expense":
@@ -123,7 +123,7 @@ def monthly_summary():
     print(f"Net Balance: £{net_balance:.2f}")
 
 
-def category_summary():
+def category_summary():  # totals per category
     if len(transactions) == 0:
         print("No transactions added.")
         return
@@ -155,8 +155,7 @@ def category_summary():
             print(f"  - {cat}: £{total:.2f}")
 
 
-# FIX: restored missing feature (you had this before)
-def highest_lowest_expense():
+def highest_lowest_expense():  # find highest and lowest expense categories
     expense_totals = {}
 
     for t in transactions:
@@ -175,7 +174,7 @@ def highest_lowest_expense():
     print(f"Lowest expense: {lowest} (£{expense_totals[lowest]:.2f})")
 
 
-def search_transactions():
+def search_transactions():  # search/filter transactions
     if len(transactions) == 0:
         print("No transactions added.")
         return
@@ -199,12 +198,9 @@ def search_transactions():
         print("No transactions found matching those filters.")
 
 
-def save_data():
+def save_data():  # save transactions to file
     with open("transactions.json", "w") as file:
         json.dump(transactions, file)
-
-
-# FIX: removed duplicate load_data() definition
 
 
 while True:
