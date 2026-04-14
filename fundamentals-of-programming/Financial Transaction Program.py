@@ -53,7 +53,7 @@ def reset_all_data():  # clears all saved transactions
 
 def delete_transaction():  # deletes a chosen transaction
     if not transactions:
-        print("Nothing to delete")
+        print("You haven’t added anything yet")
         return
 
     print("\n-- Your transactions --")
@@ -61,7 +61,7 @@ def delete_transaction():  # deletes a chosen transaction
         print(f"{i}: {t['category']} | £{t['amount']:.2f} | {t['date']}")
 
     try:
-        index = int(input("Enter the number of the transaction to remove: "))
+        index = int(input("Which number do you want to remove? "))
         removed = transactions.pop(index)
         save_data()
         print(f"Removed £{removed['amount']:.2f} from {removed['category']}")
@@ -71,13 +71,13 @@ def delete_transaction():  # deletes a chosen transaction
 
 def menu():  # displays all available options
     print("\n--Financial Transactions --")
-    print("1. Add income")
-    print("2. Add expense")
+    print("1. Record income")
+    print("2. Record expense")
     print("3. View reports")
     print("4. Show balance")
     print("5. Data options")
-    print("6. Delete all data")
-    print("7. Exit")
+    print("6. Clear all data")
+    print("7. Leave program")
 
 
 def add_transactions(t_type, t_amount, t_date, t_category, t_note):  # adds a new transaction to the list
@@ -152,7 +152,7 @@ def category_summary():  # shows totals for each category
 
     print("\n--- Income ---")
     if not income_totals:
-        print("No income yet.")
+        print("No income to show.")
     else:
         for cat, total in income_totals.items():
             print(f"  {cat}: £{total:.2f}")
@@ -244,10 +244,10 @@ while True:
 
             while True:
                 try:
-                    amount = float(input("Enter the amount: "))
+                    amount = float(input("Add the amount: "))
                     break
                 except ValueError:
-                    print("Please enter a number only.")
+                    print("Please add a number only.")
 
             date_choice = input(
                 "Use today’s date? (y/n): ").strip().lower()  # use manual date if user doesn’t choose today
@@ -262,7 +262,7 @@ while True:
 
     elif choice == "2":
         while True:
-            print("\n--- Add Expense ---")
+            print("\n--- Record expense ---")
             print("1. Bills")
             print("2. Groceries")
             print("3. Transport")
@@ -292,10 +292,10 @@ while True:
 
             while True:
                 try:
-                    amount = float(input("Enter the amount: "))
+                    amount = float(input("Add the amount: "))
                     break
                 except ValueError:
-                    print("That isn’t a valid number, try again.")
+                    print("Please enter a number only.")
 
             date_choice = input("Use today’s date? (y/n): ").strip().lower()
             if date_choice == "y":
@@ -337,7 +337,7 @@ while True:
             elif reports_choice == "6":
                 highest_lowest_expense()
             else:
-                print("That option isn’t valid, try again.")
+                print("That isn’t one of the available options.")
 
     elif choice == "4":
         show_balance()
