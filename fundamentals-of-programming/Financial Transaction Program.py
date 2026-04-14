@@ -136,7 +136,7 @@ def category_summary():  # This function generates a summary of transactions by 
     for cat, total in income_totals.items():
         print(f"  - {cat}: £{total:.2f}")
 
-    print("\nExpense by category:")
+    print("\nExpense by category:"))
     for cat, total in expense_totals.items():
         print(f"  - {cat}: £{total:.2f}")
 
