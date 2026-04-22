@@ -76,9 +76,11 @@ class Inventory:
 
 def print_intro():
     current_room = "The Sanctuary"
+    input("Press enter to begin.")
     print(
-        "The air smelled of dust and forgotten stories. Somewhere deep inside the labyrinth, a book was waiting…for you")
+        "The air smelled of dust and forgotten stories. Somewhere deep inside the labyrinth, a book was waiting…for you...")
     print("Sebastian, wake up from your dream...or reality")
+    print("...")
     print("Welcome to the Library of Forgotten Man")
     print(
         "You find yourself in a place that feels both familiar and strange. The air is thick with a sense of nostalgia and mystery")
@@ -95,7 +97,8 @@ def print_intro():
     print("The Golden Key? Well, don't waste precious time because...")
     print("...it is time to...")
     print("...play the game, Sebastian!")
+    print("Good luck and God bless")
     print("...")
 
 
-input("Press enter to begin.")
+print_intro()
