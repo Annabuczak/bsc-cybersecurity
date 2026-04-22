@@ -64,7 +64,7 @@ class Inventory:
     def display(self, item):
         if not self.inventory[item]:
             print("Item not found")
-        else
+        else:
             for item, quantity in self.inventory.items():
                 print(f"{item}: {quantity}")
 
