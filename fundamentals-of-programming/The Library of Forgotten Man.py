@@ -1,7 +1,15 @@
+# SO FAR:
+# ROOMS -completed
+# SANCTUARY INVENTORY - completed
+# CLASS COLOUR - incomplete
+# CLASS INVENTORY - completed
+# PRINT INTRO TO THE GAME
+
+
 import random
 import time
 
-time.sleep(3)
+time.sleep(2)
 import json
 
 inventory = []
@@ -102,7 +110,6 @@ class Inventory:
 
 def print_intro():
     current_room = "The Sanctuary"
-    input("Press enter to begin.")
     print(
         "The air smelled of dust and forgotten stories. Somewhere deep inside the labyrinth, a book was waiting…for you...")
     print("Sebastian, wake up from your dream...or reality")
@@ -128,3 +135,35 @@ def print_intro():
 
 
 print_intro()
+
+
+def the_riddle():
+    current_room = "The Sanctuary"
+    print("Solve the riddle to find the truth...")
+    print("...")
+    print("Five fragments lie where shadows keep,")
+    print("In silent ink and memories deep.")
+    print("...")
+    print("Begin where silence shelters truth")
+    print(" Where quiet souls are laid to rest")
+    print("...")
+    print("A name concealed in crimson thread,")
+    print("A love remembered, through half is dead.")
+    print("...")
+    print("Seek next the halls where sorrow stays,")
+    print("A house still bound to darker days.")
+    print("...")
+    print("Then walk where echoes twist the mind")
+    print("Where curious thoughts grow unconfines")
+    print("Where histories are written in sacred black blood")
+    print("...")
+    print("Beyond, where words were never penned,")
+    print("The truths unfinished start to bend.")
+    print("...")
+    print("A story lost, yet still your own,")
+    print("A truth consumed by ash and flame")
+    print("...")
+    print("Restore the past to reclaim the name")
+
+
+the_riddle()
