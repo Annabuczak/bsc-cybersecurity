@@ -4,7 +4,7 @@ import json
 from optparse import check_choice
 
 location = ["The Sanctuary", "Safe Heaven", "The Cursed Estate ", "House of Eccentrics",
-            "The Archive of Unwritten Things", "Door with thousands locks"]
+            "The Archive of Unwritten Things", " The Place of Torment" "Door with thousands locks"]
 inventory = ["Letter", "Wedding photo", "Pen", "Book", "Newspaper"]
 items = ["Portal", "The Riddle", "Secret Box"]
 
@@ -45,7 +45,17 @@ def location(room_list):
         print(
             "Av. del Tibidabo, 32. Once grand and rich, The Old World of beauty and splendor. Nowdays...Come and find for yourself the truth behind the curse")
     elif choice == "House of Eccentrics":
-        print("Come in and join the jolly ")
+        print(
+            "Come in and join the jolly intellectuals ofBarcelona... not all that shines is gold, but here you will find the most eccentric minds of the city")
+    elif choice == "The Archive of Unwritten Things":
+        print(
+            "The Archive of Unwritten Things is a place where the stories that were never told, the secrets that were never revealed, and the memories that were never shared are kept safe. It is a place of wonder and mystery, where the past and the present collide, and where the truth is waiting to be discovered.")
+    elif choice == "The Place of Torment":
+        print(
+            "Ghosts, dead and alive rule this dump and cold place. Take care and always watch your back... You never know what or who lurks in the shadows...")
+    elif choice == "Door with thousands locks":
+        print(
+            "To open this door you must find The Golden Key but before that could happen, find 'identity, love, legacy,creation and...tragedy. Good luck, Sebastian ")
 
 
 def inventory_list(inventory):
