@@ -1,5 +1,7 @@
 import random
 import time
+
+time.sleep(3)
 import json
 
 inventory = []
@@ -70,3 +72,17 @@ class Inventory:
 
     def get_inventory(self):
         return self.inventory
+
+
+def print_intro():
+    print(
+        "The air smelled of dust and forgotten stories. Somewhere deep inside the labyrinth, a book was waiting…for you")
+    print("Sebastian, wake up, from your dream...or reality")
+    print("Welcome to the Library of Forgotten Man")
+    print(
+        "You find yourself in a place that feels both familiar and strange. The air is thick with a sense of nostalgia and mystery")
+    print(
+        "You are in The Sanctuary, a vast, silent hall where shadow cling to towering shelves filled with books that seem to whisper secrets of the past.")
+    print("The scent of old paper and leather fills the air, and the dim light casts eerie shadows on the walls.")
+    print(
+        "This is where your journey begins, Sebastian. Here, you will uncover the mysteries of the past and confront the forgotten truths about Julian Carax, the broken writer who soul desires only one thing...revenge .")
