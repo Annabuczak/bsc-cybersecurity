@@ -67,3 +67,6 @@ class Inventory:
         else
             for item, quantity in self.inventory.items():
                 print(f"{item}: {quantity}")
+
+    def get_inventory(self):
+        return self.inventory
