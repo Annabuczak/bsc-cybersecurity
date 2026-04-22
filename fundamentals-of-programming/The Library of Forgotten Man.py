@@ -44,6 +44,32 @@ def the_sanctuary(inventory):
             print("See you in your next dream Sebastian...")
 
 
+# class colour to be worked on as the code progress#
+class Colours:
+    REDtext = '\033[91m'
+    GREENtext = '\033[92m'
+    YELLOWtext = '\033[93m'
+    BLUEtext = '\033[94m'
+    MAGENTAtext = '\033[95m'
+    CYANtext = '\033[96m'
+    WHITEtext = '\033[97m'
+    RESETtext = '\033[0m'
+    NORMALWHITEtext = '\033[0m'
+    BOLDtext = '\033[1m'
+
+
+def print_WHITEtext(text):
+    print(Colours.WHITEtext + text + Colours.RESETtext)
+
+
+def printNarrationText(message=None):
+    if message is None:
+        message = []
+
+    for msg in message:
+        print(Colours.blueText + msg + Colours.RESETtext)
+
+
 class Inventory:
     def __init__(self, inventory):
         self.inventory = {}
