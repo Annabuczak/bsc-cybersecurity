@@ -1,6 +1,7 @@
 import random
 import time
 import json
+from optparse import check_choice
 
 location = ["The Sanctuary", "Safe Heaven", "The Cursed Estate ", "House of Eccentrics",
             "The Archive of Unwritten Things", "Door with thousands locks"]
@@ -38,7 +39,13 @@ def location(room_list):
         "\n Sebastian, you find yourself in a place that feels both familiar and strange. The air is thick with a sense of nostalgia and mystery. As you look around, you see six doors, each leading to a different location. You can choose to enter any of these doors, but be warned, each one holds its own secrets and challenges.")
     choice = input("Enter the name of the room you want to explore: ")
     if choice == "Safe Heaven":
-        print(" Welcome to Sempere and Sons")
+        print(
+            "Welcome to Sempere and Sons. Come in to explore this fascinating, old book shop")
+    elif choice == "The Cursed Estate":
+        print(
+            "Av. del Tibidabo, 32. Once grand and rich, The Old World of beauty and splendor. Nowdays...Come and find for yourself the truth behind the curse")
+    elif choice == "House of Eccentrics":
+        print("Come in and join the jolly ")
 
 
 def inventory_list(inventory):
