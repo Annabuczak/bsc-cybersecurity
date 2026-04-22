@@ -1,29 +1,38 @@
 import random
 import time
 import json
-from optparse import check_choice
 
-location = ["The Sanctuary", "Safe Heaven", "The Cursed Estate ", "House of Eccentrics",
-            "The Archive of Unwritten Things", " The Place of Torment" "Door with thousands locks"]
-inventory = ["Letter", "Wedding photo", "Pen", "Book", "Newspaper"]
+inventory = []
 items = ["Portal", "The Riddle", "Secret Box"]
 
+rooms = {
+    "1": "The Sanctuary",
+    "2": "Safe Heaven",
+    "3": "The Cursed Estate",
+    "4": "House of Eccentrics",
+    "5": "The Archive of Unwritten Things",
+    "6": "The Place of Torment",
+    "7": "The Library of Forgotten Man",
 
-def the_sanctuary():
-    options = ["Porta", "The Riddle", "Secret Box"]
+}
+
+
+def the_sanctuary(inventory):
     while True:
         print("\nSebastian, don't be afraid. The place you dreamed about is real...Welcome to The Sanctuary")
         print("Please look around you, choose one item")
         print("Portal")
         print("The Riddle")
         print("Secret Box")
-        choice = input("Enter the name of the item you want to choose: ")
+        choice = input("> ").strip().lower()
         if choice == "Portal":
             print("Leave what you have found here")
         elif choice == "Riddle":
             print("Solve the riddle to find the truth...")
         elif choice == "Secret Box":
             print("When the fragments are restored, the box that once held past, reveles the key to what awaits")
+        elif "box" in choice:
+            print("You open the box and find The Golden Key")
         elif choice == "Open the door of your choice":
             print("The door opens, and you step into the next chapter of your journey...")
         elif choice == "Stay in The Sanctuary":
@@ -33,35 +42,28 @@ def the_sanctuary():
             print("See you in your next dream Sebastian...")
 
 
-def location(room_list):
-    location(room_list)
-    print(
-        "\n Sebastian, you find yourself in a place that feels both familiar and strange. The air is thick with a sense of nostalgia and mystery. As you look around, you see six doors, each leading to a different location. You can choose to enter any of these doors, but be warned, each one holds its own secrets and challenges.")
-    choice = input("Enter the name of the room you want to explore: ")
-    if choice == "Safe Heaven":
-        print(
-            "Welcome to Sempere and Sons. Come in to explore this fascinating, old book shop")
-    elif choice == "The Cursed Estate":
-        print(
-            "Av. del Tibidabo, 32. Once grand and rich, The Old World of beauty and splendor. Nowdays...Come and find for yourself the truth behind the curse")
-    elif choice == "House of Eccentrics":
-        print(
-            "Come in and join the jolly intellectuals ofBarcelona... not all that shines is gold, but here you will find the most eccentric minds of the city")
-    elif choice == "The Archive of Unwritten Things":
-        print(
-            "The Archive of Unwritten Things is a place where the stories that were never told, the secrets that were never revealed, and the memories that were never shared are kept safe. It is a place of wonder and mystery, where the past and the present collide, and where the truth is waiting to be discovered.")
-    elif choice == "The Place of Torment":
-        print(
-            "Ghosts, dead and alive rule this dump and cold place. Take care and always watch your back... You never know what or who lurks in the shadows...")
-    elif choice == "Door with thousands locks":
-        print(
-            "To open this door you must find The Golden Key but before that could happen, find 'identity, love, legacy,creation and...tragedy. Good luck, Sebastian ")
+class Inventory:
+    def __init__(self, inventory):
+        self.inventory = {}
 
+    def add_item(self, item):
+        if item in self.inventory:
+            self.inventory[item] += 1
+        else:
+            self.inventory[item] = 1
+        print(self.inventory)
 
-def inventory_list(inventory):
-    for items in inventory:
-        print("1. Letter")
-        print("2. Wedding photo")
-        print("3. Pen")
-        print("4. Book")
-        print("5. Newspaper")
+    def remove_item(self, item):
+        if item in self.inventory:
+            self.inventory[item] -= 1
+            if self.inventory[item] == 0:
+                del self.inventory[item]
+        else:
+            print("Item not found")
+
+    def display(self, item):
+        if not self.inventory[item]:
+            print("Item not found")
+        else
+            for item, quantity in self.inventory.items():
+                print(f"{item}: {quantity}")
