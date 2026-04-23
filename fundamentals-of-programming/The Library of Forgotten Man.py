@@ -5,6 +5,8 @@
 # CLASS INVENTORY - completed
 # PRINT INTRO TO THE GAME
 # THE RIDDLE - completed
+# PORTAL FUNCTION - completed
+# SECRED BOX FUNCTION D- done
 
 import random
 import time
@@ -172,7 +174,7 @@ the_riddle()
 
 
 def portal(inventory):
-    required_items = ["Letter", "Wedding photo", "Pen", "Book", "Newspaper"]
+    required_items = ["Letter", "Photo", "Pen", "Book", "Newspaper"]
 
     if all(item in inventory.inventory for item in required_items):
         print("You have entered the portal!")
@@ -200,7 +202,10 @@ def portal(inventory):
 
 
 def secret_box():
-    inventory = ["letter", "photo", "pen", "book", "newspaper"]
-    if all in inventory:
+    required_items = ["Letter", "Photo", "Pen", "Book", "Newspaper"]
+    if all(item in inventory.inventory for item in required_items) in inventory:
         print("When the fragments are restored, the box that once held past, revels the key to what awaits")
-    print("Open the box and find The Golden Key")
+        print("Open the box and find The Golden Key")
+    else:
+        print("You are not ready to face the truth, Sebastian.")
+        return
