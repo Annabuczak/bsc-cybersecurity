@@ -15,6 +15,7 @@ import json
 inventory = []
 items = ["Portal", "The Riddle", "Secret Box"]
 
+# player has everything
 rooms = {
     "1": "The Sanctuary",
     "2": "Safe Heaven",
@@ -170,18 +171,32 @@ def the_riddle():
 the_riddle()
 
 
-def portal():
-    current_room = "The Sanctuary"
+def portal(inventory):
+    required_items = ["Letter", "Wedding photo", "Pen", "Book", "Newspaper"]
+
+    if all(item in inventory.inventory for item in required_items):
+        print("You have entered the portal!")
+    else:
+        print("I'm afraid you can't go any further, Sebastian.")
+        return
+
     while True:
-        print("You have found all the items...")
-        choice = input("Would you like to open the box and find the truth? (yes/no)")
+        print("welcome back...")
+
+        choice = input("Would you like to open the box and find the truth? (yes/no) ").strip().lower()
+
         if choice == "yes":
             print("open the box and find the truth...")
+
         elif choice == "no":
             print("You are not ready to face the truth, Sebastian. The Game ends here for you. Farewell.")
             break
+
+        elif choice == "x":
+            break
+
         else:
-            print("Press X to go back to main menu.")  # work on this pls.
+            print("Invalid choice.")
 
 
 def secret_box():
