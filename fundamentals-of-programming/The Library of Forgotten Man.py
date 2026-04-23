@@ -4,7 +4,7 @@
 # CLASS COLOUR - incomplete
 # CLASS INVENTORY - completed
 # PRINT INTRO TO THE GAME
-
+# THE RIDDLE - completed
 
 import random
 import time
@@ -37,8 +37,9 @@ def the_sanctuary(inventory):
         choice = input("> ").strip().lower()
         if choice == "Portal":
             print("Leave what you have found here")
-        elif choice == "Riddle":
+        elif choice == "riddle":
             print("Solve the riddle to find the truth...")
+            the_riddle()
         elif choice == "Secret Box":
             print("When the fragments are restored, the box that once held past, reveles the key to what awaits")
         elif "box" in choice:
@@ -167,3 +168,24 @@ def the_riddle():
 
 
 the_riddle()
+
+
+def portal():
+    current_room = "The Sanctuary"
+    while True:
+        print("You have found all the items...")
+        choice = input("Would you like to open the box and find the truth? (yes/no)")
+        if choice == "yes":
+            print("open the box and find the truth...")
+        elif choice == "no":
+            print("You are not ready to face the truth, Sebastian. The Game ends here for you. Farewell.")
+            break
+        else:
+            print("Press X to go back to main menu.")  # work on this pls
+
+
+def secret_box():
+    inventory = ["letter", "photo", "pen", "book", "newspaper"]
+    if all in inventory:
+        print("When the fragments are restored, the box that once held past, revels the key to what awaits")
+    print("Open the box and find The Golden Key")
