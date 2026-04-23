@@ -181,7 +181,7 @@ def portal():
             print("You are not ready to face the truth, Sebastian. The Game ends here for you. Farewell.")
             break
         else:
-            print("Press X to go back to main menu.")  # work on this pls
+            print("Press X to go back to main menu.")  # work on this pls.
 
 
 def secret_box():
