@@ -3,31 +3,7 @@ with open("The Library of Forgotten Man.py", "r") as f:
 
     print(len(text.split()))
 
-
 # class colour to be worked on as the code progress#
-class Colours:
-    REDtext = '\033[91m'
-    GREENtext = '\033[92m'
-    YELLOWtext = '\033[93m'
-    BLUEtext = '\033[94m'
-    MAGENTAtext = '\033[95m'
-    CYANtext = '\033[96m'
-    WHITEtext = '\033[97m'
-    RESETtext = '\033[0m'
-    NORMALWHITEtext = '\033[0m'
-    BOLDtext = '\033[1m'
-
-
-def print_WHITEtext(text):
-    print(Colours.WHITEtext + text + Colours.RESETtext)
-
-
-def printNarrationText(message=None):
-    if message is None:
-        message = []
-
-    for msg in message:
-        print(Colours.blueText + msg + Colours.RESETtext)
 
 
 # SO FAR:
@@ -49,12 +25,9 @@ def printNarrationText(message=None):
 
 # DEF ORDER ( TO BE SORTED)
 
-
-import random
 import time
 
 time.sleep(2)
-import json
 
 items = ["Portal", "The Riddle", "Secret Box"]
 clockwise_order = [
@@ -132,9 +105,6 @@ def print_intro():
     print("...")
 
 
-print_intro()
-
-
 def the_riddle():
     current_room = "The Sanctuary"
     print("Solve the riddle to find the truth...")
@@ -186,12 +156,10 @@ def menu():
             return "exit"
         else:
             print("Incorrect response. Please try again.")
+        print_intro()
 
 
 class Inventory:
-    def __init__(self, inventory):
-        self.inventory = {}
-
     def add_item(self, item):
         if item in self.inventory:
             self.inventory[item] += 1
@@ -304,32 +272,6 @@ def print_map():
     pass
 
 
-def movment():
-    while True:
-        print_map()
-        print("\n Which direction would you like to go?")
-        print("1. North")
-        print("2. East")
-        print("3. South")
-        print("4. West")
-        print("5. Go to main menu")
-        move = input(" > ").strip()
-        if move == '1':
-            x, y = (-1, 0)
-        elif move == '2':
-            x, y = (0, 1)
-        elif move == '3':
-            x, y = (1, 0)
-        elif move == '4':
-            x, y = (0, -1)
-        elif move == '5':
-            break
-        else:
-            print("Invalid input. Please enter correct number")
-            continue
-        print(f"Moving to direction: {x}, {y}")
-
-
 current_room = "The Sanctuary"
 
 
@@ -378,7 +320,7 @@ def the_cursed_estate():
 
 
 def house_of_eccentrics():
-    print("You are in the House of Ececentrics")
+    print("You are in the House of Eccentrics")
 
 
 def the_archive_of_unwritten_things():
