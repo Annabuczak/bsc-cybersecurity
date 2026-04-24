@@ -21,6 +21,7 @@ with open("The Library of Forgotten Man.py", "r") as f:
 # MOVEMENT FUNCTION - DONE
 # MAIN FUNCTION - DONE
 # ROOM FUNCTIONS - in progress
+# SAVE/LOAD -DONE
 
 
 # DEF ORDER ( TO BE SORTED)
@@ -28,6 +29,32 @@ with open("The Library of Forgotten Man.py", "r") as f:
 import time
 
 time.sleep(2)
+
+import json
+import os
+
+
+def save_game(current_room, inventory):
+    with open('savegame.json', 'w') as f:
+        json.dump({
+            "current_room": current_room,
+            "inventory": inventory
+        }, f, indent=4)
+
+
+def load_game(filepath='savegame.json'):
+    import os
+    import json
+
+    if not os.path.exists(filepath):
+        return None
+
+    try:
+        with open(filepath, 'r') as f:
+            return json.load(f)
+    except (json.JSONDecodeError, IOError):
+        return None
+
 
 items = ["Portal", "The Riddle", "Secret Box"]
 clockwise_order = [
@@ -270,9 +297,6 @@ def play_again():
 
 def print_map():
     pass
-
-
-current_room = "The Sanctuary"
 
 
 def move_player(current_room, rooms, clockwise_order):
