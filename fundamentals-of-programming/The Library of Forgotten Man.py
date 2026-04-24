@@ -3,7 +3,7 @@ with open("The Library of Forgotten Man.py", "r") as f:
 
     print(len(text.split()))
 # SO FAR:
-# ROOMS -completed
+# ROOMS MAP -completed
 # SANCTUARY INVENTORY - completed
 # CLASS COLOUR - incomplete
 # CLASS INVENTORY - completed
@@ -15,7 +15,8 @@ with open("The Library of Forgotten Man.py", "r") as f:
 # PACE FUNCTION - done
 # PRINT MAP FUNCTION - to do
 # MOVEMENT FUNCTION - DONE
-# MAIN FUNCTION - IN PROGRESS
+# MAIN FUNCTION - DONE
+# ROOM FUNCTIONS - in progress
 
 
 # DEF ORDER ( TO BE SORTED)
@@ -30,14 +31,38 @@ import json
 items = ["Portal", "The Riddle", "Secret Box"]
 
 rooms = {
-    "1": "The Sanctuary",
-    "2": "Safe Heaven",
-    "3": "The Cursed Estate",
-    "4": "House of Eccentrics",
-    "5": "The Archive of Unwritten Things",
-    "6": "The Place of Torment",
-    "7": "The Library of Forgotten Man",
+    "The Sanctuary": {
+        "north": "Safe Heaven",
+        "east": "House of Eccentrics"
+    },
 
+    "Safe Heaven": {
+        "south": "The Sanctuary",
+        "east": "The Cursed Estate"
+    },
+
+    "The Cursed Estate": {
+        "west": "Safe Heaven",
+        "north": "The Archive of Unwritten Things"
+    },
+
+    "House of Eccentrics": {
+        "west": "The Sanctuary",
+        "north": "The Place of Torment"
+    },
+
+    "The Archive of Unwritten Things": {
+        "south": "The Cursed Estate"
+    },
+
+    "The Place of Torment": {
+        "south": "House of Eccentrics",
+        "east": "The Library of Forgotten Man"
+    },
+
+    "The Library of Forgotten Man": {
+        "west": "The Place of Torment"
+    }
 }
 
 
