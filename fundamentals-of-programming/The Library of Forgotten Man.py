@@ -29,7 +29,6 @@ import json
 
 items = ["Portal", "The Riddle", "Secret Box"]
 
-# player has everything
 rooms = {
     "1": "The Sanctuary",
     "2": "Safe Heaven",
@@ -290,3 +289,27 @@ def movment():
             print("Invalid input. Please enter correct number")
             continue
         print(f"Moving to direction: {x}, {y}")
+
+
+def santuary():
+    print("You are in the Sanctuary")
+
+
+def the_cursed_estate():
+    print("You are in the Cursed Estate")
+
+
+def house_of_eccentrics():
+    print("You are in the House of Ececentrics")
+
+
+def the_archive_of_unwritten_things():
+    print("You are in the Archives of Unwritten Things")
+
+
+def the_place_of_torment():
+    print("You are in the Place of Torment")
+
+
+def the_library_of_forgotten_man():
+    print("You are in the Library of Forgotten Man")
