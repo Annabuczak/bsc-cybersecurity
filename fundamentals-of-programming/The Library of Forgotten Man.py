@@ -7,12 +7,19 @@ with open("The Library of Forgotten Man.py", "r") as f:
 # SANCTUARY INVENTORY - completed
 # CLASS COLOUR - incomplete
 # CLASS INVENTORY - completed
-# PRINT INTRO TO THE GAME
+# PRINT INTRO TO THE GAME - done
 # THE RIDDLE - completed
 # PORTAL FUNCTION - completed
 # SECRET BOX FUNCTION - done
 # PLAY AGAIN FUNCTION - completed
 # PACE FUNCTION - done
+# PRINT MAP FUNCTION - to do
+# MOVEMENT FUNCTION - DONE
+# MAIN FUNCTION - IN PROGRESS
+
+
+# DEF ORDER ( TO BE SORTED)
+
 
 import random
 import time
@@ -33,6 +40,30 @@ rooms = {
     "7": "The Library of Forgotten Man",
 
 }
+
+
+def menu():
+    while True:
+
+        print("\n The Library of Forgotten Man")
+        print("Choose one of the following options:")
+        print("1. Create a new game")
+        print("2. Load a saved game")
+        print("3. Exit")
+        choice = input("> ").strip()
+        print("\nEnter your choice:")
+        if choice == "1":
+            print("Welcome to The Library of Forgotten Man")
+            print("Let's begin the game...")
+            return "new_game"
+        elif choice == "2":
+            print("Loading saved game...")
+            return "load_game"
+        elif choice == "3":
+            print("Exiting...")
+            return "exit"
+        else:
+            print("Incorrect response. Please try again.")
 
 
 def the_sanctuary(inventory):
@@ -229,3 +260,33 @@ def play_again():
             main()
         else:
             print("Invalid input. Please enter 'yes' or 'no'.")
+
+
+def print_map():
+    pass
+
+
+def movment():
+    while True:
+        print_map()
+        print("\n Which direction would you like to go?")
+        print("1. North")
+        print("2. East")
+        print("3. South")
+        print("4. West")
+        print("5. Go to main menu")
+        move = input(" > ").strip()
+        if move == '1':
+            x, y = (-1, 0)
+        elif move == '2':
+            x, y = (0, 1)
+        elif move == '3':
+            x, y = (1, 0)
+        elif move == '4':
+            x, y = (0, -1)
+        elif move == '5':
+            break
+        else:
+            print("Invalid input. Please enter correct number")
+            continue
+        print(f"Moving to direction: {x}, {y}")
