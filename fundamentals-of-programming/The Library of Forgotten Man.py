@@ -2,7 +2,6 @@ with open("The Library of Forgotten Man.py", "r") as f:
     text = f.read()
 
     print(len(text.split()))
-
 # class colour to be worked on as the code progress#
 
 
@@ -19,10 +18,12 @@ with open("The Library of Forgotten Man.py", "r") as f:
 # PACE FUNCTION - done
 # PRINT MAP FUNCTION - to do
 # MOVEMENT FUNCTION - DONE
-# MAIN FUNCTION - DONE
+# MENU FUNCTION - DONE
 # ROOM FUNCTIONS - in progress
 # SAVE/LOAD -DONE
-
+# take FUNCTION - to do
+# drop ITEM FUNCTION - TO DO
+# use ITEM FUNCTIONS - TO DO
 
 # DEF ORDER ( TO BE SORTED)
 
@@ -41,6 +42,8 @@ def save_game(current_room, inventory):
             "inventory": inventory
         }, f, indent=4)
 
+    saved_data = load_game("savegame.json")
+
 
 def load_game(filepath='savegame.json'):
     import os
@@ -56,6 +59,7 @@ def load_game(filepath='savegame.json'):
         return None
 
 
+items_needed = ["Letter", "Photo", "Pen", "Book", "Newspaper"]
 items = ["Portal", "The Riddle", "Secret Box"]
 clockwise_order = [
 
@@ -74,36 +78,44 @@ rooms = {
     "The Sanctuary": {
         "north": "Safe Heaven",
         "east": "House of Eccentrics"
+
     },
 
     "Safe Heaven": {
         "south": "The Sanctuary",
-        "east": "The Cursed Estate"
+        "east": "The Cursed Estate",
+
+        "items_needed": {"Letter"
+                         },
     },
 
     "The Cursed Estate": {
         "west": "Safe Heaven",
-        "north": "The Archive of Unwritten Things"
+        "north": "The Archive of Unwritten Things",
+        "items_needed": {"Photo"
+                         },
     },
-
     "House of Eccentrics": {
         "west": "The Sanctuary",
-        "north": "The Place of Torment"
+        "north": "The Place of Torment",
+        "items_needed": {"Pen"
+                         },
     },
-
     "The Archive of Unwritten Things": {
-        "south": "The Cursed Estate"
+        "south": "The Cursed Estate",
+        "items_needed": {"Book"
+                         },
     },
-
     "The Place of Torment": {
         "south": "House of Eccentrics",
-        "east": "The Library of Forgotten Man"
+        "east": "The Library of Forgotten Man",
+        "items_needed": "Newspaper"
     },
 
     "The Library of Forgotten Man": {
-        "west": "The Place of Torment"
-    }
-}
+        "west": "The Place of Torment",
+    },
+},
 
 
 def print_intro():
@@ -176,8 +188,15 @@ def menu():
             print("Let's begin the game...")
             return "new_game"
         elif choice == "2":
-            print("Loading saved game...")
-            return "load_game"
+            saved_data = load_game("savegame.json")
+            if saved_data:
+                current_room = saved_data["current_room"]
+                inventory = saved_data["inventory"]
+                print(f"Game Loaded! Current room: {current_room}")
+            else:
+                print("No saved game found. Starting a new game.")
+                current_room = "The Sanctuary"
+
         elif choice == "3":
             print("Exiting...")
             return "exit"
