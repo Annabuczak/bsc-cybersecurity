@@ -1,3 +1,7 @@
+with open("The Library of Forgotten Man.py", "r") as f:
+    text = f.read()
+
+    print(len(text.split()))
 # SO FAR:
 # ROOMS -completed
 # SANCTUARY INVENTORY - completed
@@ -6,7 +10,9 @@
 # PRINT INTRO TO THE GAME
 # THE RIDDLE - completed
 # PORTAL FUNCTION - completed
-# SECRED BOX FUNCTION D- done
+# SECRET BOX FUNCTION - done
+# PLAY AGAIN FUNCTION - completed
+# PACE FUNCTION - done
 
 import random
 import time
@@ -205,3 +211,21 @@ def secret_box(inventory):
         print("Open the box and find The Golden Key")
     else:
         print("You are not ready to face the truth, Sebastian.")
+
+
+def print_sleep(param):
+    print(param)
+    time.sleep(1)
+    pass
+
+
+def play_again():
+    while True:
+        again = input("\nWould you like to play again? (yyes/no)").strip().lower()
+        if again == 'no':
+            print_sleep("Thanks for playing! See you next time.")
+            exit()
+        elif again == 'yes':
+            main()
+        else:
+            print("Invalid input. Please enter 'yes' or 'no'.")
