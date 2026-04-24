@@ -14,7 +14,6 @@ import time
 time.sleep(2)
 import json
 
-inventory = []
 items = ["Portal", "The Riddle", "Secret Box"]
 
 # player has everything
@@ -38,12 +37,12 @@ def the_sanctuary(inventory):
         print("The Riddle")
         print("Secret Box")
         choice = input("> ").strip().lower()
-        if choice == "Portal":
+        if choice == "portal":
             print("Leave what you have found here")
         elif choice == "riddle":
             print("Solve the riddle to find the truth...")
             the_riddle()
-        elif choice == "Secret Box":
+        elif choice == "secret box":
             print("When the fragments are restored, the box that once held past, reveles the key to what awaits")
         elif "box" in choice:
             print("You open the box and find The Golden Key")
@@ -102,8 +101,8 @@ class Inventory:
             print("Item not found")
 
     def display(self, item):
-        if not self.inventory[item]:
-            print("Item not found")
+        if not self.inventory:
+            print("Inventory is empty")
         else:
             for item, quantity in self.inventory.items():
                 print(f"{item}: {quantity}")
@@ -170,9 +169,6 @@ def the_riddle():
     print("Restore the past to reclaim the name")
 
 
-the_riddle()
-
-
 def portal(inventory):
     required_items = ["Letter", "Photo", "Pen", "Book", "Newspaper"]
 
@@ -201,11 +197,11 @@ def portal(inventory):
             print("Invalid choice.")
 
 
-def secret_box():
+def secret_box(inventory):
     required_items = ["Letter", "Photo", "Pen", "Book", "Newspaper"]
-    if all(item in inventory.inventory for item in required_items) in inventory:
-        print("When the fragments are restored, the box that once held past, revels the key to what awaits")
+
+    if all(item in inventory.inventory for item in required_items):
+        print("When the fragments are restored...")
         print("Open the box and find The Golden Key")
     else:
         print("You are not ready to face the truth, Sebastian.")
-        return
