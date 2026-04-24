@@ -77,45 +77,44 @@ clockwise_order = [
 rooms = {
     "The Sanctuary": {
         "north": "Safe Heaven",
-        "east": "House of Eccentrics"
-
+        "east": "House of Eccentrics",
+        "item": None
     },
 
     "Safe Heaven": {
         "south": "The Sanctuary",
         "east": "The Cursed Estate",
-
-        "items_needed": {"Letter"
-                         },
+        "item": "Letter"
     },
 
     "The Cursed Estate": {
         "west": "Safe Heaven",
         "north": "The Archive of Unwritten Things",
-        "items_needed": {"Photo"
-                         },
+        "item": "Photo"
     },
+
     "House of Eccentrics": {
         "west": "The Sanctuary",
         "north": "The Place of Torment",
-        "items_needed": {"Pen"
-                         },
+        "item": "Pen"
     },
+
     "The Archive of Unwritten Things": {
         "south": "The Cursed Estate",
-        "items_needed": {"Book"
-                         },
+        "item": "Book"
     },
+
     "The Place of Torment": {
         "south": "House of Eccentrics",
         "east": "The Library of Forgotten Man",
-        "items_needed": "Newspaper"
+        "item": "Newspaper"
     },
 
     "The Library of Forgotten Man": {
         "west": "The Place of Torment",
-    },
-},
+        "item": None
+    }
+}
 
 
 def print_intro():
@@ -352,6 +351,16 @@ def move_player(current_room, rooms, clockwise_order):
                 return current_room
 
     return current_room
+
+
+def take_items(self, items_needed):
+    if self.current_room.items_needed.lower() and items_needed.lower() in self.current_room.items_needed.lower():
+        self.inventory.append(self.current_room.items_needed)
+        items_needed = self.current_room.items_needed
+        self.current_room.items_needed = None
+        print(f"You have taken {items_needed}")
+    else:
+        print("There is nothing to take here.")
 
 
 def safe_heaven():
