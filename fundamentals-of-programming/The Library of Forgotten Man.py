@@ -2,6 +2,34 @@ with open("The Library of Forgotten Man.py", "r") as f:
     text = f.read()
 
     print(len(text.split()))
+
+
+# class colour to be worked on as the code progress#
+class Colours:
+    REDtext = '\033[91m'
+    GREENtext = '\033[92m'
+    YELLOWtext = '\033[93m'
+    BLUEtext = '\033[94m'
+    MAGENTAtext = '\033[95m'
+    CYANtext = '\033[96m'
+    WHITEtext = '\033[97m'
+    RESETtext = '\033[0m'
+    NORMALWHITEtext = '\033[0m'
+    BOLDtext = '\033[1m'
+
+
+def print_WHITEtext(text):
+    print(Colours.WHITEtext + text + Colours.RESETtext)
+
+
+def printNarrationText(message=None):
+    if message is None:
+        message = []
+
+    for msg in message:
+        print(Colours.blueText + msg + Colours.RESETtext)
+
+
 # SO FAR:
 # ROOMS MAP -completed
 # SANCTUARY INVENTORY - completed
@@ -66,112 +94,6 @@ rooms = {
 }
 
 
-def menu():
-    while True:
-
-        print("\n The Library of Forgotten Man")
-        print("Choose one of the following options:")
-        print("1. Create a new game")
-        print("2. Load a saved game")
-        print("3. Exit")
-        choice = input("> ").strip()
-        print("\nEnter your choice:")
-        if choice == "1":
-            print("Welcome to The Library of Forgotten Man")
-            print("Let's begin the game...")
-            return "new_game"
-        elif choice == "2":
-            print("Loading saved game...")
-            return "load_game"
-        elif choice == "3":
-            print("Exiting...")
-            return "exit"
-        else:
-            print("Incorrect response. Please try again.")
-
-
-def the_sanctuary(inventory):
-    while True:
-        print("\nSebastian, don't be afraid. The place you dreamed about is real...Welcome to The Sanctuary")
-        print("Please look around you, choose one item")
-        print("Portal")
-        print("The Riddle")
-        print("Secret Box")
-        choice = input("> ").strip().lower()
-        if choice == "portal":
-            print("Leave what you have found here")
-        elif choice == "riddle":
-            print("Solve the riddle to find the truth...")
-            the_riddle()
-        elif choice == "secret box":
-            print("When the fragments are restored, the box that once held past, reveles the key to what awaits")
-        elif "box" in choice:
-            print("You open the box and find The Golden Key")
-        elif choice == "Open the door of your choice":
-            print("The door opens, and you step into the next chapter of your journey...")
-        elif choice == "Stay in The Sanctuary":
-            print("Wake up, Sebastian")
-            break
-        else:
-            print("See you in your next dream Sebastian...")
-
-
-# class colour to be worked on as the code progress#
-class Colours:
-    REDtext = '\033[91m'
-    GREENtext = '\033[92m'
-    YELLOWtext = '\033[93m'
-    BLUEtext = '\033[94m'
-    MAGENTAtext = '\033[95m'
-    CYANtext = '\033[96m'
-    WHITEtext = '\033[97m'
-    RESETtext = '\033[0m'
-    NORMALWHITEtext = '\033[0m'
-    BOLDtext = '\033[1m'
-
-
-def print_WHITEtext(text):
-    print(Colours.WHITEtext + text + Colours.RESETtext)
-
-
-def printNarrationText(message=None):
-    if message is None:
-        message = []
-
-    for msg in message:
-        print(Colours.blueText + msg + Colours.RESETtext)
-
-
-class Inventory:
-    def __init__(self, inventory):
-        self.inventory = {}
-
-    def add_item(self, item):
-        if item in self.inventory:
-            self.inventory[item] += 1
-        else:
-            self.inventory[item] = 1
-        print(self.inventory)
-
-    def remove_item(self, item):
-        if item in self.inventory:
-            self.inventory[item] -= 1
-            if self.inventory[item] == 0:
-                del self.inventory[item]
-        else:
-            print("Item not found")
-
-    def display(self, item):
-        if not self.inventory:
-            print("Inventory is empty")
-        else:
-            for item, quantity in self.inventory.items():
-                print(f"{item}: {quantity}")
-
-    def get_inventory(self):
-        return self.inventory
-
-
 def print_intro():
     current_room = "The Sanctuary"
     print(
@@ -228,6 +150,86 @@ def the_riddle():
     print("A truth consumed by ash and flame")
     print("...")
     print("Restore the past to reclaim the name")
+
+
+def menu():
+    while True:
+
+        print("\n The Library of Forgotten Man")
+        print("Choose one of the following options:")
+        print("1. Create a new game")
+        print("2. Load a saved game")
+        print("3. Exit")
+        choice = input("> ").strip()
+        print("\nEnter your choice:")
+        if choice == "1":
+            print("Welcome to The Library of Forgotten Man")
+            print("Let's begin the game...")
+            return "new_game"
+        elif choice == "2":
+            print("Loading saved game...")
+            return "load_game"
+        elif choice == "3":
+            print("Exiting...")
+            return "exit"
+        else:
+            print("Incorrect response. Please try again.")
+
+
+class Inventory:
+    def __init__(self, inventory):
+        self.inventory = {}
+
+    def add_item(self, item):
+        if item in self.inventory:
+            self.inventory[item] += 1
+        else:
+            self.inventory[item] = 1
+        print(self.inventory)
+
+    def remove_item(self, item):
+        if item in self.inventory:
+            self.inventory[item] -= 1
+            if self.inventory[item] == 0:
+                del self.inventory[item]
+        else:
+            print("Item not found")
+
+    def display(self, item):
+        if not self.inventory:
+            print("Inventory is empty")
+        else:
+            for item, quantity in self.inventory.items():
+                print(f"{item}: {quantity}")
+
+    def get_inventory(self):
+        return self.inventory
+
+
+def the_sanctuary(inventory):
+    while True:
+        print("\nSebastian, don't be afraid. The place you dreamed about is real...Welcome to The Sanctuary")
+        print("Please look around you, choose one item")
+        print("Portal")
+        print("The Riddle")
+        print("Secret Box")
+        choice = input("> ").strip().lower()
+        if choice == "portal":
+            print("Leave what you have found here")
+        elif choice == "riddle":
+            print("Solve the riddle to find the truth...")
+            the_riddle()
+        elif choice == "secret box":
+            print("When the fragments are restored, the box that once held past, reveles the key to what awaits")
+        elif "box" in choice:
+            print("You open the box and find The Golden Key")
+        elif choice == "Open the door of your choice":
+            print("The door opens, and you step into the next chapter of your journey...")
+        elif choice == "Stay in The Sanctuary":
+            print("Wake up, Sebastian")
+            break
+        else:
+            print("See you in your next dream Sebastian...")
 
 
 def portal(inventory):
@@ -316,6 +318,7 @@ def movment():
         print(f"Moving to direction: {x}, {y}")
 
 
+# ROOMS
 def santuary():
     print("You are in the Sanctuary")
 
