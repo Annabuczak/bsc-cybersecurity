@@ -353,14 +353,21 @@ def move_player(current_room, rooms, clockwise_order):
     return current_room
 
 
-def take_items(self, items_needed):
-    if self.current_room.items_needed.lower() and items_needed.lower() in self.current_room.items_needed.lower():
-        self.inventory.append(self.current_room.items_needed)
-        items_needed = self.current_room.items_needed
-        self.current_room.items_needed = None
-        print(f"You have taken {items_needed}")
-    else:
+def take_item(current_room, rooms, inventory):
+    item = rooms[current_room]["item"]
+
+    if item is None:
         print("There is nothing to take here.")
+        return
+
+    if item in inventory:
+        print("You already have this item.")
+        return
+
+    inventory.append(item)
+    rooms[current_room]["item"] = None
+
+    print(f"You picked up {item}.")
 
 
 def safe_heaven():
