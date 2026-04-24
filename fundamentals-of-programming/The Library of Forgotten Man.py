@@ -330,7 +330,6 @@ def movment():
         print(f"Moving to direction: {x}, {y}")
 
 
-# MOVEMENT AROUND ROOMS
 current_room = "The Sanctuary"
 
 
