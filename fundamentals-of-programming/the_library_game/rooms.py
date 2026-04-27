@@ -95,3 +95,6 @@ rooms = {
         "item": None
     }
 }
+items = ["Portal", "The Riddle", "Secret Box"]
+portal_items = []
+items_needed = ["Letter", "Photo", "Pen", "Book", "Newspaper"]
