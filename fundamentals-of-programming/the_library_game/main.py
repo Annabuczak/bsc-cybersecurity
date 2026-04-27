@@ -19,6 +19,8 @@ if data:
     current_room = data["current_room"]
     inventory = data["inventory"]
 
+from intro_riddle import print_intro, the_riddle
+
 # class colour to be worked on as the code progress#
 
 
