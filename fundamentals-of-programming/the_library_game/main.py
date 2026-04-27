@@ -6,6 +6,10 @@ time.sleep(2)
 from save_load import load_game
 from intro_riddle import print_intro, the_riddle
 from inventory import Inventory
+from rooms import the_sanctuary
+
+inventory = Inventory()
+the_sanctuary(inventory)
 
 total_words = 0
 for root, dirs, files in os.walk("."):
@@ -31,9 +35,7 @@ else:
 
 # SO FAR:
 # ROOMS MAP -completed
-# SANCTUARY INVENTORY - completed
 # CLASS COLOUR - incomplete
-# CLASS INVENTORY - completed
 # PORTAL FUNCTION - completed
 # SECRET BOX FUNCTION - done
 # PLAY AGAIN FUNCTION - completed

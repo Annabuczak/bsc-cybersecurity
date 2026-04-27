@@ -22,3 +22,24 @@ def the_sanctuary(inventory):
             break
         else:
             print("See you in your next dream Sebastian...")
+
+
+def portal(inventory):
+    required_items = ["Letter", "Photo", "Pen", "Book", "Newspaper"]
+    if all(item in inventory.inventory for item in required_items):
+        print("You have entered the portal!")
+    else:
+        print("I'm afraid you can't go any further, Sebastian.")
+        return
+    while True:
+        print("welcome back...")
+        choice = input("Would you like to open the box and find the truth? (yes/no) ").strip().lower()
+        if choice == "yes":
+            print("open the box and find the truth...")
+        elif choice == "no":
+            print("You are not ready to face the truth, Sebastian. The Game ends here for you. Farewell.")
+            break
+        elif choice == "x":
+            break
+        else:
+            print("Invalid choice.")
