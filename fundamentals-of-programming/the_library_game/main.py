@@ -21,6 +21,10 @@ if data:
 
 from intro_riddle import print_intro, the_riddle
 
+inventory = Inventory()
+inventory.add_item("Test")
+inventory.display()
+
 # class colour to be worked on as the code progress#
 
 
@@ -140,9 +144,6 @@ def menu():
         else:
             print("Incorrect response. Please try again.")
         print_intro()
-
-
-from inventory import Inventory
 
 
 def the_sanctuary(inventory):

@@ -1,4 +1,7 @@
 class Inventory:
+    def __init__(self):
+        self.inventory = {}
+
     def add_item(self, item):
         if item in self.inventory:
             self.inventory[item] += 1
@@ -14,7 +17,7 @@ class Inventory:
         else:
             print("Item not found")
 
-    def display(self, item):
+    def display(self):
         if not self.inventory:
             print("Inventory is empty")
         else:
