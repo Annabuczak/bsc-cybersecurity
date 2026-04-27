@@ -29,8 +29,6 @@ from intro_riddle import print_intro, the_riddle
 # SANCTUARY INVENTORY - completed
 # CLASS COLOUR - incomplete
 # CLASS INVENTORY - completed
-# PRINT INTRO TO THE GAME - done
-# THE RIDDLE - completed
 # PORTAL FUNCTION - completed
 # SECRET BOX FUNCTION - done
 # PLAY AGAIN FUNCTION - completed
@@ -144,31 +142,7 @@ def menu():
         print_intro()
 
 
-class Inventory:
-    def add_item(self, item):
-        if item in self.inventory:
-            self.inventory[item] += 1
-        else:
-            self.inventory[item] = 1
-        print(self.inventory)
-
-    def remove_item(self, item):
-        if item in self.inventory:
-            self.inventory[item] -= 1
-            if self.inventory[item] == 0:
-                del self.inventory[item]
-        else:
-            print("Item not found")
-
-    def display(self, item):
-        if not self.inventory:
-            print("Inventory is empty")
-        else:
-            for item, quantity in self.inventory.items():
-                print(f"{item}: {quantity}")
-
-    def get_inventory(self):
-        return self.inventory
+from inventory import Inventory
 
 
 def the_sanctuary(inventory):
