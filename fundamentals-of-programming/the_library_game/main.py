@@ -1,6 +1,10 @@
-import time
-# word count
 import os
+
+import time
+
+from save_load import load_game
+from intro_riddle import print_intro, the_riddle
+from inventory import Inventory
 
 total_words = 0
 for root, dirs, files in os.walk("."):
@@ -8,22 +12,18 @@ for root, dirs, files in os.walk("."):
         if file.endswith(".py"):
             with open(os.path.join(root, file), "r") as f:
                 total_words += len(f.read().split())
-
 print("Total words:", total_words)
 
-from save_load import load_game
-
 data = load_game()
-
 if data:
     current_room = data["current_room"]
-    inventory = data["inventory"]
-
-from intro_riddle import print_intro, the_riddle
-
-inventory = Inventory()
-inventory.add_item("Test")
-inventory.display()
+    inventory = Inventory()
+    for item, quantity in data["inventory"].items():
+        for _ in range(quantity):
+            inventory.add_item(item)
+else:
+    current_room = "The Sanctuary"
+    inventory = Inventory()
 
 # class colour to be worked on as the code progress#
 
