@@ -83,47 +83,6 @@ clockwise_order = [
     "The Place of Torment"
 
 ]
-rooms = {
-    "The Sanctuary": {
-        "north": "Safe Heaven",
-        "east": "House of Eccentrics",
-        "item": None
-    },
-
-    "Safe Heaven": {
-        "south": "The Sanctuary",
-        "east": "The Cursed Estate",
-        "item": "Letter"
-    },
-
-    "The Cursed Estate": {
-        "west": "Safe Heaven",
-        "north": "The Archive of Unwritten Things",
-        "item": "Photo"
-    },
-
-    "House of Eccentrics": {
-        "west": "The Sanctuary",
-        "north": "The Place of Torment",
-        "item": "Pen"
-    },
-
-    "The Archive of Unwritten Things": {
-        "south": "The Cursed Estate",
-        "item": "Book"
-    },
-
-    "The Place of Torment": {
-        "south": "House of Eccentrics",
-        "east": "The Library of Forgotten Man",
-        "item": "Newspaper"
-    },
-
-    "The Library of Forgotten Man": {
-        "west": "The Place of Torment",
-        "item": None
-    }
-}
 
 
 def menu():
