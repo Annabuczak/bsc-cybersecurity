@@ -1,7 +1,15 @@
-with open("The Library of Forgotten Man.py", "r") as f:
-    text = f.read()
+import os
 
-    print(len(text.split()))
+total_words = 0
+
+for root, dirs, files in os.walk("."):
+    for file in files:
+        if file.endswith(".py"):
+            with open(os.path.join(root, file), "r") as f:
+                total_words += len(f.read().split())
+
+print("Total words:", total_words)
+
 # class colour to be worked on as the code progress#
 
 
