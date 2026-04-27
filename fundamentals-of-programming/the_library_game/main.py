@@ -1,7 +1,3 @@
-items = ["Portal", "The Riddle", "Secret Box"]
-portal_items = []
-items_needed = ["Letter", "Photo", "Pen", "Book", "Newspaper"]
-
 import os
 import time
 
@@ -14,11 +10,14 @@ from rooms import the_sanctuary
 from rooms import portal
 from rooms import secret_box
 from save_load import play_again
+from main_menu import menu
+from main_menu import print_sleep
 
 inventory = Inventory()
 the_sanctuary(inventory)
 portal(inventory)
 secret_box(inventory)
+print_intro()
 
 total_words = 0
 for root, dirs, files in os.walk("."):
@@ -52,6 +51,7 @@ else:
     current_room = "The Sanctuary"
     inventory = Inventory()
 
+
 # class colour to be worked on as the code progress#
 
 
@@ -68,59 +68,6 @@ else:
 # take FUNCTION - Done
 # drop ITEM FUNCTION - TO DO
 # use ITEM FUNCTIONS - TO DO
-
-
-clockwise_order = [
-
-    "Safe Heaven",
-
-    "The Cursed Estate",
-
-    "House of Eccentrics",
-
-    "The Archive of Unwritten Things",
-
-    "The Place of Torment"
-
-]
-
-
-def menu():
-    while True:
-
-        print("\n The Library of Forgotten Man")
-        print("Choose one of the following options:")
-        print("1. Create a new game")
-        print("2. Load a saved game")
-        print("3. Exit")
-        choice = input("> ").strip()
-        print("\nEnter your choice:")
-        if choice == "1":
-            print("Welcome to The Library of Forgotten Man")
-            print("Let's begin the game...")
-            return "new_game"
-        elif choice == "2":
-            saved_data = load_game("savegame.json")
-            if saved_data:
-                current_room = saved_data["current_room"]
-                inventory = saved_data["inventory"]
-                print(f"Game Loaded! Current room: {current_room}")
-            else:
-                print("No saved game found. Starting a new game.")
-                current_room = "The Sanctuary"
-
-        elif choice == "3":
-            print("Exiting...")
-            return "exit"
-        else:
-            print("Incorrect response. Please try again.")
-        print_intro()
-
-
-def print_sleep(param):
-    print(param)
-
-    pass
 
 
 def print_map():
