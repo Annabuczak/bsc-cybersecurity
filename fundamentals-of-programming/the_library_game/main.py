@@ -1,3 +1,7 @@
+items = ["Portal", "The Riddle", "Secret Box"]
+portal_items = []
+items_needed = ["Letter", "Photo", "Pen", "Book", "Newspaper"]
+
 import os
 import time
 
@@ -7,9 +11,14 @@ from save_load import load_game
 from intro_riddle import print_intro, the_riddle
 from inventory import Inventory
 from rooms import the_sanctuary
+from rooms import portal
+from rooms import secret_box
+from save_load import play_again
 
 inventory = Inventory()
 the_sanctuary(inventory)
+portal(inventory)
+secret_box(inventory)
 
 total_words = 0
 for root, dirs, files in os.walk("."):
@@ -30,14 +39,26 @@ else:
     current_room = "The Sanctuary"
     inventory = Inventory()
 
+data = load_game()
+
+if data:
+    current_room = data["current_room"]
+    inventory = Inventory()
+
+    for item, quantity in data["inventory"].items():
+        for _ in range(quantity):
+            inventory.add_item(item)
+else:
+    current_room = "The Sanctuary"
+    inventory = Inventory()
+
 # class colour to be worked on as the code progress#
 
 
 # SO FAR:
 # ROOMS MAP -completed
 # CLASS COLOUR - incomplete
-# PORTAL FUNCTION - completed
-# SECRET BOX FUNCTION - done
+
 # PLAY AGAIN FUNCTION - completed
 # PACE FUNCTION - done
 # PRINT MAP FUNCTION - to do
@@ -48,9 +69,7 @@ else:
 # drop ITEM FUNCTION - TO DO
 # use ITEM FUNCTIONS - TO DO
 
-portal_items = []
-items_needed = ["Letter", "Photo", "Pen", "Book", "Newspaper"]
-items = ["Portal", "The Riddle", "Secret Box"]
+
 clockwise_order = [
 
     "Safe Heaven",
@@ -139,60 +158,10 @@ def menu():
         print_intro()
 
 
-def portal(inventory):
-    required_items = ["Letter", "Photo", "Pen", "Book", "Newspaper"]
-
-    if all(item in inventory.inventory for item in required_items):
-        print("You have entered the portal!")
-    else:
-        print("I'm afraid you can't go any further, Sebastian.")
-        return
-
-    while True:
-        print("welcome back...")
-
-        choice = input("Would you like to open the box and find the truth? (yes/no) ").strip().lower()
-
-        if choice == "yes":
-            print("open the box and find the truth...")
-
-        elif choice == "no":
-            print("You are not ready to face the truth, Sebastian. The Game ends here for you. Farewell.")
-            break
-
-        elif choice == "x":
-            break
-
-        else:
-            print("Invalid choice.")
-
-
-def secret_box(inventory):
-    required_items = ["Letter", "Photo", "Pen", "Book", "Newspaper"]
-
-    if all(item in inventory.inventory for item in required_items):
-        print("When the fragments are restored...")
-        print("Open the box and find The Golden Key")
-    else:
-        print("You are not ready to face the truth, Sebastian.")
-
-
 def print_sleep(param):
     print(param)
-    time.sleep(1)
+
     pass
-
-
-def play_again():
-    while True:
-        again = input("\nWould you like to play again? (yyes/no)").strip().lower()
-        if again == 'no':
-            print_sleep("Thanks for playing! See you next time.")
-            exit()
-        elif again == 'yes':
-            menu()
-        else:
-            print("Invalid input. Please enter 'yes' or 'no'.")
 
 
 def print_map():

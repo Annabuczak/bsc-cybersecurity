@@ -43,3 +43,12 @@ def portal(inventory):
             break
         else:
             print("Invalid choice.")
+
+
+def secret_box(inventory):
+    required_items = ["Letter", "Photo", "Pen", "Book", "Newspaper"]
+    if all(item in inventory.inventory for item in required_items):
+        print("When the fragments are restored...")
+        print("Open the box and find The Golden Key")
+    else:
+        print("You are not ready to face the truth, Sebastian.")
