@@ -34,38 +34,13 @@ print("Total words:", total_words)
 # use ITEM FUNCTIONS - TO DO
 
 # DEF ORDER ( TO BE SORTED)
-
+from save_load import save_game, load_game
 import time
 
 time.sleep(2)
 
 import json
 import os
-
-
-def save_game(current_room, inventory):
-    with open('savegame.json', 'w') as f:
-        json.dump({
-            "current_room": current_room,
-            "inventory": inventory
-        }, f, indent=4)
-
-    saved_data = load_game("savegame.json")
-
-
-def load_game(filepath='savegame.json'):
-    import os
-    import json
-
-    if not os.path.exists(filepath):
-        return None
-
-    try:
-        with open(filepath, 'r') as f:
-            return json.load(f)
-    except (json.JSONDecodeError, IOError):
-        return None
-
 
 portal_items = []
 items_needed = ["Letter", "Photo", "Pen", "Book", "Newspaper"]
