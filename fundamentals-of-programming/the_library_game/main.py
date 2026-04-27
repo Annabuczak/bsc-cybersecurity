@@ -1,7 +1,8 @@
+import time
+# word count
 import os
 
 total_words = 0
-
 for root, dirs, files in os.walk("."):
     for file in files:
         if file.endswith(".py"):
@@ -9,6 +10,14 @@ for root, dirs, files in os.walk("."):
                 total_words += len(f.read().split())
 
 print("Total words:", total_words)
+
+from save_load import load_game
+
+data = load_game()
+
+if data:
+    current_room = data["current_room"]
+    inventory = data["inventory"]
 
 # class colour to be worked on as the code progress#
 
@@ -32,8 +41,6 @@ print("Total words:", total_words)
 # drop ITEM FUNCTION - TO DO
 # use ITEM FUNCTIONS - TO DO
 
-# DEF ORDER ( TO BE SORTED)
-from save_load import save_game, load_game
 
 data = load_game()
 
