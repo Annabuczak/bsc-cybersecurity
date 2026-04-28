@@ -54,40 +54,21 @@ def secret_box(inventory):
         print("You are not ready to face the truth, Sebastian.")
 
 
-def safe_heaven():
-    print("You are in Safe Heaven")
-
-
-def the_cursed_estate():
-    print("You are in the Cursed Estate")
-
-
-def house_of_eccentrics():
-    print("You are in the House of Eccentrics")
-
-
-def the_archive_of_unwritten_things():
-    print("You are in the Archives of Unwritten Things")
-
-
-def the_place_of_torment():
-    print("You are in the Place of Torment")
-
-
-def the_library_of_forgotten_man():
-    print("You are in the Library of Forgotten Man")
-
-
 rooms = rooms = {
     "The Sanctuary": {
         "north": "Safe Heaven",
-        "item": None
+        "item": None,
+
     },
 
     "Safe Heaven": {
         "south": "The Sanctuary",
         "east": "The Cursed Estate",
         "item": "Letter"
+                "description" "A place of solace and safety,"
+                " where the air is filled with a sense of calm and tranquility."
+                " The walls are adorned with soft, warm colors, and the atmosphere is serene. "
+                "It's a haven from the outside world, offering comfort and refuge to those who seek it."
     },
 
     "The Cursed Estate": {

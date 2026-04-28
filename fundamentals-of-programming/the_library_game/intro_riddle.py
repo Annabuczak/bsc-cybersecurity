@@ -1,9 +1,6 @@
 def print_intro():
     current_room = "The Sanctuary"
-    print(
-        "The air smelled of dust and forgotten stories. Somewhere deep inside the labyrinth, a book was waiting…for you...")
-    print("Sebastian, wake up from your dream...or reality")
-    print("...")
+
     print("Welcome to the Library of Forgotten Man")
     print(
         "You find yourself in a place that feels both familiar and strange. The air is thick with a sense of nostalgia and mystery")
@@ -21,9 +18,6 @@ def print_intro():
     print("...it is time to...")
     print("...play the game, Sebastian!")
     print("...")
-
-
-print_intro()
 
 
 def the_riddle():

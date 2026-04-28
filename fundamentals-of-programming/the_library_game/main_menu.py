@@ -1,4 +1,8 @@
 def welome_screen():
+    print(
+        "The air smelled of dust and forgotten stories. Somewhere deep inside the labyrinth, a book was waiting…for you...")
+    print("Sebastian, wake up from your dream...or reality")
+    print("...")
     print("Welcome to The Library of Forgotten Man")
     print("Loading. Please wait...")
 
