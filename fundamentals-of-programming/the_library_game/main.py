@@ -52,8 +52,10 @@ elif choice == "exit":
 # GAME LOOP
 while True:
     print(f"\nYou are in {current_room}")
+    print(rooms[current_room].get("description", ""))
 
     inventory.display()
+
     if current_room == "The Sanctuary":
         action = sanctuary_menu()
 

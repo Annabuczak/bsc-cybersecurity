@@ -6,12 +6,12 @@ def the_sanctuary(inventory):
         print("The Riddle")
         print("Secret Box")
         choice = input("> ").strip().lower()
-        if choice == "portal":
+        if choice == "Portal":
             print("Leave what you have found here")
-        elif choice == "riddle":
+        elif choice == "The Riddle":
             print("Solve the riddle to find the truth...")
             the_riddle()
-        elif choice == "secret box":
+        elif choice == "Secret Box":
             print("When the fragments are restored, the box that once held past, reveles the key to what awaits")
         elif "box" in choice:
             print("You open the box and find The Golden Key")
@@ -64,35 +64,91 @@ rooms = rooms = {
     "Safe Heaven": {
         "south": "The Sanctuary",
         "east": "The Cursed Estate",
-        "item": "Letter"
-                "description" "A place of solace and safety,"
-                " where the air is filled with a sense of calm and tranquility."
-                " The walls are adorned with soft, warm colors, and the atmosphere is serene. "
-                "It's a haven from the outside world, offering comfort and refuge to those who seek it."
+        "item": "Letter",
+        "description": """You step into *Sempere & Sons*, a narrow antiquarian bookshop where dust drifts in the light.
+The air smells of leather and rain-soaked paper, shelves leaning as if listening.
+Mr Sempere watches from behind the counter, while Daniel rearranges books nearby.
+The bell above the door hangs still, yet the shop feels guarded,
+as if a secret is close to being uncovered.
+Mention Julian Carax and a hesitation flickers,
+a glance exchanged too quickly.
+Somewhere among the books, a clue waits in plain sight."""
     },
 
     "The Cursed Estate": {
         "west": "Safe Heaven",
         "north": "House of Eccentrics",
-        "item": "Photo"
+        "item": "Photo",
+        "description": """Avenida del Tibidabo 32, once a grand mansion, a shrine to wealth.
+Wrought-iron gates, a long drive, stone lions at the steps.
+Now it stands cracked and hollow, windows blind with grime and ivy.
+Inside, damp air smells of mould, sour perfume, and cold ash.
+Velvet curtains lie torn, chandeliers hang askew,
+and every step stirs the groan of rotten boards.
+Portrait eyes follow you through silent corridors.
+Something still lingers, old secrets in the walls,
+a tragedy that never quite faded.
+Another fragment lies hidden here.
+Find it to unlock the box and move closer to the truth.
+Talk to Veronica, the old maid, ask her about Penelope,
+a forbidden love and a secret wedding that ended in tragedy."""
+
     },
 
     "House of Eccentrics": {
         "south": "The Cursed Estate",
         "north": "The Archive of Unwritten Things",
-        "item": "Pen"
+        "item": "Pen",
+        "description": """You push through the café doors into a haze of smoke and murmured arguments.
+The House of Eccentrics hums with uneasy energy, aughter in the wrong places,
+whispers that die as you pass. Writers, poets, and antiquarians crowd the tables,
+trading rumours like rare books.
+The air tastes of burnt coffee, cheap brandy, and rain-soaked coats.
+Walls are layered with manifestos and quotes pinned like evidence.
+Somewhere in the noise, a clue to Julian Carax’s past waits to be uncovered.
+Sebastian, go to Diego Barroso, the wealthy patron who knows everyone in Barcelona’s literary world.
+He holds a piece of the story. Speak to him carefully, earn his trust,
+and you may receive more than words… perhaps even the next item you seek."""
     },
 
     "The Archive of Unwritten Things": {
         "south": "House of Eccentrics",
         "north": "The Place of Torment",
-        "item": "Book"
+        "item": "Book",
+        "description": """A room without shelves, only their absence. The air is thick with untold endings,
+         and the walls shimmer like water. As you step forward, words bloom in the dark:
+         chapters never written, titles never published, names never allowed to exist.
+         In the shadows, a young girl flickers into view, pale and unsteady.
+         She says nothing, only watches, then slowly raises her hand and points.
+         Follow her.
+         A narrow lectern stands ahead. A single book lies open,
+         It's a sentence repeating, changing by a word each time you blink.
+         Sebastian, go to the lectern. Search it.
+         An old book waits, one that seems to recognise you.
+         Take it. This is the item you need.
+         As you lift it, the room falls silent.
+         When you look back, the girl is gone."""
     },
 
     "The Place of Torment": {
         "south": "The Archive of Unwritten Things",
         "east": "The Library of Forgotten Man",
-        "item": "Newspaper"
+        "item": "Newspaper",
+        "description": """You have come far, Sebastian.
+Montjuïc Castle rises at dusk, its stone walls swallowing the last light.
+The fortress looms over Barcelona, a warning from the war, its corridors thick with damp iron and old smoke.
+A man steps from the darkness—Inspector Manuel Varela, a ruin of power.
+His hands tremble as he speaks of orders obeyed, doors broken, names erased.
+“I thought fear could keep a city quiet,” he whispers, “but it only taught it to mourn.”
+From his coat, he draws a scorched newspaper clipping.
+“Penelope. Fire. Suspicious.”
+He presses it into your palm.
+“Find Julian Carax’s truth,” he says, “and let the dead finally sleep.”
+This is your clue.
+Take the clipping. It is the item you need.
+When you look back, he is gone.
+And the silence feels heavier than before."""
+
     },
 
     "The Library of Forgotten Man": {
