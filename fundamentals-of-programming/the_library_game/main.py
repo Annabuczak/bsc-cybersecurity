@@ -1,31 +1,33 @@
 from save_load import load_game
 from inventory import Inventory
-from movement import move_player
+from movement import move_player, clockwise_order
 from rooms import rooms
 from intro_riddle import print_intro
+from main_menu import welome_screen
+from main_menu import menu
 
-print_intro()
+# MENU
+choice = welome_screen()
 
-data = load_game()
+choice = menu()
+if choice == "new_game":
 
-if data:
-    current_room = data["current_room"]
-    inventory = Inventory()
-
-    for item, quantity in data["inventory"].items():
-        for _ in range(quantity):
-            inventory.add_item(item)
-else:
     current_room = "The Sanctuary"
     inventory = Inventory()
 
-while True:
-    print(f"\nYou are in {current_room}")
-
-    for direction, destination in rooms[current_room].items():
-        if direction != "item":
-            print(f"{direction} → {destination}")
-
-    current_room = move_player(current_room, rooms, [])
-
-    inventory.display()
+elif choice == "load_game":
+    data = load_game()
+    if data:
+        current_room = data["current_room"]
+        inventory = Inventory()
+        for item, quantity in data["inventory"].items():
+            for _ in range(quantity):
+                inventory.add_item(item)
+    else:
+        print("No saved game found. Starting a new game.")
+        
+        current_room = "The Sanctuary"
+        inventory = Inventory()
+        rooms = rooms()
+elif choice == "exit":
+    exit()

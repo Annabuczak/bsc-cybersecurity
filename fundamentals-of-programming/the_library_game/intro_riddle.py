@@ -20,8 +20,10 @@ def print_intro():
     print("The Golden Key? Well, don't waste precious time because...")
     print("...it is time to...")
     print("...play the game, Sebastian!")
-    print("Good luck and God bless")
     print("...")
+
+
+print_intro()
 
 
 def the_riddle():

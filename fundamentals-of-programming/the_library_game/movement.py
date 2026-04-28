@@ -15,6 +15,7 @@ clockwise_order = [
 
 def move_player(current_room, rooms, clockwise_order):
     print(f"\nYou are in {current_room}")
+    print("Which direction would you like to go?")
     for direction in rooms[current_room]:
         print(f"You can go {direction} to {rooms[current_room][direction]}")
 

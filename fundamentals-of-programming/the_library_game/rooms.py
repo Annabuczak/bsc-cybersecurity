@@ -78,10 +78,9 @@ def the_library_of_forgotten_man():
     print("You are in the Library of Forgotten Man")
 
 
-rooms = {
+rooms = rooms = {
     "The Sanctuary": {
         "north": "Safe Heaven",
-        "east": "House of Eccentrics",
         "item": None
     },
 
@@ -93,23 +92,24 @@ rooms = {
 
     "The Cursed Estate": {
         "west": "Safe Heaven",
-        "north": "The Archive of Unwritten Things",
+        "north": "House of Eccentrics",
         "item": "Photo"
     },
 
     "House of Eccentrics": {
-        "west": "The Sanctuary",
-        "north": "The Place of Torment",
+        "south": "The Cursed Estate",
+        "north": "The Archive of Unwritten Things",
         "item": "Pen"
     },
 
     "The Archive of Unwritten Things": {
-        "south": "The Cursed Estate",
+        "south": "House of Eccentrics",
+        "north": "The Place of Torment",
         "item": "Book"
     },
 
     "The Place of Torment": {
-        "south": "House of Eccentrics",
+        "south": "The Archive of Unwritten Things",
         "east": "The Library of Forgotten Man",
         "item": "Newspaper"
     },
@@ -119,6 +119,7 @@ rooms = {
         "item": None
     }
 }
+
 items = ["Portal", "The Riddle", "Secret Box"]
 portal_items = []
 items_needed = ["Letter", "Photo", "Pen", "Book", "Newspaper"]
