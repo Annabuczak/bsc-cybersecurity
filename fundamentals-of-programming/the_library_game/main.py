@@ -20,6 +20,7 @@ from sanctuary_menu import sanctuary_menu
 from rooms import portal
 from intro_riddle import the_riddle
 from rooms import secret_box
+from NCP import ncp
 
 # MENU
 choice = welome_screen()
@@ -54,6 +55,47 @@ while True:
     print(f"\nYou are in {current_room}")
     print(rooms[current_room].get("description", ""))
 
+    command = input(">").lower().strip()
+
+    if command.startswith("talk"):
+        parts = command.split()
+
+        if len(parts) < 2:
+            print("Talk to whom?")
+        else:
+            name = parts[1]
+
+            room_ncp = ncp.get(current_room, {})
+
+            if name in room_ncp:
+                npc = room_ncp[name]
+
+                print(npc.get("dialogue", "They say nothing."))
+                print(npc.get("hint", ""))
+
+                if npc.get("gives"):
+                    print(f"You receive {npc['gives']}.")
+            else:
+                print("No one by that name is here.")
+
+        continue
+    if command.startswith("inspect"):
+        parts = command.split()
+
+        if len(parts) < 2:
+            print("Inspect what?")
+        else:
+            thing = parts[1]
+
+            if thing == "book" and current_room == "Safe Heaven":
+                print("The book marked JC feels out of place.")
+                print("Inside, you find a letter.")
+
+                inventory.add_item("Letter")
+            else:
+                print("You find nothing unusual.")
+
+        continue
     inventory.display()
 
     if current_room == "The Sanctuary":
@@ -103,5 +145,4 @@ while True:
             else:
                 print("There is nothing here.")
     else:
-        print("There is nothing else to find")
-        break
+        pass

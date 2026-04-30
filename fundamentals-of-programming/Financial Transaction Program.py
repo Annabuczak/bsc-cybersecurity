@@ -1,6 +1,8 @@
 import datetime  # this option keep track of the current date
 import json  # built-in library saves and loads data from a file
 
+total_words = 0
+
 today_date = datetime.date.today()
 print(today_date)
 

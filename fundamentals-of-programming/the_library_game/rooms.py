@@ -65,14 +65,16 @@ rooms = rooms = {
         "south": "The Sanctuary",
         "east": "The Cursed Estate",
         "item": "Letter",
-        "description": """You step into *Sempere & Sons*, a narrow antiquarian bookshop where dust drifts in the light.
+        "description": """You step into Sempere & Sons, a narrow antiquarian bookshop where dust drifts in the light.
 The air smells of leather and rain-soaked paper, shelves leaning as if listening.
 Mr Sempere watches from behind the counter, while Daniel rearranges books nearby.
 The bell above the door hangs still, yet the shop feels guarded,
 as if a secret is close to being uncovered.
 Mention Julian Carax and a hesitation flickers,
 a glance exchanged too quickly.
-Somewhere among the books, a clue waits in plain sight."""
+Somewhere among the books, a clue waits in plain sight.
+One volume sits slightly apart from the others, its spine marked only with the initials JC.
+It doesn’t seem to belong where it is."""
     },
 
     "The Cursed Estate": {
@@ -80,7 +82,6 @@ Somewhere among the books, a clue waits in plain sight."""
         "north": "House of Eccentrics",
         "item": "Photo",
         "description": """Avenida del Tibidabo 32, once a grand mansion, a shrine to wealth.
-Wrought-iron gates, a long drive, stone lions at the steps.
 Now it stands cracked and hollow, windows blind with grime and ivy.
 Inside, damp air smells of mould, sour perfume, and cold ash.
 Velvet curtains lie torn, chandeliers hang askew,
@@ -89,9 +90,10 @@ Portrait eyes follow you through silent corridors.
 Something still lingers, old secrets in the walls,
 a tragedy that never quite faded.
 Another fragment lies hidden here.
-Find it to unlock the box and move closer to the truth.
-Talk to Veronica, the old maid, ask her about Penelope,
-a forbidden love and a secret wedding that ended in tragedy."""
+Veronica, the old maid , she waits for her long lost little girl to come back home... Ask her about Penelope,
+a forbidden love and a secret wedding that ended in tragedy.
+As she speaks, her gaze drifts toward a cracked frame on the wall.
+The photograph inside is torn… but not completely."""
 
     },
 
@@ -100,15 +102,17 @@ a forbidden love and a secret wedding that ended in tragedy."""
         "north": "The Archive of Unwritten Things",
         "item": "Pen",
         "description": """You push through the café doors into a haze of smoke and murmured arguments.
-The House of Eccentrics hums with uneasy energy, aughter in the wrong places,
+The House of Eccentrics hums with uneasy energy, laughter in the wrong places,
 whispers that die as you pass. Writers, poets, and antiquarians crowd the tables,
 trading rumours like rare books.
 The air tastes of burnt coffee, cheap brandy, and rain-soaked coats.
 Walls are layered with manifestos and quotes pinned like evidence.
 Somewhere in the noise, a clue to Julian Carax’s past waits to be uncovered.
-Sebastian, go to Diego Barroso, the wealthy patron who knows everyone in Barcelona’s literary world.
-He holds a piece of the story. Speak to him carefully, earn his trust,
-and you may receive more than words… perhaps even the next item you seek."""
+Sebastian,go to Diego Barroso.
+He watches you already, a faint smile behind his glass.
+In his hand, he turns a pen slowly between his fingers,
+not absent-mindedly, but deliberately.
+As if waiting for you to ask."""
     },
 
     "The Archive of Unwritten Things": {
@@ -116,18 +120,17 @@ and you may receive more than words… perhaps even the next item you seek."""
         "north": "The Place of Torment",
         "item": "Book",
         "description": """A room without shelves, only their absence. The air is thick with untold endings,
-         and the walls shimmer like water. As you step forward, words bloom in the dark:
-         chapters never written, titles never published, names never allowed to exist.
-         In the shadows, a young girl flickers into view, pale and unsteady.
-         She says nothing, only watches, then slowly raises her hand and points.
-         Follow her.
-         A narrow lectern stands ahead. A single book lies open,
-         It's a sentence repeating, changing by a word each time you blink.
-         Sebastian, go to the lectern. Search it.
-         An old book waits, one that seems to recognise you.
-         Take it. This is the item you need.
-         As you lift it, the room falls silent.
-         When you look back, the girl is gone."""
+and the walls shimmer like water. As you step forward, words bloom in the dark:
+chapters never written, titles never published, names never allowed to exist.
+In the shadows, a young girl flickers into view, pale and unsteady.
+She says nothing, only watches, then slowly raises her hand and points.
+Follow her.
+A narrow lectern stands ahead. A single book lies open,
+It's a sentence repeating, changing by a word each time you blink.
+Sebastian, go to the lectern. Search it.
+An old book waits, one that seems to recognise you.
+As you lift it, the room falls silent.
+When you look back, the girl is gone."""
     },
 
     "The Place of Torment": {
@@ -137,15 +140,14 @@ and you may receive more than words… perhaps even the next item you seek."""
         "description": """You have come far, Sebastian.
 Montjuïc Castle rises at dusk, its stone walls swallowing the last light.
 The fortress looms over Barcelona, a warning from the war, its corridors thick with damp iron and old smoke.
-A man steps from the darkness—Inspector Manuel Varela, a ruin of power.
+A man steps from the darkness. Inspector Manuel Varela, a ruin of power.
 His hands tremble as he speaks of orders obeyed, doors broken, names erased.
 “I thought fear could keep a city quiet,” he whispers, “but it only taught it to mourn.”
 From his coat, he draws a scorched newspaper clipping.
 “Penelope. Fire. Suspicious.”
-He presses it into your palm.
-“Find Julian Carax’s truth,” he says, “and let the dead finally sleep.”
-This is your clue.
-Take the clipping. It is the item you need.
+The clipping trembles slightly in his hand.
+Even before he offers it, you know this is something you cannot leave behind
+“Find the truth” he says, and let the dead finally sleep.
 When you look back, he is gone.
 And the silence feels heavier than before."""
 
@@ -153,7 +155,41 @@ And the silence feels heavier than before."""
 
     "The Library of Forgotten Man": {
         "west": "The Place of Torment",
-        "item": None
+        "item": None,
+        "description": """ The Sanctuary waits.
+One by one, the fragments find their place in the stone:
+the letter marked JC, the torn photograph, the pen,
+the nameless book, the scorched clipping.
+Each settles with quiet certainty.
+
+At the base, a sealed box exhales dust and opens.
+Inside, the treasure you were looking for the Golden Key.
+The door yields slowly.
+Beyond it, the air carries ash, roses, and old paper.
+
+The Library of Forgotten Man stretches into fog.
+On a lectern lies the missing half of the photograph,
+Penelope’s face restored, Julian’s hand in hers.
+Not lost. Taken.
+
+Beside it, a worn leather book.
+His name inside. Hers beneath it.
+
+As the pages turn, the truth gathers:
+Julian Carax was erased.
+His words hunted.
+Penelope silenced.
+On the final page, the same seal appears—no longer broken, but whole.
+
+You understand now.
+This place was waiting.
+
+The story was never gone,only hidden.
+
+Behind you, the labyrinth loosens its hold.
+The door does not close.
+
+It simply lets you go."""
     }
 }
 
