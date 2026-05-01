@@ -22,6 +22,7 @@ from rooms import portal
 from intro_riddle import the_riddle
 from rooms import secret_box
 from NCP import ncp
+from inventory import take_item
 
 # MENU
 choice = welome_screen()
@@ -83,6 +84,7 @@ while True:
 
         elif action == "Enter the only open door":
             print("The door opens, and you step into the next chapter of your journey...")
+
             print("You are in Safe Heaven")
             current_room = "Safe Heaven"
         elif action == "Exit":
@@ -104,16 +106,41 @@ while True:
 
             if name in room_ncp:
                 npc = room_ncp[name]
-                print(npc.get("dialogue", "They say nothing."))
-                print(npc.get("hint", ""))
+                print(f"\nYou aproach{name.lower()}!")
 
-            else:
-                print("No one by that name is here.")
+            # NCP MINI LOOP
+            while True:
+                print(f"\nWhat would you like to do?")
+                print("1. Ask for a hint?")
+                print("2. Receive an item")
+                print("3. Walk away")
 
-        if choice == "2":
-            print("Look around discretely")
+                ncp_choice = input(">").lower()
 
-            room_data = rooms.get[current_room]
+                if ncp_choice == "1":
+                    print(f"\nYou aproach{name.lower()}!")
+                    print(f"\n{name.lower()}: \"{npc.get('hint', 'I have no advice for you.')}\"")
+
+                elif ncp_choice == "2":
+                    print(f"\nYou are being aproached by{name.lower()}!")
+
+                    take_item = input("Do you want to take this item?").lower()
+                    if take_item == "yes":
+                        inventory.add_item(npc.get("item"))
+                        print(f"\nYou received {npc.get('item')} from {name.lower()}!")
+                    else:
+                        print(f"\nYou declined the item from {name.lower()}.")
+
+                elif ncp_choice == "3":
+                    print(f"\nYou step away from {name.lower()}.")
+                    break
+
+                else:
+                    print("Invalid choice. Please try again.")
+        else:
+            print("No one by that name is here.")
+
+            room_data = rooms.get(current_room)
             item = room_data.get("item")
 
             if item:
