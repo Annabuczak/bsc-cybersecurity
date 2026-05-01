@@ -65,6 +65,8 @@ while True:
         else:
             name = parts[1]
 
+            from NCP import ncp
+
             room_ncp = ncp.get(current_room, {})
 
             if name in room_ncp:
