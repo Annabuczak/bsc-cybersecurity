@@ -51,11 +51,14 @@ elif choice == "exit":
     exit()
 
 # GAME LOOP
-# GAME LOOP
+
 while True:
-    first_time_in_room = True
-    if first_time_in_room:
-        first_time_in_room = False
+    print(f"\nYou are in the {current_room} room.")
+    print(rooms[current_room].get("description"))
+    # THE SANCTUARY LOGIC
+    inventory.display()
+
+    choice = welome_screen()
 
     if current_room == "The Sanctuary":
         action = sanctuary_menu()
@@ -82,58 +85,68 @@ while True:
             print("The door opens, and you step into the next chapter of your journey...")
             print("You are in Safe Heaven")
             current_room = "Safe Heaven"
-            print("\nWhat would you like to do?")
-            print("1. Talk")
-            print("2. Look around")
-            print("3. Move")
-            print("4. Inventory")
-
-            choice = input(">").strip()
-
-            if choice == "1":
-                name = input("Talk to whom? ").lower()
-
-                from NCP import ncp
-
-                room_ncp = ncp.get(current_room, {})
-
-                if name in room_ncp:
-                    npc = room_ncp[name]
-
-                    print(npc.get("dialogue", "They say nothing."))
-                    print(npc.get("hint", ""))
-                else:
-                    print("No one by that name is here.")
-
-                continue
-            if choice == "2":
-                print("Look around discretely")
-                continue
-
-            if choice == "3":
-                current_room = move_player(current_room, rooms, clockwise_order)
-
-                print(f"\nYou are in {current_room}")
-                print(rooms[current_room].get("description", ""))
-
-            if choice == "4":
-                inventory.display()
-                continue
-
         elif action == "Exit":
             print("Goodbye,Sebastian")
             exit()
-        else:
-            break
+    # NORMAL ROOM LOGIC
+    else:
+        print("\nWhat would you like to do?")
+        print("1. Talk")
+        print("2. Look around")
+        print("3. Move")
+        print("4. Inventory")
 
-            # ITEM DISCOVERY
+        choice = input(">").strip()
+
+        if choice == "1":
+            name = input("Talk to whom? ").lower()
+            room_ncp = ncp.get(current_room, {})
+
+            if name in room_ncp:
+                npc = room_ncp[name]
+                print(npc.get("dialogue", "They say nothing."))
+                print(npc.get("hint", ""))
+
+            else:
+                print("No one by that name is here.")
+
+        if choice == "2":
+            print("Look around discretely")
+
+            room_data = rooms.get[current_room]
+            item = room_data.get("item")
+
+            if item:
+                search_choice = input("Would you like to search the room? yes/no").lower()
+                if search_choice == "yes":
+                    print("Search the room...be careful...")
+                    print("You find something hidden...")
+                    inventory.add_item(item)
+                    room_data["item"] = None
+                else:
+                    print(" You leave the room emptyhanded")
+            else:
+                print(" You don't seem to find anything")
+
+        if choice == "3":
+            current_room = move_player(current_room, rooms, clockwise_order)
+
+            print(f"\nYou are in {current_room}")
+            print(rooms[current_room].get("description", ""))
+
+        if choice == "4":
+            inventory.display()
+
+        else:
+            print("Invalid choice. Choose again.")
+
+        # ITEM DISCOVERY
 room_data = rooms[current_room]
 item = room_data["item"]
 
 current_room = move_player(current_room, rooms, clockwise_order)
 room_data = rooms[current_room]
 item = room_data["item"]
-
 if item:
     choice = input("Search the roon? y/n? ").strip().lower()
 
