@@ -103,6 +103,7 @@ while True:
         if choice == "1":
             name = input("Talk to whom? ").lower()
             room_ncp = ncp.get(current_room, {})
+            print(room_ncp("dialogue"))
 
             if name in room_ncp:
                 npc = room_ncp[name]
@@ -137,8 +138,6 @@ while True:
 
                 else:
                     print("Invalid choice. Please try again.")
-        else:
-            print("No one by that name is here.")
 
             room_data = rooms.get(current_room)
             item = room_data.get("item")
@@ -166,24 +165,3 @@ while True:
 
         else:
             print("Invalid choice. Choose again.")
-
-        # ITEM DISCOVERY
-room_data = rooms[current_room]
-item = room_data["item"]
-
-current_room = move_player(current_room, rooms, clockwise_order)
-room_data = rooms[current_room]
-item = room_data["item"]
-if item:
-    choice = input("Search the roon? y/n? ").strip().lower()
-
-if choice == "y":
-
-    print("Search the room carefully...CHange this ANNa")
-    print("You find something hidden ...change this ANNA")
-
-    inventory.add.item(item)
-
-    room_data["item"] = None
-else:
-    print("you leave the room untouched ...")
