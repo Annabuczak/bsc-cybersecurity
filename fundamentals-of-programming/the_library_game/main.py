@@ -1,4 +1,5 @@
 import os
+from importlib.metadata import pass_none
 
 total_words = 0
 
@@ -52,59 +53,18 @@ elif choice == "exit":
 # GAME LOOP
 # GAME LOOP
 while True:
-    print(f"\nYou are in {current_room}")
-    print(rooms[current_room].get("description", ""))
-
-    command = input(">").lower().strip()
-
-    if command.startswith("talk"):
-        parts = command.split()
-
-        if len(parts) < 2:
-            print("Talk to whom?")
-        else:
-            name = parts[1]
-
-            from NCP import ncp
-
-            room_ncp = ncp.get(current_room, {})
-
-            if name in room_ncp:
-                npc = room_ncp[name]
-
-                print(npc.get("dialogue", "They say nothing."))
-                print(npc.get("hint", ""))
-
-                if npc.get("gives"):
-                    print(f"You receive {npc['gives']}.")
-            else:
-                print("No one by that name is here.")
-
-        continue
-    if command.startswith("inspect"):
-        parts = command.split()
-
-        if len(parts) < 2:
-            print("Inspect what?")
-        else:
-            thing = parts[1]
-
-            if thing == "book" and current_room == "Safe Heaven":
-                print("The book marked JC feels out of place.")
-                print("Inside, you find a letter.")
-
-                inventory.add_item("Letter")
-            else:
-                print("You find nothing unusual.")
-
-        continue
-    inventory.display()
+    first_time_in_room = True
+    if first_time_in_room:
+        first_time_in_room = False
 
     if current_room == "The Sanctuary":
         action = sanctuary_menu()
 
         if action == "next_room":
             current_room = "Safe Heaven"
+            print(f"\nYou are in {current_room}")
+            print(rooms[current_room].get("description", ""))
+            first_time_in_room = True
 
         elif action == "Portal":
             portal(inventory)
@@ -120,31 +80,70 @@ while True:
 
         elif action == "Enter the only open door":
             print("The door opens, and you step into the next chapter of your journey...")
+            print("You are in Safe Heaven")
             current_room = "Safe Heaven"
+            print("\nWhat would you like to do?")
+            print("1. Talk")
+            print("2. Look around")
+            print("3. Move")
+            print("4. Inventory")
+
+            choice = input(">").strip()
+
+            if choice == "1":
+                name = input("Talk to whom? ").lower()
+
+                from NCP import ncp
+
+                room_ncp = ncp.get(current_room, {})
+
+                if name in room_ncp:
+                    npc = room_ncp[name]
+
+                    print(npc.get("dialogue", "They say nothing."))
+                    print(npc.get("hint", ""))
+                else:
+                    print("No one by that name is here.")
+
+                continue
+            if choice == "2":
+                print("Look around discretely")
+                continue
+
+            if choice == "3":
+                current_room = move_player(current_room, rooms, clockwise_order)
+
+                print(f"\nYou are in {current_room}")
+                print(rooms[current_room].get("description", ""))
+
+            if choice == "4":
+                inventory.display()
+                continue
+
         elif action == "Exit":
             print("Goodbye,Sebastian")
             exit()
-        else:  # MOVMENT
-            current_room = move_player(current_room, rooms, clockwise_order)
+        else:
+            break
 
             # ITEM DISCOVERY
-            room_data = rooms[current_room]
-            item = room_data["item"]
+room_data = rooms[current_room]
+item = room_data["item"]
 
-            if item:
-                choice = input("Search the roon? yes/no? ").strip().lower()
+current_room = move_player(current_room, rooms, clockwise_order)
+room_data = rooms[current_room]
+item = room_data["item"]
 
-                if choice == "yes":
-                    print("Search the room carefully...CHange this ANNa")
-                    print("You find something hidden ...change this ANNA")
+if item:
+    choice = input("Search the roon? y/n? ").strip().lower()
 
-                    inventory.add.item(item)
-                    room_data["item"] = None
+if choice == "y":
 
+    print("Search the room carefully...CHange this ANNa")
+    print("You find something hidden ...change this ANNA")
 
-                else:
-                    print("you leave the room untouched ...")
-            else:
-                print("There is nothing here.")
-    else:
-        pass
+    inventory.add.item(item)
+
+    room_data["item"] = None
+else:
+    print("you leave the room untouched ...")
