@@ -22,6 +22,7 @@ from rooms import portal
 from intro_riddle import the_riddle
 from rooms import secret_box
 from NCP import ncp
+from deadlybookpuzzle import deadlybookpuzzle
 from inventory import take_item
 
 # MENU
@@ -82,10 +83,23 @@ while True:
         elif action == "Door with Thousand Locks":
             print("The door will not budge...")
 
-        elif action == "Enter the only open door":
-            print("The door opens, and you step into the next chapter of your journey...")
 
-            print("You are in Safe Heaven")
+        elif action == "Enter the only open door":
+
+            if rooms.get("Safe Heaven", {}).get("item") is None:
+                current_room = "The Cursed Estate"
+                print("\nThe door to Safe Heaven has sealed shut.")
+                print("A darker path opens before you...")
+                print(f"\nYou are in {current_room}")
+                print(rooms[current_room].get("description", ""))
+
+            else:
+                current_room = "Safe Heaven"
+                print("\nThe door opens, and you step into the antiquarian bookshop...")
+                print(f"\nYou are in {current_room}")
+                print(rooms[current_room].get("description", ""))
+                print("The door opens, and you step into the next chapter of your journey...")
+                print("You are in Safe Heaven")
             current_room = "Safe Heaven"
         elif action == "Exit":
             print("Goodbye,Sebastian")
@@ -124,12 +138,12 @@ while True:
                 if ncp_choice == "1":
                     print(f"\n{name.lower()}: \"{ncp.get('dialogue', '...')}\"")
 
-                if ncp_choice == "2":
-                    print(f"\nYou aproach{name.lower()}!")
+                elif ncp_choice == "2":
+                    print(f"\nYou approach{name.lower()}!")
                     print(f"\n{name.lower()}: \"{ncp.get('hint', 'I have no advice for you.')}\"")
 
                 elif ncp_choice == "3":
-                    print(f"\nYou are being aproached by{name.lower()}!")
+                    print(f"\nYou are being approached by{name.lower()}!")
 
                     take_item = input("Do you want to take this item?").lower()
                     if take_item == "yes":
@@ -148,16 +162,21 @@ while True:
                 else:
                     print("Invalid choice. Please try again.")
 
+        elif choice == "2":
+            print("\nYou look around discreetly...")
             room_data = rooms.get(current_room)
             item = room_data.get("item")
 
-            if item:
+            # THE DEADLY BOOK PUZZLE (SAFE HEAVEN ONLY)
+            if current_room == "Safe Heaven":
+                deadlybookpuzzle(inventory, current_room, rooms)
+            elif item:
                 search_choice = input("Would you like to search the room? yes/no").lower()
                 if search_choice == "yes":
                     print("Search the room...be careful...")
-                    print("You find something hidden...")
+                    print(f"You find something hidden...")
                     inventory.add_item(item)
-                    room_data["item"] = None
+                    rooms["item"] = None
                 else:
                     print(" You leave the room emptyhanded")
             else:

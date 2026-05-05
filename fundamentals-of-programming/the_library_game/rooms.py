@@ -75,7 +75,7 @@ as if a secret is close to being uncovered.
 Mention Julian Carax and a hesitation flickers,
 a glance exchanged too quickly.
 Somewhere among the books, a clue waits in plain sight.
-One volume sits slightly apart from the others, its spine marked only with the initials JC.
+One volume sits slightly apart from the others.
 It doesn’t seem to belong where it is."""
     },
 
