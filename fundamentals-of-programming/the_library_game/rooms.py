@@ -1,3 +1,8 @@
+items = ["Portal", "The Riddle", "Secret Box"]
+portal_items = []
+items_needed = ["Letter", "Photo", "Pen", "Book", "Newspaper"]
+
+
 def the_sanctuary(inventory):
     while True:
         print("\nSebastian, don't be afraid. The place you dreamed about is real...Welcome to The Sanctuary")
@@ -5,58 +10,76 @@ def the_sanctuary(inventory):
         print("Portal")
         print("The Riddle")
         print("Secret Box")
+        print("Open the door")
+        print("Stay in The Sanctuary")
+
         choice = input("> ").strip().lower()
         if choice == "Portal":
+            portal(inventory)
             print("Leave what you have found here")
         elif choice == "The Riddle":
             print("Solve the riddle to find the truth...")
             the_riddle()
         elif choice == "Secret Box":
             print("When the fragments are restored, the box that once held past, reveles the key to what awaits")
-        elif "box" in choice:
-            print("You open the box and find The Golden Key")
-        elif choice == "Open the door of your choice":
+
+        elif "door" in choice:
             print("The door opens, and you step into the next chapter of your journey...")
-        elif choice == "Stay in The Sanctuary":
-            print("Wake up, Sebastian")
             break
+
+        elif "stay" in choice == "Open the door of your choice":
+            print("The door opens, and you step into the next chapter of your journey...")
+            break
+
+        elif "stay" in choice == "Stay in The Sanctuary":
+            print("Wake up, Sebastian")
+            exit()
         else:
             print("See you in your next dream Sebastian...")
 
 
 def portal(inventory):
-    required_items = ["Letter", "Photo", "Pen", "Book", "Newspaper"]
-    if all(item in inventory.inventory for item in required_items):
-        print("\nPortal hums with strange energy...")
-        print("It feel as if you are being pulled to throw certain items into it...")
-        if not inventory.items and not inventory.inventory:
-            print("Your pockets are empty. You must leave The Portal.")
-            return
+    print("\nThe Portal hums with a strange energy...")
+    print("It feels as if you are being pulled to throw certain items into it...")
 
-        print("Your current items:")
-        inventory.print_inventory()
+    if not inventory.inventory:
+        print("Your pockets are empty. You must leave The Portal.")
+        return
 
-        choice = input(
-            "\nHave you found something interesting on your wanders through the rooms? Do you want to throw it into the portal? (yes/no) ").strip().lower()
-        if choice == "no":
-            print("\nCome back when you are ready to put items inside The Portal.")
-        elif choice == "yes":
-            print(f"f\nPut the {choice} into the portal...")
-            inventory.print_inventory()
-            if choice == "final item":
-                print("The portal awakens...The Secret Box is ready to be opened")
+    print("Your current items:")
+    inventory.display()
+
+    choice = input("\nDo you want to throw an item into the portal? (yes/no): ").strip().lower()
+
+    if choice == "no":
+        print("\nCome back when you are ready to put items inside The Portal.")
+
+    elif choice == "yes":
+        item_choice = input("Which item do you want to throw in? ").strip().title()
+
+        if item_choice in inventory.inventory:
+            print(f"\nYou toss the {item_choice} into the portal...")
+            inventory.remove_item(item_choice)
+            portal_items.append(item_choice)
+
+            if all(item in portal_items for item in items_needed):
+                print("\n*** The portal awakens... The Secret Box is ready to be opened. ***")
+        else:
+            print(f"\nYou don't have a {item_choice} to throw.")
 
 
 def secret_box(inventory):
     required_items = ["Letter", "Photo", "Pen", "Book", "Newspaper"]
-    if all(item in inventory.inventory for item in required_items):
-        print("When the fragments are restored...")
-        print("Open the box and find The Golden Key")
+
+    if all(item in portal_items for item in required_items):
+        print("\nWhen the fragments are restored...")
+        print("You open the box and find The Golden Key!")
+        inventory.add_item("Golden Key")
     else:
-        print("You are not ready to face the truth, Sebastian.")
+        print("\nYou are not ready to face the truth, Sebastian.")
 
 
-rooms = rooms = {
+rooms = {
     "The Sanctuary": {
         "north": "Safe Heaven",
         "item": None,
@@ -194,7 +217,3 @@ The door does not close.
 It simply lets you go."""
     }
 }
-
-items = ["Portal", "The Riddle", "Secret Box"]
-portal_items = []
-items_needed = ["Letter", "Photo", "Pen", "Book", "Newspaper"]

@@ -20,26 +20,43 @@ ncp = {
 
             "gives": None
         },
+    },
+    "The Cursed Estate": {
+        "veronica": {
+            "dialogue": """Veronica looks at you with tired eyes, her voice barely above a whisper.
 
-        "The Cursed Estate": {
-            "veronica": {
-                "hint": "She gestures weakly toward a torn photograph on the wall.",
-                "gives": "Photo"
-            }
-        },
+"I was an old maid to my beautiful Penelope.
+I loved her like a daughter, but she was never mine to keep.
 
-        "House of Eccentrics": {
-            "barroso": {
-                "hint": "He spins a pen between his fingers, watching you closely.",
-                "gives": "Pen"
-            }
-        },
+Penelope was a wild spirit, always chasing dreams too big for her.
+Julian Carax was her true love, but their love had to be hidden.
 
-        "The Place of Torment": {
-            "varea": {
-                "hint": "He clutches a scorched newspaper clipping.",
-                "gives": "Newspaper"
-            }
+They married in secret… but it was a tragedy waiting to happen.
+
+I still remember the day they left. It felt like a storm had torn through the house.
+She was happy… but I knew it would end badly.
+
+And it did.
+
+They disappeared without a trace.
+And I never saw her again.""",
+            "hint": "The house remebers...and it is hungry. Find her face in the cracked glass before the shadow takes you",
+            "gives": None
+
+        }
+    },
+
+    "House of Eccentrics": {
+        "barroso": {
+            "hint": "He spins a pen between his fingers, watching you closely.",
+            "gives": "Pen"
+        }
+    },
+
+    "The Place of Torment": {
+        "varea": {
+            "hint": "He clutches a scorched newspaper clipping.",
+            "gives": "Newspaper"
         }
     },
 }
