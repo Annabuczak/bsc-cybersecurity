@@ -93,49 +93,58 @@ while True:
     # NORMAL ROOM LOGIC
     else:
         print("\nWhat would you like to do?")
+        print("People here:", ", ".join(ncp.get(current_room, {}).keys()) or "No one.")
         print("1. Talk")
         print("2. Look around")
         print("3. Move")
         print("4. Inventory")
+        print("5. Go back to The Sanctuary")
 
         choice = input(">").strip()
 
         if choice == "1":
-            name = input("Talk to whom? ").lower()
+            name = input("Aproach to whom? ").lower()
             room_ncp = ncp.get(current_room, {})
-            print(room_ncp("dialogue"))
 
             if name in room_ncp:
-                npc = room_ncp[name]
+                ncp = room_ncp[name]
                 print(f"\nYou aproach{name.lower()}!")
 
             # NCP MINI LOOP
             while True:
-                print(f"\nWhat would you like to do?")
-                print("1. Ask for a hint?")
-                print("2. Receive an item")
-                print("3. Walk away")
+                print(f"\nWhat would you like to do with {name.lower()}?")
+                print("1. Talk")
+                print("2. Ask for a hint?")
+                print("3. Receive an item")
+                print("4. Walk away")
+                print("5. Return to The Sanctuary")
 
                 ncp_choice = input(">").lower()
 
                 if ncp_choice == "1":
-                    print(f"\nYou aproach{name.lower()}!")
-                    print(f"\n{name.lower()}: \"{npc.get('hint', 'I have no advice for you.')}\"")
+                    print(f"\n{name.lower()}: \"{ncp.get('dialogue', '...')}\"")
 
-                elif ncp_choice == "2":
+                if ncp_choice == "2":
+                    print(f"\nYou aproach{name.lower()}!")
+                    print(f"\n{name.lower()}: \"{ncp.get('hint', 'I have no advice for you.')}\"")
+
+                elif ncp_choice == "3":
                     print(f"\nYou are being aproached by{name.lower()}!")
 
                     take_item = input("Do you want to take this item?").lower()
                     if take_item == "yes":
-                        inventory.add_item(npc.get("item"))
-                        print(f"\nYou received {npc.get('item')} from {name.lower()}!")
+                        inventory.add_item(ncp.get("item"))
+                        print(f"\nYou received {ncp.get('item')} from {name.lower()}!")
                     else:
                         print(f"\nYou declined the item from {name.lower()}.")
 
-                elif ncp_choice == "3":
+                elif ncp_choice == "4":
                     print(f"\nYou step away from {name.lower()}.")
-                    break
 
+                elif ncp_choice == "5":
+                    print(f"\nReturn to The Sanctuary.")
+                    current_room = "The Sanctuary"
+                    break
                 else:
                     print("Invalid choice. Please try again.")
 
@@ -163,5 +172,8 @@ while True:
         if choice == "4":
             inventory.display()
 
+        if choice == "5":
+            print("f\nReturn to The Sanctuary.")
+            current_room = "The Sanctuary"
         else:
             print("Invalid choice. Choose again.")
