@@ -16,7 +16,7 @@ def iron_door_puzzle(inventory):
     while attempts > 0:
         guess = input("\nEnter the 4-digit code: ")
 
-        if guess == "1919"
+        if guess == "1919":
             print("***CRACK**")
             print("""\nThe heavy iron mechanism grind together, and the door slowly open.
             The ash clears from the air. A cold draft washes over you.

@@ -50,17 +50,26 @@ And I never saw her again.""",
             "gives": "Pen"
         }
     },
-
+    "The Archive of Unwritten Things": {
+        "girl": {
+            "dialogue": """The girl does not speak. 
+Her eyes are dark, reflecting a sadness that words could never capture.
+She slowly raises a pale, trembling finger and points toward the narrow lectern in the center of the room.
+She is waiting for you to read.""",
+            "hint": "You hear a faint whisper in your mind, like the rustling of dry leaves: 'The pages will lie to you at first. Wait for the final truth... and remember it exactly as it is written.'",
+            "gives": None
+        }
+    },
     "The Place of Torment": {
         "varela": {
             "dialouge": """Inspector Varela leans against the damp stone wall,
             his eyes hollow and empty.
             "You made it this far, Sebastian. But the truth is locked away behind that heavy iron door."
             He hold out a scorched piece of paper, his hand trembling.
-            "This is all that survived Aldaya fire. The abswer you need is in the ashes. 
+            "This is all that survived Aldaya fire. The answer you need is in the ashes. 
             Read it carefully." """,
             "hint": "The combination lock to the cell door require four digits..."
-                    "...the year the aldaya estate burned to the ground",
+                    "...the year the Aldaya estate burned to the ground",
             "gives": "Newspaper"
         }
     },
