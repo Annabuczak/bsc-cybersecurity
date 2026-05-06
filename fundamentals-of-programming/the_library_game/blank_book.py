@@ -37,4 +37,5 @@ def blank_book_puzzle(inventory, current_room, rooms):
         print("\nThe Ghost Girl's eyes go black. The shadows surge forward with a deafening shriek!")
         print("You are violently thrown backwards, forced away from the lectern.")
         print("That was the wrong truth. You will have to try again.")
+        handle_mistake()
         return False

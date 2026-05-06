@@ -31,6 +31,7 @@ from inventory import examine_items
 from Blood_contract import blood_contract_puzzle
 from blank_book import blank_book_puzzle
 from Iron_door import iron_door_puzzle
+from game_state import handle_mistake
 
 # MENU
 choice = menu()
@@ -71,18 +72,21 @@ while True:
             print(f"\nYou are in {current_room}")
             print(rooms[current_room].get("description", ""))
             first_time_in_room = True
+            handle_mistake()
 
         elif action == "Portal":
             portal(inventory)
+            handle_mistake()
 
         elif action == "The Riddle":
             the_riddle()
 
         elif action == "Secret Box":
             secret_box(inventory)
-
+            handle_mistake()
         elif action == "Door with Thousand Locks":
             print("The door will not budge...")
+            handle_mistake()
 
         elif action == "Enter the only open door":
             if rooms.get("Safe Heaven", {}).get("item") is None:
@@ -91,6 +95,7 @@ while True:
                 print("A darker path opens before you...")
                 print(f"\nYou are in {current_room}")
                 print(rooms[current_room].get("description", ""))
+
             else:
                 current_room = "Safe Heaven"
                 print("\nThe door opens, and you step into the antiquarian bookshop...")

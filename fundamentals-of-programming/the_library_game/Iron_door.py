@@ -1,20 +1,22 @@
-def iron_door_puzzle(inventory):
+def iron_door_puzzle(inventory, game_flags=None):
     print("""f\n As you step away from the shadows and approach the heavy, rusty iron door
     A thick layer of old, cold ahs covers mechanical combination lock.
     All you need to crack it is a 4-digit code.""")
 
     if "Newspaper" not in inventory.inventory:
-        print("""\n You wipe away the ash, but the numbers mean nothing to you.
-        Perhaps there is a clue you are missing...
-        ....someone here might know about the fire""")
+        print("\nYou wipe away the ash, but the numbers mean nothing to you right now.")
+        return False
+
+    if game_flags["read_newspaper"] == False:
+        print("\nYou have the scorched newspaper, but you haven't read it yet.")
+        print("You should examine it before trying to guess the combination.")
         return False
 
     print("""\nYou pull out the scorched newspaper clipping Inspector Varela gave you.
     The tragic Aldaya fire....The lock seems to require the year it happened.""")
 
-    attempts = 3
-    while attempts > 0:
-        guess = input("\nEnter the 4-digit code: ")
+    while True:
+        guess = input("\nEnter the 4-digit code: ").strip()
 
         if guess == "1919":
             print("***CRACK**")
@@ -23,16 +25,14 @@ def iron_door_puzzle(inventory):
             You have uncovered the final truth.
             Its time to return to The Sanctuary and open The Portal""")
             return True
-        else:
-            attempts -= 1
-            if attempts > 0:
-                print("\nThe lock doesnt budge. A cold wind howls through the cell.")
-                print("You have {attempts} attempt(s) left to solve it.".format(attempts=attempts))
 
-            else:
-                print("""\n***CRUNCH***
+
+
+
+        else:
+            print("""\n***CRUNCH***
                 The lock jams permanently. The iron door is sealed forever.
                 The shadow of Montjuc Castle close in.
                 All that is left is The Shadow of The Wind.""")
-                print("\nGAME OVER")
-                exit()
+            print("\nGAME OVER")
+            handle_mistake()
