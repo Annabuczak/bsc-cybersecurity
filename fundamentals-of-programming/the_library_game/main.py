@@ -17,7 +17,6 @@ from inventory import Inventory
 from movement import move_player
 from rooms import rooms
 from intro_riddle import print_intro
-from main_menu import welome_screen
 from main_menu import menu
 from sanctuary_menu import sanctuary_menu
 from rooms import portal
@@ -27,6 +26,7 @@ from NCP import ncp
 from deadlybookpuzzle import deadlybookpuzzle
 from cursed_estate import explore_estate
 from inventory import take_item
+from inventory import examine_items
 
 # MENU
 choice = menu()
@@ -59,7 +59,7 @@ while True:
     # THE SANCTUARY LOGIC
     if current_room == "The Sanctuary":
         inventory.display()
-       
+
         action = sanctuary_menu()
 
         if action == "next_room":
@@ -106,6 +106,7 @@ while True:
         print("3. Move")
         print("4. Inventory")
         print("5. Go back to The Sanctuary")
+        print("6. Examin an item")
 
         choice = input(">").strip()
 
@@ -195,6 +196,8 @@ while True:
         elif choice == "5":
             print("\nReturning to The Sanctuary.")
             current_room = "The Sanctuary"
+        elif choice == "6":
+            examine_items(inventory)
 
         else:
             print("Invalid choice. Choose again.")

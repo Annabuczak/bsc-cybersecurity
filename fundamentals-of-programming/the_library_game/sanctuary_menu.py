@@ -6,7 +6,8 @@ def sanctuary_menu():
         print("3. Secret Box ")
         print("4. Door with Thousand Locks")
         print("5. Go to next door")
-        print("6. Exit")
+        print("6. Examine items")
+        print("7. Exit")
         choice = input("> ").strip()
         if choice == "1":
             return "Portal"
@@ -19,6 +20,8 @@ def sanctuary_menu():
         elif choice == "5":
             return "Enter the only open door"
         elif choice == "6":
+            return "Examine Items"
+        elif choice == "7":
             return "Exit"
         else:
             print("Please enter a valid choice.")
