@@ -114,7 +114,7 @@ def examine_items(inventory):
         """)
 
     elif choice == "Newspaper":
-        print("""\nA scorched clipping from 'El Pais', dated years ago.
+        print("""\nA scorched clipping from 'El Pais', dated November 1919.
         The headlines reads: 'A TRAGIC BLAZE AT AVENIDA DEL TIBIDABO'.
         Most of the article is burnt away, but you can make out a few words: 
         "...suspicious circumstances....no remains of the daughter found...

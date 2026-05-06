@@ -29,6 +29,7 @@ from cursed_estate import explore_estate
 from inventory import take_item
 from inventory import examine_items
 from Blood_contract import blood_contract_puzzle
+from Iron_door import iron_door_puzzle
 
 # MENU
 choice = menu()
@@ -178,7 +179,13 @@ while True:
                 explore_estate(inventory, rooms[current_room])
             # THE BLOOD COTRACT PUZZLE
             elif current_room == "House of Eccentrics" and item:
-                blood_contract_puzzle(inventory, current_rooms, rooms)
+                blood_contract_puzzle(inventory, current_room, rooms)
+
+            # IRON DOOR PUZZLE
+            elif current_room == "The Place of Torment":
+                success = iron_door_puzzle(inventory)
+                if success:
+                    rooms[current_room]["item"] = None
 
             elif item:
                 search_choice = input("Would you like to search the room? (yes/no): ").strip().lower()

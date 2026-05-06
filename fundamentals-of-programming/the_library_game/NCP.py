@@ -52,8 +52,15 @@ And I never saw her again.""",
     },
 
     "The Place of Torment": {
-        "varea": {
-            "hint": "He clutches a scorched newspaper clipping.",
+        "varela": {
+            "dialouge": """Inspector Varela leans against the damp stone wall,
+            his eyes hollow and empty.
+            "You made it this far, Sebastian. But the truth is locked away behind that heavy iron door."
+            He hold out a scorched piece of paper, his hand trembling.
+            "This is all that survived Aldaya fire. The abswer you need is in the ashes. 
+            Read it carefully." """,
+            "hint": "The combination lock to the cell door require four digits..."
+                    "...the year the aldaya estate burned to the ground",
             "gives": "Newspaper"
         }
     },
