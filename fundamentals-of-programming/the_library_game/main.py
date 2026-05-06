@@ -1,4 +1,5 @@
 import os
+import time
 from importlib.metadata import pass_none
 
 # Word counter
