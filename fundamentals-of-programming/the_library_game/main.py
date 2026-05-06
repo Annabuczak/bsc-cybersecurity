@@ -1,5 +1,9 @@
 import os
 import time
+import sys
+
+import textwrap
+
 from importlib.metadata import pass_none
 
 # Word counter
@@ -31,58 +35,78 @@ from inventory import examine_items
 from Blood_contract import blood_contract_puzzle
 from blank_book import blank_book_puzzle
 from Iron_door import iron_door_puzzle
-from game_state import handle_mistake
+from game_state import handle_mistake, game_flags
+from game_formatting import divider, slow_print, print_description
+from player import Player
 
 # MENU
 choice = menu()
 if choice == "new_game":
     print_intro()
+    print("\nBefore we begin...")
+    print("1. Enter your name")
+    print("2. Continue as Sebastian")
+
+    name_choice = input("> ").strip()
+    if name_choice == "1":
+        player_name = input("\nWhat is your name? ").strip()
+        if not player_name:
+            player_name = "Sebastian"
+
+    else:
+        player_name = "Sebastian"
+    print(f"\nWelcome, {player_name}!")
+
+    player = Player(name=player_name)
+
     current_room = "The Sanctuary"
-    inventory = Inventory()
+    player = Player()
 
 elif choice == "load_game":
     data = load_game()
     if data:
-        current_room = data["current_room"]
-        inventory = Inventory()
+        player = Player()
+        player.current_room = data["current_room"]
+        player.inventory = Inventory()
         for item, quantity in data["inventory"].items():
             for _ in range(quantity):
-                inventory.add_item(item)
+                player.inventory.add_item(item)
     else:
         print("No saved game found. Starting a new game.")
+        player = Player()
         current_room = "The Sanctuary"
-        inventory = Inventory()
+        player.inventory = Inventory()
         rooms = rooms()
 elif choice == "exit":
     exit()
 
 # GAME LOOP
 while True:
-    print(f"\nYou are in the {current_room} room.")
-    print(rooms[current_room].get("description", ""))
+    print(f"\nYou are in the {player.current_room} room.")
+    print(rooms[player.current_room].get("description", ""))
 
     # THE SANCTUARY LOGIC
-    if current_room == "The Sanctuary":
-        inventory.display()
+    if player.current_room == "The Sanctuary":
+        player.inventory.display()
 
         action = sanctuary_menu()
 
         if action == "next_room":
-            current_room = "Safe Heaven"
-            print(f"\nYou are in {current_room}")
-            print(rooms[current_room].get("description", ""))
+            player.current_room = "Safe Heaven"
+            print(f"\nYou are in {player.current_room}")
+            print(rooms[player.current_room].get("description", ""))
             first_time_in_room = True
             handle_mistake()
 
         elif action == "Portal":
-            portal(inventory)
+            portal(player.inventory)
             handle_mistake()
 
         elif action == "The Riddle":
             the_riddle()
 
         elif action == "Secret Box":
-            secret_box(inventory)
+            secret_box(player.inventory)
             handle_mistake()
         elif action == "Door with Thousand Locks":
             print("The door will not budge...")
@@ -90,17 +114,17 @@ while True:
 
         elif action == "Enter the only open door":
             if rooms.get("Safe Heaven", {}).get("item") is None:
-                current_room = "The Cursed Estate"
+                player.current_room = "The Cursed Estate"
                 print("\nThe door to Safe Heaven has sealed shut.")
                 print("A darker path opens before you...")
-                print(f"\nYou are in {current_room}")
-                print(rooms[current_room].get("description", ""))
+                print(f"\nYou are in {player.current_room}")
+                print(rooms[player.current_room].get("description", ""))
 
             else:
                 current_room = "Safe Heaven"
                 print("\nThe door opens, and you step into the antiquarian bookshop...")
-                print(f"\nYou are in {current_room}")
-                print(rooms[current_room].get("description", ""))
+                print(f"\nYou are in {player.current_room}")
+                print(rooms[player.current_room].get("description", ""))
 
         elif action == "Exit":
             print("Goodbye, Sebastian")
@@ -109,7 +133,7 @@ while True:
     # NORMAL ROOM LOGIC
     else:
         print("\nWhat would you like to do?")
-        print("People here:", ", ".join(ncp.get(current_room, {}).keys()) or "No one.")
+        print("People here:", ", ".join(ncp.get(player.current_room, {}).keys()) or "No one.")
         print("1. Talk")
         print("2. Look around")
         print("3. Move")
@@ -121,11 +145,11 @@ while True:
 
         if choice == "1":
             name = input("Approach whom? ").lower().strip()
-            room_ncp = ncp.get(current_room, {})
+            room_ncp = ncp.get(player.current_room, {})
 
             if name in room_ncp:
                 chosen_ncp = room_ncp[name]
-                print(f"\nYou approach {name.capitalize()}!")
+                print(f"\nYou approach {name.lower()}!")
 
                 # NCP MINI LOOP
                 while True:
@@ -139,31 +163,31 @@ while True:
                     ncp_choice = input(">").strip()
 
                     if ncp_choice == "1":
-                        print(f"\n{name.capitalize()}: \"{chosen_ncp.get('dialogue', '...')}\"")
+                        print(f"\n{name.lower()}: \"{chosen_ncp.get('dialogue', '...')}\"")
 
                     elif ncp_choice == "2":
-                        print(f"\n{name.capitalize()}: \"{chosen_ncp.get('hint', 'I have no advice for you.')}\"")
+                        print(f"\n{name.lower()}: \"{chosen_ncp.get('hint', 'I have no advice for you.')}\"")
 
                     elif ncp_choice == "3":
                         item_to_give = chosen_ncp.get("gives")
                         if item_to_give and item_to_give != "None":
                             take_item = input(f"Do you want to take the {item_to_give}? (yes/no): ").strip().lower()
                             if take_item == "yes":
-                                inventory.add_item(item_to_give)
-                                print(f"\nYou received {item_to_give} from {name.capitalize()}!")
+                                player.inventory.add_item(item_to_give)
+                                print(f"\nYou received {item_to_give} from {name.lower()}!")
                                 chosen_ncp["gives"] = None  # Removes the item so they can't give it twice!
                             else:
                                 print(f"\nYou declined the item from {name.capitalize()}.")
                         else:
-                            print(f"\n{name.capitalize()} has nothing to give you right now.")
+                            print(f"\n{name.lower()} has nothing to give you right now.")
 
                     elif ncp_choice == "4":
-                        print(f"\nYou step away from {name.capitalize()}.")
+                        print(f"\nYou step away from {name.lower()}.")
                         break
 
                     elif ncp_choice == "5":
                         print(f"\nReturning to The Sanctuary.")
-                        current_room = "The Sanctuary"
+                        player.current_room = "The Sanctuary"
                         break
 
                     else:
@@ -173,56 +197,59 @@ while True:
 
         elif choice == "2":
             print("\nYou look around discreetly...")
-            room_data = rooms.get(current_room, {})
+            room_data = rooms.get(player.current_room, {})
             item = room_data.get("item")
 
             # THE DEADLY BOOK PUZZLE (SAFE HEAVEN ONLY)
-            if current_room == "Safe Heaven" and item:
-                deadlybookpuzzle(inventory, current_room, rooms)
+            if player.current_room == "Safe Heaven" and item:
+                deadlybookpuzzle(player.inventory, player.current_room, rooms)
 
             # THE CURSED ESTATE PUZZLE
-            elif current_room == "The Cursed Estate" and item:
-                explore_estate(inventory, rooms[current_room])
+            elif player.current_room == "The Cursed Estate" and item:
+                explore_estate(player.inventory, rooms[player.current_room])
 
             # THE BLOOD COTRACT PUZZLE
-            elif current_room == "House of Eccentrics" and item:
-                blood_contract_puzzle(inventory, current_room, rooms)
+            elif player.current_room == "House of Eccentrics" and item:
+                success = blood_contract_puzzle(player.inventory)
+                if success:
+                    rooms[player.current_room]["item"] = None
+
 
             # THE BLANK BOOK PUZZLE
-            elif current_room == "The Archive of Unwritten Things" and item:
-                success = blank_book_puzzle(inventory)
+            elif player.current_room == "The Archive of Unwritten Things" and item:
+                success = blank_book_puzzle(player.inventory)
                 if success:
-                    rooms[current_room]["item"] = None
+                    rooms[player.current_room]["item"] = None
 
             # IRON DOOR PUZZLE
-            elif current_room == "The Place of Torment":
-                success = iron_door_puzzle(inventory)
+            elif player.current_room == "The Place of Torment":
+                success = iron_door_puzzle(player.inventory)
                 if success:
-                    rooms[current_room]["item"] = None
+                    rooms[player.current_room]["item"] = None
 
             elif item:
                 search_choice = input("Would you like to search the room? (yes/no): ").strip().lower()
                 if search_choice == "yes":
                     print("Searching the room... be careful...")
                     print(f"You find something hidden: {item}")
-                    inventory.add_item(item)
-                    rooms[current_room]["item"] = None
+                    player.inventory.add_item(item)
+                    rooms[player.current_room]["item"] = None
                 else:
                     print("You leave the room empty-handed.")
             else:
                 print("You don't seem to find anything.")
 
         elif choice == "3":
-            current_room = move_player(current_room, rooms)
+            player.current_room = move_player(player.current_room, rooms)
 
         elif choice == "4":
-            inventory.display()
+            player.inventory.display()
 
         elif choice == "5":
             print("\nReturning to The Sanctuary.")
-            current_room = "The Sanctuary"
+            player.current_room = "The Sanctuary"
         elif choice == "6":
-            examine_items(inventory)
+            examine_items(player.inventory)
 
         else:
             print("Invalid choice. Choose again.")
