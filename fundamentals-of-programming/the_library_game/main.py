@@ -27,6 +27,7 @@ from deadlybookpuzzle import deadlybookpuzzle
 from cursed_estate import explore_estate
 from inventory import take_item
 from inventory import examine_items
+from Blood_contract import blood_contract_puzzle
 
 # MENU
 choice = menu()
@@ -174,6 +175,9 @@ while True:
             # THE CURSED ESTATE PUZZLE
             elif current_room == "The Cursed Estate" and item:
                 explore_estate(inventory, rooms[current_room])
+            # THE BLOOD COTRACT PUZZLE
+            elif current_room == "House of Eccentrics" and item:
+                blood_contract_puzzle(inventory, current_rooms, rooms)
 
             elif item:
                 search_choice = input("Would you like to search the room? (yes/no): ").strip().lower()

@@ -24,20 +24,14 @@ ncp = {
     "The Cursed Estate": {
         "veronica": {
             "dialogue": """Veronica looks at you with tired eyes, her voice barely above a whisper.
-
 "I was an old maid to my beautiful Penelope.
 I loved her like a daughter, but she was never mine to keep.
-
 Penelope was a wild spirit, always chasing dreams too big for her.
 Julian Carax was her true love, but their love had to be hidden.
-
 They married in secret… but it was a tragedy waiting to happen.
-
 I still remember the day they left. It felt like a storm had torn through the house.
 She was happy… but I knew it would end badly.
-
 And it did.
-
 They disappeared without a trace.
 And I never saw her again.""",
             "hint": "The house remebers...and it is hungry. Find her face in the cracked glass before the shadow takes you",
@@ -48,7 +42,11 @@ And I never saw her again.""",
 
     "House of Eccentrics": {
         "barroso": {
-            "hint": "He spins a pen between his fingers, watching you closely.",
+            "dialogue": """Diego Barroso smiles, his teeth stained with finest rioja money can buy.
+            "Julian? He signed his life away for a ghost, he had a real talent, what a shame he thew it all away"
+            He gives you a pen. " You see this pen boy? Great Victor Hugo used it to write Les Miserables with it"
+            "Take it. Perhaps you can finish the story...But ink wont work. """,
+            "hint": "He spins a pen between his fingers, watching you closely.The contract must be fulfilled",
             "gives": "Pen"
         }
     },
