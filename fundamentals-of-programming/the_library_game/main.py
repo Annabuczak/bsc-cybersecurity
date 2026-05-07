@@ -39,6 +39,8 @@ from Iron_door import iron_door_puzzle
 from game_state import handle_mistake, game_flags
 from game_formatting import divider, slow_print, print_description
 from player import Player
+from movement import show_map
+from game_state import game_flags
 
 # MENU
 choice = menu()
@@ -140,7 +142,9 @@ while True:
         print("3. Move")
         print("4. Inventory")
         print("5. Go back to The Sanctuary")
-        print("6. Examin an item")
+        print("6. Examine an item")
+        print("7. Show map")
+        print("8. Exit")
 
         choice = input(">").strip()
 
@@ -154,7 +158,7 @@ while True:
 
                 # NCP MINI LOOP
                 while True:
-                    print(f"\nWhat would you like to do with {name.capitalize()}?")
+                    print(f"\nWhat would you like to do with {name.lower()}?")
                     print("1. Talk")
                     print("2. Ask for a hint")
                     print("3. Find an item")
@@ -251,6 +255,13 @@ while True:
             player.current_room = "The Sanctuary"
         elif choice == "6":
             examine_items(player.inventory)
+        elif choice == "7":
+            print("\nYou are here")
+            show_map(current_room=player.current_room, game_flags=game_flags)
+        elif choice == "8":
+            exit()
+
+
 
         else:
             print("Invalid choice. Choose again.")
