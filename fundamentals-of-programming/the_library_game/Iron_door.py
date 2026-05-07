@@ -26,9 +26,6 @@ def iron_door_puzzle(inventory, game_flags=None):
             Its time to return to The Sanctuary and open The Portal""")
             return True
 
-
-
-
         else:
             print("""\n***CRUNCH***
                 The lock jams permanently. The iron door is sealed forever.

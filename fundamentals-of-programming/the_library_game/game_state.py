@@ -22,5 +22,6 @@ def handle_mistake():
     elif mistakes >= 2:
         print("\nThe shadows close in.")
         print("There is no escape.")
+        divider()
         print("\n*** GAME OVER ***")
         exit()

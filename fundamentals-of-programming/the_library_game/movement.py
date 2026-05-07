@@ -46,7 +46,10 @@ def show_map(current_room, game_flags):
     for room, done in rooms_progress:
         status = "✔" if done else "🔒"
 
-        print(f"{status} {room}")
+        if room == current_room:
+            print(f"➡ {room}")
+        else:
+            print(f"{status} {room}")
 
 
 def print_map():

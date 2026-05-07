@@ -2,7 +2,7 @@ import os
 import time
 import sys
 import json
-
+import random
 import textwrap
 
 from importlib.metadata import pass_none
@@ -37,10 +37,11 @@ from Blood_contract import blood_contract_puzzle
 from blank_book import blank_book_puzzle
 from Iron_door import iron_door_puzzle
 from game_state import handle_mistake, game_flags
-from game_formatting import divider, slow_print, print_description
+from game_formatting import divider
 from player import Player
 from movement import show_map
 from game_state import game_flags
+from game_formatting import slow_print
 
 # MENU
 choice = menu()
@@ -177,9 +178,7 @@ while True:
 
         elif choice == "2":
             print("\nYou step back.")
-
             print("\nNot everything is meant to be taken.")
-
             print("\nThe chamber feels… approving.")
 
         elif choice == "3":

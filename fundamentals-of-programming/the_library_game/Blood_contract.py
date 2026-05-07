@@ -1,6 +1,7 @@
 def blood_contract_puzzle(inventory):
     print("\nYou approach a glowing parchment pinned to the center of the wall.")
     print("It is a contract binding the soul of Julian Carax.")
+    divider()
     print("The final sentence reads: 'I bind my soul to the shadows, never to rest,")
     print("until the ________ consumes my final word.'")
 

@@ -1,13 +1,20 @@
+import sys
+import time
+
+
 def divider():
-    print("\n" + "-" * 30 + "\n")
+    print("\n" + "" * 30 + "\n")
 
 
 def slow_print(text, speed=0.03):
-    for character in text:
-        sys.stdout.write(character)
-        sys.stdout.flush()
-        time.sleep(speed)
-    print()
+    try:
+        for character in text:
+            sys.stdout.write(character)
+            sys.stdout.flush()
+            time.sleep(speed)
+        print()
+    except KeyboardInterrupt:
+        print(text)
 
 
 def clear_screen():

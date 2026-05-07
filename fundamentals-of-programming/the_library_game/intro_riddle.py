@@ -1,3 +1,7 @@
+from game_formatting import slow_print
+from game_formatting import divider
+
+
 def print_intro():
     current_room = "The Sanctuary"
 
@@ -14,28 +18,29 @@ Don’t waste precious time…
 
 def the_riddle():
     current_room = "The Sanctuary"
-    print("Solve the riddle to find the truth...")
+    slow_print("Solve the riddle to find the truth...")
     print("...")
-    print("Five fragments lie where shadows keep,")
+    slow_print("Five fragments lie where shadows keep,")
     print("In silent ink and memories deep.")
     print("...")
-    print("Begin where silence shelters truth")
-    print(" Where quiet souls are laid to rest")
+    slow_print("Begin where silence shelters truth")
+    slow_print(" Where quiet souls are laid to rest")
     print("...")
-    print("A name concealed in crimson thread,")
-    print("A love remembered, through half is dead.")
+    slow_print("A name concealed in crimson thread,")
+    slow_print("A love remembered, through half is dead.")
+    slow_print("...")
+    slow_print("Seek next the halls where sorrow stays,")
+    slow_print("A house still bound to darker days.")
     print("...")
-    print("Seek next the halls where sorrow stays,")
-    print("A house still bound to darker days.")
+    slow_print("Then walk where echoes twist the mind")
+    slow_print("Where curious thoughts grow unconfines")
+    slow_print("Where histories are written in sacred black blood")
     print("...")
-    print("Then walk where echoes twist the mind")
-    print("Where curious thoughts grow unconfines")
-    print("Where histories are written in sacred black blood")
+    slow_print("Beyond, where words were never penned,")
+    slow_print("The truths unfinished start to bend.")
     print("...")
-    print("Beyond, where words were never penned,")
-    print("The truths unfinished start to bend.")
+    slow_print("A story lost, yet still your own,")
+    slow_print("A truth consumed by ash and flame")
     print("...")
-    print("A story lost, yet still your own,")
-    print("A truth consumed by ash and flame")
-    print("...")
-    print("Restore the past to reclaim the name")
+
+    slow_print("Restore the past to reclaim the name")
