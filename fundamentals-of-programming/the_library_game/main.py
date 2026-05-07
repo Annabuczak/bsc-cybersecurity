@@ -10,7 +10,7 @@ for root, dirs, files in os.walk("."):
                 total_words += len(f.read().split())
 
 print("Total words:", total_words)
-
+from main_menu import menu
 from player import Player
 from player import run_game
 from inventory import Inventory
@@ -20,6 +20,7 @@ from save_load import load_game
 from rooms import portal_items
 
 while True:
+
     choice = input("\nWould you like to:\n"
                    "1. New Game\n"
                    "2. Load Game\n"

@@ -1,4 +1,6 @@
 # GLOBAL GAME STATE
+from game_formatting import divider
+
 mistakes = 0
 
 game_flags = {"safe_heaven_done": False,

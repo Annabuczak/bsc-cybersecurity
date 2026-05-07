@@ -116,8 +116,7 @@ a tragedy that never quite faded.
 Another fragment lies hidden here.
 Veronica, the old maid , she waits for her long lost little girl to come back home... Ask her about Penelope,
 a forbidden love and a secret wedding that ended in tragedy.
-As she speaks, her gaze drifts toward a cracked frame on the wall.
-The photograph inside is torn… but not completely."""
+"""
 
     },
 

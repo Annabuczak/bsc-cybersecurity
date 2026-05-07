@@ -37,15 +37,12 @@ def show_map(current_room, game_flags):
     def mark(room_name, current_room, game_flags):
 
         if room_name == current_room:
-
             return f"[{room_name.upper()}]"
 
         elif not game_flags.get(room_name.lower().replace(" ", "_") + "_done", True):
-
             return "[LOCKED]"
 
         else:
-
             return f"[{room_name}]"
 
     print(f"        {mark('The Place of Torment', current_room, game_flags)}")
