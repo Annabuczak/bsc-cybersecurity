@@ -4,33 +4,38 @@ import time
 
 time.sleep(2)
 
-
-def save_game(current_room, inventory):
-    with open('savegame.json', 'w') as f:
-        json.dump({
-            "current_room": current_room,
-            "inventory": inventory
-        }, f, indent=4)
+SAVE_FILE = "savegame.json"
 
 
-def load_game(filepath='savegame.json'):
-    if not os.path.exists(filepath):
-        return None
+def save_game(player, game_flags, portal_items):
+    data = {
+        "player_name": player.name,
+        "current_room": player.current_room,
+        "inventory": player.inventory.inventory,
+        "game_flags": game_flags,
+        "portal_items": portal_items
 
+    }
+
+    with open(SAVE_FILE, "w") as file:
+        json.dump(data, file, indent=4)
+
+    print("\nGame saved successfully.")
+
+
+def load_game():
     try:
-        with open(filepath, 'r') as f:
-            return json.load(f)
-    except (json.JSONDecodeError, IOError):
+
+        with open(SAVE_FILE, "r") as file:
+
+            data = json.load(file)
+
+        print("\nGame loaded successfully.")
+
+        return data
+
+    except FileNotFoundError:
+
+        print("\nNo saved game found.")
+
         return None
-
-
-def play_again():
-    while True:
-        again = input("\nWould you like to play again? (yyes/no)").strip().lower()
-        if again == 'no':
-            print_sleep("Thanks for playing! See you next time.")
-            exit()
-        elif again == 'yes':
-            menu()
-        else:
-            print("Invalid input. Please enter 'yes' or 'no'.")

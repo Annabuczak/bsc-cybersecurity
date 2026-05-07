@@ -42,48 +42,47 @@ from player import Player
 from movement import show_map
 from game_state import game_flags
 from game_formatting import slow_print
+from rooms import portal_items
 
 # MENU
 choice = menu()
+
 if choice == "new_game":
     print_intro()
-    print("\nBefore we begin...")
-    print("1. Enter your name")
-    print("2. Continue as Sebastian")
 
-    name_choice = input("> ").strip()
-    if name_choice == "1":
-        player_name = input("\nWhat is your name? ").strip()
-        if not player_name:
-            player_name = "Sebastian"
-
-    else:
-        player_name = "Sebastian"
-    print(f"\nWelcome, {player_name}!")
-
-    player = Player(name=player_name)
-
-    player = Player(name=player_name)
+    player = Player()
     player.current_room = "The Sanctuary"
+    player.inventory = Inventory()
+
 
 elif choice == "load_game":
+    from save_load import load_game
+
     data = load_game()
+
     if data:
-        player = Player()
+        player = Player(name=data["player_name"])
         player.current_room = data["current_room"]
+
         player.inventory = Inventory()
-        for item, quantity in data["inventory"].items():
-            for _ in range(quantity):
+        for item, qty in data["inventory"].items():
+            for _ in range(qty):
                 player.inventory.add_item(item)
+
+        game_flags.update(data.get("game_flags", {}))
+
+        portal_items.clear()
+        portal_items.extend(data.get("portal_items", []))
+
     else:
-        print("No saved game found. Starting a new game.")
+        print("Starting new game...")
         player = Player()
-        current_room = "The Sanctuary"
+        player.current_room = "The Sanctuary"
         player.inventory = Inventory()
+
 
 elif choice == "exit":
     exit()
-
 # GAME LOOP
 while True:
     print(f"\nYou are in the {player.current_room} room.")
@@ -146,9 +145,23 @@ while True:
                 print(f"\nYou are in {player.current_room}")
                 print(rooms[player.current_room].get("description", ""))
 
-            continue
+        elif action == "Door with Thousand Locks":
 
-        elif action == "Exit":
+            if "Golden Key" in player.inventory.inventory:
+                slow_print("\nThe key trembles in your hand...")
+                slow_print("\nOne by one, the locks begin to open.")
+                slow_print("\nA deep echo resonates through the Sanctuary...")
+                slow_print("\nThe final door is open.")
+                player.current_room = "The Library of Forgotten Man"
+                continue
+
+            else:
+                print("\nThe door will not budge...")
+                print("Something is missing...")
+
+                continue
+
+        else:
             print(f"Goodbye, {player.name}!")
             exit()
 
@@ -190,6 +203,28 @@ while True:
 
         continue
 
+    elif player.current_room == "The Library of Forgotten Man":
+
+        slow_print("\nYou step beyond the final threshold...")
+
+        print("\nWhat will you do?")
+        print("1. Erase the story")
+        print("2. Preserve it")
+
+        choice = input("> ").strip()
+
+        if choice == "1":
+            slow_print("\nEverything fades...")
+            slow_print(f"\n\"{player.name}... some stories should never be told.\"")
+            print("\n*** END: Forgotten ***")
+            exit()
+
+        elif choice == "2":
+            slow_print("\nYou let the story remain.")
+            slow_print("\nNot forgotten.")
+            print("\n*** END: The Keeper ***")
+            exit()
+
 
     # NORMAL ROOM LOGIC
     else:
@@ -202,7 +237,8 @@ while True:
         print("5. Go back to The Sanctuary")
         print("6. Examine an item")
         print("7. Show map")
-        print("8. Exit")
+        print("8. Save game")
+        print("9. Exit")
 
         choice = input(">").strip()
 
@@ -317,7 +353,13 @@ while True:
             print("\nYou are here")
             show_map(current_room=player.current_room, game_flags=game_flags)
             continue
+
         elif choice == "8":
+            from save_load import save_game
+
+            save_game(player, game_flags, portal_items)
+
+        elif choice == "9":
             exit()
 
 

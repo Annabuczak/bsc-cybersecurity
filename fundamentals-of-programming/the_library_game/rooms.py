@@ -15,26 +15,24 @@ def the_sanctuary(inventory):
         print("Stay in The Sanctuary")
 
         choice = input("> ").strip().lower()
-        if choice == "Portal":
+        if choice == "portal":
             portal(inventory)
             print("Leave what you have found here")
-        elif choice == "The Riddle":
+        elif choice == "the riddle":
             print("Solve the riddle to find the truth...")
             the_riddle()
-        elif choice == "Secret Box":
+        elif choice == "secret box":
             print("When the fragments are restored, the box that once held past, reveles the key to what awaits")
 
         elif "door" in choice:
             print("The door opens, and you step into the next chapter of your journey...")
             break
 
-        elif "stay" in choice == "Open the door of your choice":
-            print("The door opens, and you step into the next chapter of your journey...")
-            break
-
-        elif "stay" in choice == "Stay in The Sanctuary":
+        elif "stay" in choice:
             print("Wake up, Sebastian")
             exit()
+
+
         else:
             print("See you in your next dream Sebastian...")
 
