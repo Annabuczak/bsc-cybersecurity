@@ -29,22 +29,25 @@ def move_player(current_room, rooms):
         return current_room
 
 
-def show_map(current_room, flags):
-    print("\nYou are here:{current_room}")
+def show_map(current_room, game_flags):
+    print("\nThe map:")
+    print(f"You are here: {current_room}")
 
     rooms_progress = [
-        ("Safe Heaven", flags.get("safe_heaven_done")),
-        ("The Cursed Estate", flags.get("cursed_estate_done")),
-        ("House of Eccentrics", flags.get("houseof_estate_done")),
-        ("The Archive of Unwritten Things", flags.get("archive_of_things_done")),
-        ("The Place of Torment", flags.get("place_of_torment_done")),
-        ("The Library of Forgotten Man", flags.get("library_of_forgotten_man_done")),
+
+        ("Safe Heaven", game_flags.get("safe_heaven_done")),
+        ("The Cursed Estate", game_flags.get("estate_done")),
+        ("House of Eccentrics", game_flags.get("eccentrics_done")),
+        ("Archive", game_flags.get("archive_done")),
+        ("Place of Torment", game_flags.get("torment_done")),
+
     ]
-    print("Progress\\\n")
+
     for room, done in rooms_progress:
-        status = "*tick* if done else """
-        print("f[{status}], [{room}]")
-        
+        status = "✔" if done else "🔒"
+
+        print(f"{status} {room}")
+
 
 def print_map():
     pass

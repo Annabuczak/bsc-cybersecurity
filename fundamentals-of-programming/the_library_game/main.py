@@ -62,8 +62,8 @@ if choice == "new_game":
 
     player = Player(name=player_name)
 
-    current_room = "The Sanctuary"
-    player = Player()
+    player = Player(name=player_name)
+    player.current_room = "The Sanctuary"
 
 elif choice == "load_game":
     data = load_game()
@@ -79,7 +79,7 @@ elif choice == "load_game":
         player = Player()
         current_room = "The Sanctuary"
         player.inventory = Inventory()
-        rooms = rooms()
+
 elif choice == "exit":
     exit()
 
@@ -87,13 +87,27 @@ elif choice == "exit":
 while True:
     print(f"\nYou are in the {player.current_room} room.")
     print(rooms[player.current_room].get("description", ""))
-
+    if ("Letter" in player.inventory.inventory
+            and "Photo" in player.inventory.inventory
+            and "Pen" in player.inventory.inventory
+            and "Book" in player.inventory.inventory
+            and "Newspaper" in player.inventory.inventory
+    ):
+        game_flags["hidden_unlocked"] = True
+        if not game_flags.get("hidden_unlocked"):
+            if (
+                    "Letter" in player.inventory.inventory
+                    and "Photo" in player.inventory.inventory
+                    and "Pen" in player.inventory.inventory
+                    and "Book" in player.inventory.inventory
+                    and "Newspaper" in player.inventory.inventory
+            ):
+                game_flags["hidden_unlocked"] = True
+                print("\nSomething shifts in the distance...")
     # THE SANCTUARY LOGIC
     if player.current_room == "The Sanctuary":
         player.inventory.display()
-
         action = sanctuary_menu()
-
         if action == "next_room":
             player.current_room = "Safe Heaven"
             print(f"\nYou are in {player.current_room}")
@@ -115,7 +129,9 @@ while True:
             print("The door will not budge...")
             handle_mistake()
 
+
         elif action == "Enter the only open door":
+
             if rooms.get("Safe Heaven", {}).get("item") is None:
                 player.current_room = "The Cursed Estate"
                 print("\nThe door to Safe Heaven has sealed shut.")
@@ -124,14 +140,57 @@ while True:
                 print(rooms[player.current_room].get("description", ""))
 
             else:
-                current_room = "Safe Heaven"
+                player.current_room = "Safe Heaven"
                 print("\nThe door opens, and you step into the antiquarian bookshop...")
                 print(f"\nYou are in {player.current_room}")
                 print(rooms[player.current_room].get("description", ""))
 
+            continue
+
         elif action == "Exit":
-            print("Goodbye, Sebastian")
+            print(f"Goodbye, {player.name}!")
             exit()
+
+
+    elif player.current_room == "Forgotten Chamber":
+
+        print("\nThe chamber waits.")
+
+        print("\nWhat would you like to do?")
+        print("1. Take the vial")
+        print("2. Leave it")
+        print("3. Go back")
+
+        choice = input("> ").strip()
+
+        if choice == "1":
+            print("\nYou reach for the vial…")
+            print("\nIt is warm.")
+            print("\nToo warm.")
+            print("\nFor a moment, everything feels… lighter.")
+            print("\nThen the feeling vanishes.")
+            print("\nYou don't feel stronger.")
+            print("You feel… noticed.")
+
+            player.inventory.add_item("Vial of Life")
+            print("\nSomewhere far above, something awakens.")
+
+        elif choice == "2":
+            print("\nYou step back.")
+
+            print("\nNot everything is meant to be taken.")
+
+            print("\nThe chamber feels… approving.")
+
+        elif choice == "3":
+            print("\nYou ascend the staircase.")
+            player.current_room = "The Sanctuary"
+
+        else:
+            print("\nYou hesitate.")
+
+        continue
+
 
     # NORMAL ROOM LOGIC
     else:
@@ -258,6 +317,7 @@ while True:
         elif choice == "7":
             print("\nYou are here")
             show_map(current_room=player.current_room, game_flags=game_flags)
+            continue
         elif choice == "8":
             exit()
 

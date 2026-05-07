@@ -1,6 +1,7 @@
 items = ["Portal", "The Riddle", "Secret Box"]
 portal_items = []
 items_needed = ["Letter", "Photo", "Pen", "Book", "Newspaper"]
+item_found_in_hidden = ["Vial of Life"]
 
 
 def the_sanctuary(inventory):
@@ -215,5 +216,16 @@ Behind you, the labyrinth loosens its hold.
 The door does not close.
 
 It simply lets you go."""
+    },
+
+    "Forgotten Chamber": {
+        "up": "The Sanctuary",
+        "item": "Vial of Life",
+        "description": """You descent a narrow, spiraling stone staircase, that isn't on any map.
+        A place beyond memory. It should not exist.
+        In the center of the room rests a small silver pedestal
+        There is a sense of absolute peace here... a temporary refuge from the shadow.
+        Don't be fooled. The darkens awaits."""
+
     }
 }

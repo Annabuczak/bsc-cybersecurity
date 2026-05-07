@@ -1,10 +1,12 @@
 # GLOBAL GAME STATE
 mistakes = 0
-game_flags = {
-    "read_newspaper": False,
-    "knows_penelope": False,
-    "portal_open": False
-},
+
+game_flags = {"safe_heaven_done": False,
+              "estate_done": False,
+              "eccentrics_done": False,
+              "archive_done": False,
+              "torment_done": False
+              }
 
 # GLOBAL VARIABLES
 mistakes = 0
