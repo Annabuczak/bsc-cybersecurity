@@ -1,14 +1,14 @@
 from game_formatting import slow_print
-from game_formatting import divider
 
 
 def print_intro():
     current_room = "The Sanctuary"
 
-    print("""Welcome to the Library of Forgotten Man. You find yourself in a place that feels both familiar and strange. The air is thick with nostalgia and mystery.
+    slow_print("""Welcome to the Library of Forgotten Man. You find yourself in a place that feels both familiar and strange. The air is thick with nostalgia and mystery.
 You are in The Sanctuary, a vast, silent hall where shadows cling to towering shelves filled with whispering books.
 The scent of old paper and leather lingers, and dim light casts eerie shapes across the walls.
-This is where your journey begins, Sebastian. Here, you will uncover the mysteries of the past and confront the forgotten truths about Julian Carax—the broken writer whose soul desires only one thing… revenge.
+This is where your journey begins, Sebastian. 
+Here, you will uncover the mysteries of the past and confront the forgotten truths about Julian Carax—the broken writer whose soul desires only one thing… revenge.
 To uncover the truth, you must solve the riddle of the Sanctuary.
 Find five items. Each represents identity, love, legacy, creation, and tragedy.
 Combined, they unlock the box and reveal the Golden Key.
