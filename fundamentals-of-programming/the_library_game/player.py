@@ -200,9 +200,16 @@ def run_game(player):
                 print("\n*** END: Forgotten ***")
                 exit()
 
+
             elif choice == "2":
                 slow_print("\nYou let the story remain.")
-                slow_print("\nNot forgotten.")
+                slow_print("\nThe pages settle.")
+                slow_print("The names stop fading.")
+                slow_print("\nFor the first time…")
+                slow_print("they are no longer forgotten.")
+                slow_print("\nThe labyrinth loosens its hold on you.")
+                slow_print(f"\n\"{player.name}…\"")
+                slow_print("\"You chose memory over silence.\"")
                 print("\n*** END: The Keeper ***")
                 exit()
 
@@ -421,7 +428,6 @@ if __name__ == "__main__":
 
         print(f"\nWelcome, {player_name}...")
 
-        # 3. Create the player object with the custom name
         player = Player(name=player_name)
 
         run_game(player)
