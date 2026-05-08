@@ -34,60 +34,30 @@ def show_map(current_room, game_flags):
     print("           THE MAP")
     print("=" * 35 + "\n")
 
-    def mark(room_name, current_room, game_flags):
+    def mark(room_name):
 
         if room_name == current_room:
             return f"[{room_name.upper()}]"
 
-        elif not game_flags.get(room_name.lower().replace(" ", "_") + "_done", True):
-            return "[LOCKED]"
+        elif not game_flags.get(room_name.lower().replace(" ", "_") + "_done", False):
+            return f"[{room_name}]"
 
         else:
             return f"[{room_name}]"
 
-    print(f"        {mark('The Place of Torment', current_room, game_flags)}")
+    print(f"        {mark('The Place of Torment')}")
     print("                 |")
 
-    print(
-        f" {mark('The Archive of Unwritten Things', current_room, game_flags)} — {mark('House of Eccentrics', current_room, game_flags)}")
+    print(f" {mark('The Archive of Unwritten Things')} — {mark('House of Eccentrics')}")
     print("                 |")
 
-    print(f"        {mark('The Cursed Estate', current_room, game_flags)}")
+    print(f"        {mark('The Cursed Estate')}")
     print("                 |")
 
-    print(f"        {mark('Safe Heaven', current_room, game_flags)}")
+    print(f"        {mark('Safe Heaven')}")
     print("                 |")
 
-    print(f"        {mark('The Sanctuary', current_room, game_flags)}")
+    print(f"        {mark('The Sanctuary')}")
 
-    rooms_progress = [
-
-        ("Safe Heaven", game_flags.get("safe_heaven_done")),
-        ("The Cursed Estate", game_flags.get("estate_done")),
-        ("House of Eccentrics", game_flags.get("eccentrics_done")),
-        ("The Archive of Unwritten Things", game_flags.get("archive_done")),
-        ("Place of Torment", game_flags.get("torment_done")),
-
-    ]
-
-    for room, done in rooms_progress:
-        status = "✔" if done else "🔒"
-
-        if room == current_room:
-            print(f"➡ {room}")
-        else:
-            print(f"{status} {room}")
-
-    completed = sum([
-        game_flags.get("safe_heaven_done", False),
-        game_flags.get("estate_done", False),
-        game_flags.get("eccentrics_done", False),
-        game_flags.get("archive_done", False),
-        game_flags.get("torment_done", False),
-    ])
-
-    total = 5
-
-    percent = int((completed / total) * 100)
-
-    print(f"\nProgress: {percent}% complete")
+    if game_flags.get("hidden_unlocked"):
+        print("\n        ??? → [Forgotten Chamber]")

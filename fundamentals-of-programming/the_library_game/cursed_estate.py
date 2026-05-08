@@ -1,8 +1,11 @@
+from game_state import handle_mistake
+
+
 def explore_estate(inventory, room_data):
     print("""\nThe air in the room suddenly drops to freezing.
     The shadows strech across the walls, and you feel a chill run down your spine.
     Veronica's eyes widen in terror. 'They are coming! Find it quickly!'""")
-    print("""\nDarkens is approaching...
+    print("""\nDarkenss is approaching...
           Where do you look?""")
 
     print(
@@ -42,4 +45,5 @@ def explore_estate(inventory, room_data):
         print("\nYou hesitate, paralyzed by fear.")
         print("The shadows swallow you whole before you can make a move.")
         print("\n*** GAME OVER ***")
-        exit()
+        handle_mistake()
+        return

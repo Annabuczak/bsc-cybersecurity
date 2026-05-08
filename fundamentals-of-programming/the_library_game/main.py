@@ -1,19 +1,4 @@
-from importlib.metadata import pass_none
-import os
-
-# Word counter
-total_words = 0
-for root, dirs, files in os.walk("."):
-    for file in files:
-        if file.endswith(".py"):
-            with open(os.path.join(root, file), "r") as f:
-                total_words += len(f.read().split())
-
-print("Total words:", total_words)
-
-from main_menu import menu
-from player import Player
-from player import run_game
+from player import Player, run_game
 from inventory import Inventory
 from intro_riddle import print_intro
 from game_state import game_flags
@@ -21,32 +6,48 @@ from save_load import load_game
 from rooms import portal_items
 
 while True:
+    print("\nWould you like to:")
+    print("1. New Game")
+    print("2. Load Game")
+    print("3. Exit")
 
-    choice = input("\nWould you like to:\n"
-                   "1. New Game\n"
-                   "2. Load Game\n"
-                   "3. Exit\n> ").strip().lower()
+    choice = input("> ").strip()
 
+    # NEW GAME
     if choice == "1":
         print_intro()
 
-        player = Player()
+        print("\nBefore we begin...")
+        print("1. Enter your name")
+        print("2. Continue as Sebastian")
+
+        name_choice = input("> ").strip()
+
+        if name_choice == "1":
+            player_name = input("\nWhat is your name? ").strip()
+            if not player_name:
+                player_name = "Sebastian"
+        else:
+            player_name = "Sebastian"
+
+        print(f"\nWelcome, {player_name}...")
+
+        player = Player(name=player_name)
         player.current_room = "The Sanctuary"
         player.inventory = Inventory()
 
         run_game(player)
 
-
+    # LOAD GAME
     elif choice == "2":
-
         data = load_game()
 
         if data:
-            player = Player(name=data["player_name"])
-            player.current_room = data["current_room"]
+            player = Player(name=data.get("player_name", "Sebastian"))
+            player.current_room = data.get("current_room", "The Sanctuary")
 
             player.inventory = Inventory()
-            for item, qty in data["inventory"].items():
+            for item, qty in data.get("inventory", {}).items():
                 for _ in range(qty):
                     player.inventory.add_item(item)
 
@@ -55,11 +56,17 @@ while True:
             portal_items.clear()
             portal_items.extend(data.get("portal_items", []))
 
+            print(f"\nWelcome back, {player.name}...")
+
             run_game(player)
+
         else:
-            print("No saved game found.")
+            print("\nNo saved game found.")
+
+    # EXIT
     elif choice == "3":
         print("\nGoodbye!")
         break
+
     else:
         print("Invalid choice. Try again.")

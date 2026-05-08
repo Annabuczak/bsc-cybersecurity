@@ -2,8 +2,6 @@ import json
 import os
 import time
 
-time.sleep(2)
-
 SAVE_FILE = "savegame.json"
 
 

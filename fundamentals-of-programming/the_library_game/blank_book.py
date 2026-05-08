@@ -10,7 +10,7 @@ def blank_book_puzzle(inventory, current_room, rooms):
           Pay close attention.""")
 
     time.sleep(3)
-    print("\n" * 50)
+    print("\n" * 5)
 
     print("The pages flutter...a sentence form:")
     print(">>> Julian Carax was erased.<<<")

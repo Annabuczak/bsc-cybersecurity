@@ -1,3 +1,6 @@
+from game_state import handle_mistake
+
+
 def deadlybookpuzzle(inventory, current_room, rooms):
     print("""\nYou step closer to the shelves. Three books stand out from the rest.
                 A strange sense of dread washes over you...choose the wrong one, 
@@ -5,21 +8,21 @@ def deadlybookpuzzle(inventory, current_room, rooms):
     print("1. The Book of Shadows")
     print("2. The Book of Light")
     print("3. The Book of Secrets")
-    print("4. Walk away...emptyhanded")
+    print("4. Walk away...empty-handed")
 
-    book_choice = input("\nWhich one will you take? So much depends on you...").lower()
+    book_choice = input(...).strip()
 
     if book_choice == "1":
         print("\nThe Book of Shadows")
         print("""As you open the book, a dark mist envelops you. 
         You feel your consciousness slipping away, and the world around you fades into darkness.
         You have been consumed by the shadows, and your fate is sealed within the pages of the book.""")
-        print("\n***GAME OVER***")
-        exit()
+        handle_mistake()
+        return False
     elif book_choice == "2":
-        print("""\nYou carefuly slide The Book of Light off the shelf. 
+        print("""\nYou carefully slide The Book of Light off the shelf. 
         As you open it, a warm glow fills the room, and you feel a surge of hope and clarity.
-        Hidden between the yelow pages, you find a sealed Letter!
+        Hidden between the yellow pages, you find a sealed Letter!
         It is exactly what you were looking for.""")
 
         inventory.add_item("Letter")

@@ -7,25 +7,27 @@ class Inventory:
             self.inventory[item] += 1
         else:
             self.inventory[item] = 1
-        print(self.inventory)
 
     def remove_item(self, item):
         if item in self.inventory:
             self.inventory[item] -= 1
             if self.inventory[item] == 0:
                 del self.inventory[item]
-        else:
-            print("Item not found")
+
+    def has_item(self, item_name):
+
+        return item_name in self.inventory
 
     def display(self):
         if not self.inventory:
             print("Inventory is empty")
         else:
-            for item, quantity in self.inventory.items():
-                print(f"{item}: {quantity}")
+            for item, qty in self.inventory.items():
+                print(f"{item}: {qty}")
 
-    def get_inventory(self):
-        return self.inventory
+    # ⭐ ADD THIS
+    def has_item(self, item_name):
+        return item_name in self.inventory
 
 
 def take_item(current_room, rooms, inventory):
@@ -35,15 +37,14 @@ def take_item(current_room, rooms, inventory):
         print("There is nothing to take here.")
         return
 
-    if item in inventory:
+    if item in inventory.inventory:
         print("You already have this item.")
         return
 
-    inventory.append(item)
+    inventory.add_item(item)
     rooms[current_room]["item"] = None
 
     print(f"You picked up {item}.")
-    print("Inventory", inventory)
 
 
 def drop_item(inventory, portal_items, current_room):
@@ -86,7 +87,7 @@ def examine_items(inventory):
         print(f"\nYou don't have {choice}.")
         return
 
-    print("\nExamining...{choice}:")
+    print(f"\nExamining... {choice}:")
 
     if choice == "Letter":
         print("""\nThe paper is brittle. The handwriting is hurried, almost desperate.

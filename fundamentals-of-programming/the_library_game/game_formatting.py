@@ -1,9 +1,11 @@
 import sys
 import time
+import os
+import textwrap
 
 
 def divider():
-    print("\n" + "" * 30 + "\n")
+    print("\n" + "=" * 30 + "\n")
 
 
 def slow_print(text, speed=0.03):

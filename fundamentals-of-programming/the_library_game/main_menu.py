@@ -33,8 +33,6 @@ def menu():
         else:
             print("Incorrect response. Please try again.")
 
-    print_intro()
-
 
 def print_sleep(param):
     print(param)

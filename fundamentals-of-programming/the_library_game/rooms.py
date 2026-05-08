@@ -111,7 +111,7 @@ rooms = {
         "south": "The Sanctuary",
         "east": "The Cursed Estate",
         "item": "Letter",
-        "description": """You step into Sempere & Sons, a narrow antiquarian bookshop where dust drifts in the light.
+        "description": """The Sanctuary You step into Sempere & Sons, a narrow antiquarian bookshop where dust drifts in the light.
 The air smells of leather and rain-soaked paper, shelves leaning as if listening.
 Mr Sempere watches from behind the counter, while Daniel rearranges books nearby.
 The bell above the door hangs still, yet the shop feels guarded,

@@ -20,14 +20,8 @@ def sanctuary_menu():
         elif choice == "5":
             return "Enter the only open door"
         elif choice == "6":
-            return "Save"
+            return "Examine items"
         elif choice == "7":
+            return "Save"
+        elif choice == "8":
             return "Exit"
-
-        save_choice = input("\nDo you want to save before exiting? (yes/no): ").strip().lower()
-        if save_choice == "yes":
-            print(f"\nGoodbye,!")
-            break
-
-        else:
-            print("\nGoodbye!")
