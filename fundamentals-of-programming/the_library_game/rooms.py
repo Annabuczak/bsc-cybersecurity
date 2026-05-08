@@ -3,6 +3,8 @@ portal_items = []
 items_needed = ["Letter", "Photo", "Pen", "Book", "Newspaper"]
 item_found_in_hidden = ["Vial of Life"]
 
+from game_state import game_flags
+
 
 def the_sanctuary(inventory):
     while True:
@@ -70,12 +72,34 @@ def portal(inventory):
 def secret_box(inventory):
     required_items = ["Letter", "Photo", "Pen", "Book", "Newspaper"]
 
+    # Already opened safeguard
+    if game_flags.get("box_opened"):
+        print("\nThe box is empty now.")
+        print("Whatever it held… is already yours.")
+        return
+
+    # Check if portal is complete
     if all(item in portal_items for item in required_items):
-        print("\nWhen the fragments are restored...")
-        print("You open the box and find The Golden Key!")
+        print("\nThe box begins to tremble.")
+        print("The air around you tightens.")
+        print("\nThe things you sacrificed… are not gone.")
+        print("They are remembered.")
+        print("\nThe lid unlocks with a slow, deliberate sound.")
+        print("\nInside, resting in silence…")
+        print("\nA key.")
+        print("\nNot shining.")
+        print("Not inviting.")
+        print("Waiting.")
+
         inventory.add_item("Golden Key")
+
+        game_flags["box_opened"] = True
+
+        print("\n*** You obtained the Golden Key ***")
+
     else:
-        print("\nYou are not ready to face the truth, Sebastian.")
+        print("\nThe box remains still.")
+        print("It knows you are not ready.")
 
 
 rooms = {

@@ -90,7 +90,7 @@ And I never saw her again." """,
 He gives you a pen. "You see this pen boy? Great Victor Hugo used it to write Les Miserables."
 "Take it. Perhaps you can finish the story... But ink won't work." """,
             "hint": "He spins a pen between his fingers, watching you closely. The contract must be fulfilled.",
-            "gives": "Pen",
+            "gives": None,
             "questions": {
                 "1": {
                     "ask": "What contract are you talking about?",

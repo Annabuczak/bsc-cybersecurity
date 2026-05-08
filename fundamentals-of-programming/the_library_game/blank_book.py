@@ -1,4 +1,5 @@
 import time
+from game_state import handle_mistake
 
 
 def blank_book_puzzle(inventory, current_room, rooms):
@@ -14,20 +15,20 @@ def blank_book_puzzle(inventory, current_room, rooms):
     print("The pages flutter...a sentence form:")
     print(">>> Julian Carax was erased.<<<")
     time.sleep(2.5)
-    print("\n" * 50)
+    print("\n" * 25)
 
     print("The final truth burns onto the page:")
     print(">>> The story was never gone, only hidden. <<<")
     time.sleep(3.5)
-    print("\n" * 50)
+    print("\n" * 25)
 
     print("The book suddenly slams shut!")
     print("The Ghost Girl steps forward, waiting for you to speak the final truth.")
 
     guess = input("\nType the final sentence exactly: > ").strip().lower()
-    clean_guess = guess.replace(".", "").replace(",", "")
+    clean_guess = guess.replace(".", "").replace(",", "").replace("  ", " ").strip()
 
-    if clean_guess == "the story was never gone, only hidden":
+    if clean_guess == "the story was never gone only hidden":
         print("\nThe Ghost Girl gives a sad, quiet smile and fades into the mist.")
         print("The book rests silently on the lectern. It belongs to you now.")
         inventory.add_item("Book")

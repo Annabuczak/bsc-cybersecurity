@@ -23,6 +23,9 @@ from movement import show_map
 from game_state import game_flags
 from game_formatting import slow_print
 from rooms import portal_items
+from Blood_contract import blood_contract_puzzle
+from blank_book import blank_book_puzzle
+from Iron_door import iron_door_puzzle
 
 
 class Player:
@@ -39,9 +42,13 @@ class Player:
 
 
 def run_game(player):
+    last_room = None
     while True:
-        print(f"\nYou are in the {player.current_room} room.")
-        print(rooms[player.current_room].get("description", ""))
+
+        if player.current_room != last_room:
+            print(f"\nYou are in the {player.current_room} room.")
+            print(rooms[player.current_room].get("description", ""))
+            last_room = player.current_room
 
         if ("Letter" in player.inventory.inventory
                 and "Photo" in player.inventory.inventory
@@ -75,7 +82,6 @@ def run_game(player):
 
             elif action == "Portal":
                 portal(player.inventory)
-                handle_mistake()
                 continue
 
             elif action == "The Riddle":
@@ -86,12 +92,6 @@ def run_game(player):
                 secret_box(player.inventory)
                 handle_mistake()
                 continue
-
-            elif action == "Door with Thousand Locks":
-                print("The door will not budge...")
-                handle_mistake()
-                continue
-
 
             elif action == "Enter the only open door":
 
@@ -107,20 +107,16 @@ def run_game(player):
                     print("\nThe door opens, and you step into the antiquarian bookshop...")
 
 
+
             elif action == "Door with Thousand Locks":
 
                 if "Golden Key" in player.inventory.inventory:
-                    slow_print("\nThe key trembles in your hand...")
-                    slow_print("\nOne by one, the locks begin to open.")
-                    slow_print("\nA deep echo resonates through the Sanctuary...")
-                    slow_print("\nThe final door is open.")
+                    print("\nThe locks begin to turn...")
                     player.current_room = "The Library of Forgotten Man"
-
                 else:
                     print("\nThe door will not budge...")
-                    print("Something is missing...")
-                    handle_mistake()  # Punishes you for not having the key
-                    continue
+                    print("You feel something is missing...")
+                continue
 
             elif action == "Examine items":
                 examine_items(player.inventory)
@@ -136,6 +132,22 @@ def run_game(player):
                 else:
                     print("\nYou shake off the fear and decide to stay.")
                     continue
+
+
+            elif action == "Examine items":
+                examine_items(player.inventory)
+
+            if game_flags.get("hidden_unlocked"):
+                print("\nThe ground beneath you trembles...")
+                print("A hidden staircase reveals itself.")
+                print("\nDo you want to descend? (yes/no)")
+
+                choice = input("> ").strip().lower()
+
+                if choice == "yes":
+                    player.current_room = "Forgotten Chamber"
+
+            continue
 
         elif player.current_room == "Forgotten Chamber":
 
@@ -232,11 +244,10 @@ def run_game(player):
                         ncp_choice = input(">").strip()
 
                         if ncp_choice == "1":
-                            # --- NEW INTERACTIVE DIALOGUE SYSTEM ---
+
                             if "questions" in chosen_ncp:
                                 print(f"\nWhat do you want to ask {name.title()}?")
 
-                                # Print out all the questions the player can ask
                                 for key, q_data in chosen_ncp["questions"].items():
                                     print(f"{key}. \"{q_data['ask']}\"")
                                 print("0. (Say nothing)")
@@ -244,9 +255,9 @@ def run_game(player):
                                 talk_choice = input("> ").strip()
 
                                 if talk_choice in chosen_ncp["questions"]:
-                                    # The Player speaks!
+
                                     print(f"\nYou: \"{chosen_ncp['questions'][talk_choice]['ask']}\"")
-                                    # The NPC replies!
+
                                     print(f"{name.title()}: \"{chosen_ncp['questions'][talk_choice]['reply']}\"")
 
                                 elif talk_choice == "0":
@@ -255,9 +266,9 @@ def run_game(player):
                                     print("\nYou mumble something incomprehensible. They just stare at you.")
 
                             else:
-                                # Fallback just in case they don't have questions yet
+
                                 print(f"\n{name.title()}: \"{chosen_ncp.get('dialogue', '...')}\"")
-                            # ---------------------------------------
+
 
                         elif ncp_choice == "2":
                             print(f"\n{name.title()}: \"{chosen_ncp.get('hint', 'I have no advice for you.')}\"")
@@ -303,25 +314,40 @@ def run_game(player):
                 elif player.current_room == "The Cursed Estate" and item:
                     explore_estate(player.inventory, rooms[player.current_room])
 
-                # THE BLOOD COTRACT PUZZLE
-                elif player.current_room == "House of Eccentrics" and item:
-                    success = blood_contract_puzzle(player.inventory)
-                    if success:
-                        rooms[player.current_room]["item"] = None
-
+                # THE BLOOD CONTRACT PUZZLE
+                elif player.current_room == "House of Eccentrics":
+                    if "Pen" in player.inventory.inventory:
+                        print("The contract is already reduced to ashes.")
+                    else:
+                        success = blood_contract_puzzle(player.inventory)
+                        if success:
+                            print("\n*** Barroso slides the Victor Hugo Pen across the table. ***")
+                            player.inventory.add_item("Pen")
 
                 # THE BLANK BOOK PUZZLE
                 elif player.current_room == "The Archive of Unwritten Things" and item:
-                    success = blank_book_puzzle(player.inventory)
+                    success = blank_book_puzzle(player.inventory, player.current_room, rooms)
                     if success:
                         rooms[player.current_room]["item"] = None
+
 
                 # IRON DOOR PUZZLE
                 elif player.current_room == "The Place of Torment":
-                    success = iron_door_puzzle(player.inventory)
-                    if success:
-                        rooms[player.current_room]["item"] = None
 
+                    print("\nThe corridor ends at a massive iron door.")
+                    print("There is no other way forward.")
+                    print("A lock waits for a 4-digit code.")
+
+                    success = iron_door_puzzle(player.inventory)
+
+                    if success:
+                        print("\nThe door opens… but something is wrong.")
+                        print("You are not allowed to pass yet.")
+                        print("The labyrinth pulls you back.")
+
+                        player.current_room = "The Sanctuary"
+
+                    continue
                 elif item:
                     search_choice = input("Would you like to search the room? (yes/no): ").strip().lower()
                     if search_choice == "yes":
@@ -400,7 +426,6 @@ if __name__ == "__main__":
         # 3. Create the player object with the custom name
         player = Player(name=player_name)
 
-        # 4. Launch the game loop!
         run_game(player)
 
     elif choice == "load_game":
@@ -421,7 +446,6 @@ if __name__ == "__main__":
             print(f"\nWelcome back, {player.name}...")
             print("The shadows shift as you return to the labyrinth.")
 
-            # Launch the game loop!
             run_game(player)
 
         else:
