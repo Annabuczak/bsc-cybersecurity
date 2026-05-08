@@ -10,6 +10,7 @@ for root, dirs, files in os.walk("."):
                 total_words += len(f.read().split())
 
 print("Total words:", total_words)
+
 from main_menu import menu
 from player import Player
 from player import run_game

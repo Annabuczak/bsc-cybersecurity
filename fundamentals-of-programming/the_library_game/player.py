@@ -50,25 +50,20 @@ def run_game(player):
             print(rooms[player.current_room].get("description", ""))
             last_room = player.current_room
 
-        if ("Letter" in player.inventory.inventory
-                and "Photo" in player.inventory.inventory
-                and "Pen" in player.inventory.inventory
-                and "Book" in player.inventory.inventory
-                and "Newspaper" in player.inventory.inventory
+        if ("Letter" in player.inventory.inventory and
+                "Photo" in player.inventory.inventory and
+                "Pen" in player.inventory.inventory and
+                "Book" in player.inventory.inventory and
+                "Newspaper" in player.inventory.inventory
         ):
-            game_flags["hidden_unlocked"] = True
+
             if not game_flags.get("hidden_unlocked"):
-                if (
-                        "Letter" in player.inventory.inventory
-                        and "Photo" in player.inventory.inventory
-                        and "Pen" in player.inventory.inventory
-                        and "Book" in player.inventory.inventory
-                        and "Newspaper" in player.inventory.inventory
-                ):
-                    game_flags["hidden_unlocked"] = True
-                    print("\nSomething shifts in the distance...")
+                game_flags["hidden_unlocked"] = True
+                print("\nSomething shifts in the distance...")
+
         # THE SANCTUARY LOGIC
         if player.current_room == "The Sanctuary":
+
             player.inventory.display()
             action = sanctuary_menu()
 
@@ -90,7 +85,6 @@ def run_game(player):
 
             elif action == "Secret Box":
                 secret_box(player.inventory)
-                handle_mistake()
                 continue
 
             elif action == "Enter the only open door":
@@ -106,8 +100,6 @@ def run_game(player):
                     player.current_room = "Safe Heaven"
                     print("\nThe door opens, and you step into the antiquarian bookshop...")
 
-
-
             elif action == "Door with Thousand Locks":
 
                 if "Golden Key" in player.inventory.inventory:
@@ -120,6 +112,16 @@ def run_game(player):
 
             elif action == "Examine items":
                 examine_items(player.inventory)
+
+                if game_flags.get("hidden_unlocked"):
+                    print("\nThe ground beneath you trembles...")
+                    print("A hidden staircase reveals itself.")
+
+                    choice = input("\nDo you want to descend? (yes/no): ")
+
+                if choice == "yes":
+                    player.current_room = "Forgotten Chamber"
+
                 continue
 
             elif action == "Exit":
@@ -168,7 +170,6 @@ def run_game(player):
                 print("\nThen the feeling vanishes.")
                 print("\nYou don't feel stronger.")
                 print("You feel… noticed.")
-
                 player.inventory.add_item("Vial of Life")
                 print("\nSomewhere far above, something awakens.")
 
@@ -181,8 +182,6 @@ def run_game(player):
                 print("\nYou ascend the staircase.")
                 player.current_room = "The Sanctuary"
 
-            else:
-                print("\nYou hesitate.")
             continue
 
         elif player.current_room == "The Library of Forgotten Man":
@@ -344,10 +343,9 @@ def run_game(player):
                         print("\nThe door opens… but something is wrong.")
                         print("You are not allowed to pass yet.")
                         print("The labyrinth pulls you back.")
-
                         player.current_room = "The Sanctuary"
 
-                    continue
+                        continue
                 elif item:
                     search_choice = input("Would you like to search the room? (yes/no): ").strip().lower()
                     if search_choice == "yes":

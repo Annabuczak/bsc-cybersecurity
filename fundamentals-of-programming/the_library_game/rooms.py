@@ -72,13 +72,11 @@ def portal(inventory):
 def secret_box(inventory):
     required_items = ["Letter", "Photo", "Pen", "Book", "Newspaper"]
 
-    # Already opened safeguard
     if game_flags.get("box_opened"):
         print("\nThe box is empty now.")
         print("Whatever it held… is already yours.")
         return
 
-    # Check if portal is complete
     if all(item in portal_items for item in required_items):
         print("\nThe box begins to tremble.")
         print("The air around you tightens.")
