@@ -1,3 +1,9 @@
+# Player module. Engine of the game.
+# This module defines player class, track user state,
+# like inventory and location.
+# Run_game loop drives the narratives, handles user input,
+# triggers specific room logic and puzzles.
+
 from inventory import Inventory, examine_items
 from movement import move_player, show_map
 from sanctuary_menu import sanctuary_menu
@@ -14,89 +20,98 @@ from rooms import rooms, portal, secret_box, portal_items
 
 
 class Player:
+    # Represents the main character navigating the labyrinth.
+    # Tracks the player current location within the map
+    # and manages their state via attached inventory object.
     def __init__(self, name="Sebastian"):
         self.name = name
         self.current_room = "The Sanctuary"
         self.inventory = Inventory()
 
     def has_item(self, item_name):
+        # Check if player has specific item
         return item_name in self.inventory.inventory
 
 
 def save_game_wrapper(player):
+    # Wrapper function to save game state
     from save_load import save_game
     save_game(player, game_flags, portal_items)
 
 
 def run_game(player):
+    # Keeps track of previous room to avoid re - printing description
     last_room = None
+    # Required items to unlock secret box
     required_items = ["Letter", "Photo", "Pen", "Book", "Newspaper"]
-
+    # Main game loop. Runs until player leaves the game
     while True:
+        # Room display
 
-        # ======================
-        # ROOM DISPLAY (ONLY ONCE)
-        # ======================
+        # Prevent redundant descriptions from flooding the terminal
+        # if the player performs an action without leaving the room.
         if player.current_room != last_room:
             print(f"\nYou are in {player.current_room}")
             print(rooms[player.current_room].get("description", ""))
             last_room = player.current_room
 
-        # ======================
-        # HIDDEN CHAMBER UNLOCK
-        # ======================
+        # Continuously monitor the inventory for the hidden progression condition.
         if not game_flags.get("hidden_unlocked"):
             if all(player.has_item(i) for i in required_items):
+                # Using Python's built-in all() function for clean, efficient validation
                 game_flags["hidden_unlocked"] = True
                 print("\n*** Something shifts in the distance... ***")
 
-        # ======================
-        # 🏛️ SANCTUARY
-        # ======================
+        # Sanctuary room logic. Sanctuary is The Hub of the game
         if player.current_room == "The Sanctuary":
-
+            # Show inventory
             print("\nYour inventory:")
             player.inventory.display()
 
+            # Get player action
             action = sanctuary_menu()
 
+            # Move to next room
             if action == "next_room":
                 player.current_room = "Safe Heaven"
                 continue
-
+            # Portal interaction
             elif action == "Portal":
                 portal(player.inventory)
                 continue
-
+            # Show riddle
             elif action == "The Riddle":
                 the_riddle()
                 continue
-
+            # secret room logic
             elif action == "Secret Box":
                 secret_box(player.inventory)
                 continue
 
+            # Enter next door and branches path to next rooms
             elif action == "Enter the only open door":
+                # Ensure the player has completed the first room before allowing re-entry
                 if rooms.get("Safe Heaven", {}).get("item") is None:
                     player.current_room = "The Cursed Estate"
                     print("\nThe safe path closes behind you...")
                 else:
                     player.current_room = "Safe Heaven"
                 continue
-
+            # Final locked door
             elif action == "Door with Thousand Locks":
                 if "Golden Key" in player.inventory.inventory:
-                    player.inventory.remove_item("Golden Key")
+                    player.inventory.remove_item("Golden Key")  # Consume item to prevent reuse
                     slow_print("\nThe key trembles in your hand...")
                     slow_print("\nThe locks begin to open...")
                     player.current_room = "The Library of Forgotten Man"
                 else:
                     print("\nThe door will not budge...")
                 continue
-
+            # Examine inventory items
             elif action == "Examine items":
                 examine_items(player.inventory)
 
+                # Reveal hidden chamber if unlocked
                 if game_flags.get("hidden_unlocked"):
                     print("\nThe ground trembles...")
                     print("A hidden staircase reveals itself.")
@@ -106,18 +121,17 @@ def run_game(player):
                         player.current_room = "Forgotten Chamber"
 
                 continue
-
+            # Save game
             elif action == "Save":
                 save_game_wrapper(player)
                 continue
 
+            # Exit game
             elif action == "Exit":
                 print("\nGoodbye.")
                 break
 
-        # ======================
-        # 🕳️ FORGOTTEN CHAMBER
-        # ======================
+        # Forgotten chamber
         elif player.current_room == "Forgotten Chamber":
 
             print("\nThe chamber waits.")
@@ -139,9 +153,7 @@ def run_game(player):
 
             continue
 
-        # ======================
-        # 📚 FINAL ROOM
-        # ======================
+        # End game logic
         elif player.current_room == "The Library of Forgotten Man":
 
             slow_print("\nYou step beyond the final threshold...")
@@ -161,9 +173,7 @@ def run_game(player):
                 print("\n*** END: The Keeper ***")
                 break
 
-        # ======================
-        # 🌍 NORMAL ROOMS
-        # ======================
+        # Rooms logic/exploration
         else:
 
             print("\n1. Talk")
@@ -178,9 +188,7 @@ def run_game(player):
 
             choice = input("> ").strip()
 
-            # ======================
-            # NPC SYSTEM (FULL)
-            # ======================
+            # Player/characters interaction system
             if choice == "1":
                 name = input("Approach whom? ").lower().strip()
                 room_ncp = ncp.get(player.current_room, {})
@@ -190,6 +198,7 @@ def run_game(player):
                     print(f"\nYou approach {name.title()}!")
 
                     while True:
+                        # Payer/character interaction sub loop
                         print("\n1. Talk")
                         print("2. Ask for a hint")
                         print("3. Ask for an item")
@@ -224,13 +233,12 @@ def run_game(player):
                 else:
                     print("No one by that name is here.")
 
-            # ======================
-            # LOOK AROUND / PUZZLES
-            # ======================
+            # Room investigation and puzzles
             elif choice == "2":
                 room_data = rooms.get(player.current_room, {})
                 item = room_data.get("item")
 
+                # Route to specific puzzle logic based on current room state
                 if player.current_room == "Safe Heaven" and item:
                     deadlybookpuzzle(player.inventory, player.current_room, rooms)
 
@@ -252,6 +260,7 @@ def run_game(player):
 
 
                 elif item:
+                    # Generic item discovery for non-puzzle rooms
                     take = input("Search? (yes/no): ").strip().lower()
                     if take == "yes":
                         player.inventory.add_item(item)
@@ -261,9 +270,7 @@ def run_game(player):
                 else:
                     print("Nothing found.")
 
-            # ======================
-            # MOVEMENT / UTILS
-            # ======================
+            # Basic utilities
             elif choice == "3":
                 new_room = move_player(player.current_room, rooms)
                 print(f"\nYou move to {new_room}")
