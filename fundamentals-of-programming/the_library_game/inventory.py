@@ -15,8 +15,7 @@ class Inventory:
                 del self.inventory[item]
 
     def has_item(self, item_name):
-
-        return item_name in self.inventory
+        return item_name in self.inventory.inventory
 
     def display(self):
         if not self.inventory:

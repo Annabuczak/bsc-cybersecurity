@@ -10,6 +10,7 @@ from blank_book import blank_book_puzzle
 from Iron_door import iron_door_puzzle
 from game_state import handle_mistake, game_flags
 from game_formatting import slow_print
+from rooms import rooms, portal, secret_box, portal_items
 
 
 class Player:
@@ -19,7 +20,7 @@ class Player:
         self.inventory = Inventory()
 
     def has_item(self, item_name):
-        return self.inventory.has_item(item_name)
+        return item_name in self.inventory.inventory
 
 
 def save_game_wrapper(player):
