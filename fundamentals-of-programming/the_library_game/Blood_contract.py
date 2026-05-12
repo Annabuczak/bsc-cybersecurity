@@ -1,17 +1,22 @@
 from game_state import handle_mistake
 
 
+# Blood Contract Puzzle Module
+# Handles the interaction in the House of Eccentrics.
 def blood_contract_puzzle(inventory):
     print("\nYou approach a glowing parchment pinned to the center of the wall.")
     print("It is a contract binding the soul of Julian Carax.")
     print("The final sentence reads: 'I bind my soul to the shadows, never to rest,")
     print("until the ________ consumes my final word.'")
 
+    # Thematic mechanic explanation
     print("\nYou pull out the Silver Pen Diego Barroso gave you.")
     print("As you press the nib to the paper, it doesn't use ink. It draws your own blood.")
 
+    # Acceptable correct answers (flexible input)
     acceptable_words = ["fire", "flame", "flames", "ash", "ashes"]
 
+    # Input loop
     while True:
         guess = input("What word do you write? > ").strip().lower()
 
