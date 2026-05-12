@@ -1,12 +1,30 @@
+# This module acts as a spatial database. It defines the map
+# using dictionary based graph data structure
+# and contains the logic for interactive environmental objects
+# within The Hub word
+
+# Global game data
+# Items available in The Sanctuary menu.
 items = ["Portal", "The Riddle", "Secret Box"]
+# Stores items thrown into the portal, used to unlock The Secret Box.
 portal_items = []
+# Required items needed to open Secret Box and to retrieve Golden Key
 items_needed = ["Letter", "Photo", "Pen", "Book", "Newspaper"]
+# Special item foung in the hidden chamber
 item_found_in_hidden = ["Vial of Life"]
 
 from game_state import game_flags
 
 
+# Sanctuary, The Hub of the game
+# Handles the unique text-based interface for the game.
+# Parses user input and returns standardised command strings to the main game engine.
+
 def the_sanctuary(inventory):
+    # We use a while loop just in case they type gibberish.
+    # It traps them here until they type a valid command.y(inventory):
+
+    # Continuous loop until player leaves Sanctuary
     while True:
         print("\nSebastian, don't be afraid. The place you dreamed about is real...Welcome to The Sanctuary")
         print("Please look around you, choose one item")
@@ -16,6 +34,7 @@ def the_sanctuary(inventory):
         print("Open the door")
         print("Stay in The Sanctuary")
 
+        # Get user input and normalise it
         choice = input("> ").strip().lower()
         if choice == "portal":
             portal(inventory)
@@ -29,20 +48,26 @@ def the_sanctuary(inventory):
         elif "door" in choice:
             print("The door opens, and you step into the next chapter of your journey...")
             break
-
+        # Exit game
         elif "stay" in choice:
             print("Wake up, Sebastian")
             exit()
 
-
+        # Invalid input
         else:
             print("See you in your next dream Sebastian...")
 
 
+# Portal functions
+# Portal allows player to drop items found in Rooms and to open The Secret Box
 def portal(inventory):
+    # Handles the interactive Portal mechanics.
+    # Allows players to transfer items from their personal inventory into
+    # the portal's global state, tracking progress toward the endgame condition.
     print("\nThe Portal hums with a strange energy...")
     print("It feels as if you are being pulled to throw certain items into it...")
 
+    # If there are no items player cannot use The Portal
     if not inventory.inventory:
         print("Your pockets are empty. You must leave The Portal.")
         return
@@ -56,19 +81,24 @@ def portal(inventory):
         print("\nCome back when you are ready to put items inside The Portal.")
 
     elif choice == "yes":
+        # Format input to title case to match inventory keys exactly
         item_choice = input("Which item do you want to throw in? ").strip().title()
 
+        # If player has items -> remove and store in The Portal
         if item_choice in inventory.inventory:
             print(f"\nYou toss the {item_choice} into the portal...")
             inventory.remove_item(item_choice)
             portal_items.append(item_choice)
 
+            # Check if the player has successfully submitted all required items
             if all(item in portal_items for item in items_needed):
                 print("\n*** The portal awakens... The Secret Box is ready to be opened. ***")
         else:
             print(f"\nYou don't have a {item_choice} to throw.")
 
 
+# Evaluates if the player has met all the requirements
+# If The Portal conditions are met, player receives The Golden Key.
 def secret_box(inventory):
     required_items = ["Letter", "Photo", "Pen", "Book", "Newspaper"]
 
@@ -76,7 +106,7 @@ def secret_box(inventory):
         print("\nThe box is empty now.")
         print("Whatever it held… is already yours.")
         return
-
+    # Validate that all required items exist within the portal_items list
     if all(item in portal_items for item in required_items):
         print("\nThe box begins to tremble.")
         print("The air around you tightens.")
@@ -89,8 +119,10 @@ def secret_box(inventory):
         print("Not inviting.")
         print("Waiting.")
 
+        # Give player The golden Key
         inventory.add_item("Golden Key")
 
+        # Mark as open
         game_flags["box_opened"] = True
 
         print("\n*** You obtained the Golden Key ***")
@@ -100,7 +132,13 @@ def secret_box(inventory):
         print("It knows you are not ready.")
 
 
+# The labyrinth is structured as a dictionary of dictionaries.
+# Each key is a room name, mapping to its available exits, discoverable items,
+# and narrative description. This structure allows O(1) time complexity
+# when looking up room data during the main loop.
+
 rooms = {
+    # Starting location
     "The Sanctuary": {
         "north": "Safe Heaven",
         "item": None,
@@ -197,7 +235,7 @@ When you look back, he is gone.
 And the silence feels heavier than before."""
 
     },
-
+    # Final room
     "The Library of Forgotten Man": {
         "west": "The Place of Torment",
         "item": None,
@@ -236,7 +274,7 @@ The door does not close.
 
 It simply lets you go."""
     },
-
+    # Hidden chamber
     "Forgotten Chamber": {
         "up": "The Sanctuary",
         "item": "Vial of Life",
