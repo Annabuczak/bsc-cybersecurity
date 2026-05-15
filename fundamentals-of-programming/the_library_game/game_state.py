@@ -27,6 +27,12 @@ def reset_game_flags():
     game_flags.update(DEFAULT_GAME_FLAGS)
 
 
+def reset_mistakes():
+    global mistakes
+    mistakes = 0
+    game_flags["game_over"] = False
+
+
 # Mistake handler. Called when player makes a wrong decision (e.g. puzzles)
 def handle_mistake():
     global mistakes

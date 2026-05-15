@@ -2,7 +2,7 @@
 # Parses numeric user input and returns standardised command strings
 # to the main game engine.
 
-def sanctuary_menu():
+def sanctuary_menu(game_flags=None):
     # Loop until user selects a valid option
     while True:
         print("Choose from the following options:")
@@ -14,6 +14,8 @@ def sanctuary_menu():
         print("6. Examine items")
         print("7. Save")
         print("8. Exit")
+        if game_flags and game_flags.get("hidden_unlocked"):
+            print("9. Descend hidden staircase")
 
         # Get user input
         choice = input("> ").strip()
@@ -35,5 +37,7 @@ def sanctuary_menu():
             return "Save"  # Save game
         elif choice == "8":  # Exit game
             return "Exit"
+        elif choice == "9" and game_flags and game_flags.get("hidden_unlocked"):
+            return "Hidden Chamber"
         else:
-            print("Invalid choice. Please choose a number from 1 to 8.")
+            print("Invalid choice. Please choose one of the shown numbers.")

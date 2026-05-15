@@ -77,10 +77,11 @@ def run_game(player):
 
         # Continuously monitor the inventory for the hidden progression condition.
         if not game_flags.get("hidden_unlocked"):
-            if all(player.has_item(i) for i in required_items):
+            if all(player.has_item(i) or i in portal_items for i in required_items):
                 # Using Python's built-in all() function for clean, efficient validation
                 game_flags["hidden_unlocked"] = True
                 print("\n*** Something shifts in the distance... ***")
+                print("A hidden staircase opens somewhere in The Sanctuary.")
 
         # Sanctuary room logic. Sanctuary is The Hub of the game
         if player.current_room == "The Sanctuary":
@@ -89,7 +90,7 @@ def run_game(player):
             player.inventory.display()
 
             # Get player action
-            action = sanctuary_menu()
+            action = sanctuary_menu(game_flags)
 
             # Move to next room
             if action == "next_room":
@@ -106,6 +107,10 @@ def run_game(player):
             # secret room logic
             elif action == "Secret Box":
                 secret_box(player.inventory)
+                continue
+            # Hidden chamber, unlocked after the five fragments are gathered or restored to the portal
+            elif action == "Hidden Chamber":
+                player.current_room = "Forgotten Chamber"
                 continue
 
             # Enter next door and branches path to next rooms
@@ -162,8 +167,11 @@ def run_game(player):
             choice = input("> ").strip()
 
             if choice == "1":
-                print("\nYou take the vial...")
-                player.inventory.add_item("Vial of Life")
+                if player.has_item("Vial of Life"):
+                    print("\nYou already carry the Vial of Life.")
+                else:
+                    print("\nYou take the vial...")
+                    player.inventory.add_item("Vial of Life")
 
             elif choice == "2":
                 print("\nYou step back.")
@@ -180,6 +188,8 @@ def run_game(player):
 
             print("\n1. Erase the story")
             print("2. Preserve it")
+            if player.has_item("Vial of Life"):
+                print("3. Pour the Vial of Life onto the book")
 
             choice = input("> ").strip()
 
@@ -192,6 +202,18 @@ def run_game(player):
                 slow_print("\nYou let the story remain.")
                 print("\n*** END: The Keeper ***")
                 break
+
+            elif choice == "3" and player.has_item("Vial of Life"):
+                player.inventory.remove_item("Vial of Life")
+                slow_print("\nYou uncork the Vial of Life.")
+                slow_print("A pale light spills across the forgotten pages.")
+                slow_print("The names return first. Then the voices. Then the truth.")
+                slow_print("\nThe Library breathes as if waking from a long sleep.")
+                print("\n*** TRUE END: The Story Lives ***")
+                break
+
+            else:
+                print("\nThe book waits for a real choice.")
 
         # Rooms logic/exploration
         else:

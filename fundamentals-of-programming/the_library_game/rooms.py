@@ -149,7 +149,7 @@ rooms = {
         "south": "The Sanctuary",
         "east": "The Cursed Estate",
         "item": "Letter",
-        "description": """The Sanctuary You step into Sempere & Sons, a narrow antiquarian bookshop where dust drifts in the light.
+        "description": """You step into Sempere & Sons, a narrow antiquarian bookshop where dust drifts in the light.
 The air smells of leather and rain-soaked paper, shelves leaning as if listening.
 Mr Sempere watches from behind the counter, while Daniel rearranges books nearby.
 The bell above the door hangs still, yet the shop feels guarded,
@@ -218,7 +218,6 @@ When you look back, the girl is gone."""
 
     "The Place of Torment": {
         "south": "The Archive of Unwritten Things",
-        "east": "The Library of Forgotten Man",
         "item": "Newspaper",
         "description": """You have come far, Sebastian.
 Montjuïc Castle rises at dusk, its stone walls swallowing the last light.

@@ -87,13 +87,21 @@ def examine_items(inventory):
     print("\nYour current inventory:")
     inventory.display()
 
-    choice = input("Which item do you want to examine? (or type 'none'): ").strip().title()
+    choice = input("Which item do you want to examine? (or type 'none'): ").strip()
 
-    if choice.lower() == "None":
+    if choice.lower() == "none":
         return
 
+    matching_item = None
+    for item in inventory.inventory:
+        if item.lower() == choice.lower():
+            matching_item = item
+            break
+
+    choice = matching_item
+
     if choice not in inventory.inventory:
-        print(f"\nYou don't have {choice}.")
+        print("\nYou don't have that item.")
         return
 
     print(f"\nExamining... {choice}:")
@@ -127,6 +135,10 @@ def examine_items(inventory):
         print("Most of the article is burnt away, but you can make out:")
         print("'...suspicious circumstances... no remains of the daughter found...")
         print("...police suspect arson...'")
+
+    elif choice == "Vial of Life":
+        print("\nA small silver vial filled with a pale, shimmering liquid.")
+        print("It feels warm in your palm, as if it remembers a heartbeat.")
 
     else:
         print(f"\nYou look closely at the {choice}. It seems ordinary enough.")
