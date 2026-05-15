@@ -6,7 +6,7 @@ from game_formatting import slow_print
 def print_intro():
     current_room = "The Sanctuary"
 
-    print("""Welcome to the Library of Forgotten Man. You find yourself in a place that feels both familiar and strange. The air is thick with nostalgia and mystery.
+    print("""Welcome to the Library of the Forgotten Man. You find yourself in a place that feels both familiar and strange. The air is thick with nostalgia and mystery.
 You are in The Sanctuary, a vast, silent hall where shadows cling to towering shelves filled with whispering books.
 The scent of old paper and leather lingers, and dim light casts eerie shapes across the walls.
 This is where your journey begins. 
