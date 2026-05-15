@@ -12,7 +12,8 @@ def sanctuary_menu():
         print("4. Door with Thousand Locks")
         print("5. Go to next door")
         print("6. Examine items")
-        print("7. Exit")
+        print("7. Save")
+        print("8. Exit")
 
         # Get user input
         choice = input("> ").strip()
@@ -34,3 +35,5 @@ def sanctuary_menu():
             return "Save"  # Save game
         elif choice == "8":  # Exit game
             return "Exit"
+        else:
+            print("Invalid choice. Please choose a number from 1 to 8.")

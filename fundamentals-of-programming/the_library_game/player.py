@@ -39,6 +39,23 @@ def save_game_wrapper(player):
     save_game(player, game_flags, portal_items)
 
 
+def room_flag_name(room_name):
+    return room_name.lower().replace(" ", "_") + "_done"
+
+
+def mark_room_done(room_name):
+    flag = room_flag_name(room_name)
+    if flag in game_flags:
+        game_flags[flag] = True
+
+
+def stop_if_game_over():
+    if game_flags.get("game_over"):
+        print("\nThe dream releases you back to the main menu.")
+        return True
+    return False
+
+
 def run_game(player):
     # Keeps track of previous room to avoid re - printing description
     last_room = None
@@ -46,6 +63,9 @@ def run_game(player):
     required_items = ["Letter", "Photo", "Pen", "Book", "Newspaper"]
     # Main game loop. Runs until player leaves the game
     while True:
+        if stop_if_game_over():
+            return
+
         # Room display
 
         # Prevent redundant descriptions from flooding the terminal
@@ -128,8 +148,8 @@ def run_game(player):
 
             # Exit game
             elif action == "Exit":
-                print("\nGoodbye.")
-                break
+                print("\nReturning to main menu.")
+                return
 
         # Forgotten chamber
         elif player.current_room == "Forgotten Chamber":
@@ -241,10 +261,25 @@ def run_game(player):
                             item = npc.get("gives")
 
                             if item:
+                                room_data = rooms.get(player.current_room, {})
+                                item_is_room_reward = room_data.get("item") == item
+                                already_claimed = (
+                                    player.has_item(item)
+                                    or item in portal_items
+                                    or room_data.get("item") is None
+                                )
+
+                                if item_is_room_reward and already_claimed:
+                                    print("\nThey have nothing else for you.")
+                                    continue
+
                                 take = input(f"Take the {item}? (yes/no): ").strip().lower()
 
                                 if take == "yes":
                                     player.inventory.add_item(item)
+                                    if item_is_room_reward:
+                                        room_data["item"] = None
+                                        mark_room_done(player.current_room)
                                     npc["gives"] = None
                                     print(f"\nYou received {item}!")
                                 else:
@@ -265,23 +300,32 @@ def run_game(player):
 
                 # Route to specific puzzle logic based on current room state
                 if player.current_room == "Safe Heaven" and item:
-                    deadlybookpuzzle(player.inventory, player.current_room, rooms)
+                    if deadlybookpuzzle(player.inventory, player.current_room, rooms):
+                        mark_room_done(player.current_room)
 
                 elif player.current_room == "The Cursed Estate" and item:
-                    explore_estate(player.inventory, room_data)
+                    if explore_estate(player.inventory, room_data):
+                        mark_room_done(player.current_room)
 
                 elif player.current_room == "House of Eccentrics":
                     if not player.has_item("Pen"):
                         if blood_contract_puzzle(player.inventory):
                             player.inventory.add_item("Pen")
+                            room_data["item"] = None
+                            mark_room_done(player.current_room)
 
                 elif player.current_room == "The Archive of Unwritten Things" and item:
                     if blank_book_puzzle(player.inventory, player.current_room, rooms):
                         room_data["item"] = None
+                        mark_room_done(player.current_room)
 
                 elif player.current_room == "The Place of Torment":
                     if iron_door_puzzle(player.inventory):
+                        if item:
+                            player.inventory.add_item(item)
+                            print(f"\n*** You obtained the {item}! ***")
                         room_data["item"] = None
+                        mark_room_done(player.current_room)
 
 
                 elif item:
@@ -290,10 +334,14 @@ def run_game(player):
                     if take == "yes":
                         player.inventory.add_item(item)
                         room_data["item"] = None
+                        mark_room_done(player.current_room)
                         print(f"\nYou found {item}!")
 
                 else:
                     print("Nothing found.")
+
+                if stop_if_game_over():
+                    return
 
             # Basic utilities
             elif choice == "3":

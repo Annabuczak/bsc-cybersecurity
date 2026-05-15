@@ -1,36 +1,25 @@
-# # Attempt to load saved game data from file
-
-
-data = load_game()
+from save_load import load_game
 from inventory import Inventory
-from movement import move_player
-from rooms import rooms
+from player import Player
 
-if data:
-    # Restore player's last known room
-    current_room = data["current_room"]
-    # Recreate inventory object (empty first)
-    inventory = Inventory()
 
-    # Rebuild inventory items from saved data
-    # Saved format: {"item_name": quantity}
-    for item, quantity in data["inventory"].items():
-        for _ in range(quantity):
-            inventory.add_item(item)
+def load_or_new_game():
+    data = load_game()
 
-# Start new game
-else:
-    # default starting location
-    current_room = "The Sanctuary"
+    if data:
+        # Load existing player
+        player = Player(name=data.get("player_name", "Sebastian"))
+        player.current_room = data.get("current_room", "The Sanctuary")
 
-    # Creates empty inventory for new player
-    inventory = Inventory()
+        # Restore inventory
+        player.inventory = Inventory()
+        for item, quantity in data.get("inventory", {}).items():
+            for _ in range(quantity):
+                player.inventory.add_item(item)
 
-    # Show available directions from starting room
-    for direction, destination in rooms[current_room].items():
-        if direction in ["north", "south", "east", "west"]:
-            print(f"You can go {direction} to {destination}")
-    # Move player based on user input
-    current_room = move_player(current_room, rooms)
-    # Display current inventory (empty at the start of the game)
-    inventory.display()
+        return player
+
+    else:
+        # Start new player
+        player = Player()
+        return player

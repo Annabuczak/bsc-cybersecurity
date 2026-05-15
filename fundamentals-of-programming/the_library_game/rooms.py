@@ -51,7 +51,7 @@ def the_sanctuary(inventory):
         # Exit game
         elif "stay" in choice:
             print("Wake up, Sebastian")
-            exit()
+            return "Exit"
 
         # Invalid input
         else:
@@ -286,3 +286,16 @@ It simply lets you go."""
 
     }
 }
+
+DEFAULT_ROOM_ITEMS = {room_name: room_data.get("item") for room_name, room_data in rooms.items()}
+
+
+def reset_room_items():
+    for room_name, item in DEFAULT_ROOM_ITEMS.items():
+        rooms[room_name]["item"] = item
+
+
+def restore_room_items(saved_items):
+    for room_name, item in saved_items.items():
+        if room_name in rooms:
+            rooms[room_name]["item"] = item

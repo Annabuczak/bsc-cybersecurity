@@ -3,17 +3,17 @@
 # Handles player creation, loading saved states, and exiting the game.
 
 # Import
-from player import Player, run_game
-from inventory import Inventory
-from intro_riddle import print_intro
-from game_state import game_flags
 from save_load import load_game
-from rooms import portal_items
-
+from inventory import Inventory
+from player import Player
+from game_state import game_flags, reset_game_flags
+from rooms import portal_items, reset_room_items, restore_room_items
+from intro_riddle import print_intro
+from player import run_game
 # Displays main menu options
 while True:
     print("1. New game")
-    print("2. Save")
+    print("2. Load")
     print("3. Exit")
 
     # Get user input
@@ -36,7 +36,8 @@ while True:
         player.inventory = Inventory()
 
         # Reset all game progress flags
-        game_flags.clear()
+        reset_game_flags()
+        reset_room_items()
         # Reset items placed in the portal
         portal_items.clear()
 
@@ -62,8 +63,10 @@ while True:
                     player.inventory.add_item(item)
 
             # Restores game flags (progress, unlocks)
-            game_flags.clear()
+            reset_game_flags()
             game_flags.update(data.get("game_flags", {}))
+            reset_room_items()
+            restore_room_items(data.get("room_items", {}))
 
             # Restore portal items (used for secret box,)
             portal_items.clear()
@@ -79,4 +82,4 @@ while True:
     # exit the game
     elif choice == "3":
         print("Goodbye.")
-        break  # Exit main loop safely
+        break  # Exit main loop safely1
