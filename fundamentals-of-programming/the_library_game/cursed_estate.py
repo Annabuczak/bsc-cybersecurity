@@ -1,11 +1,13 @@
 from game_state import handle_mistake
 
 
+# This module handles the high-stakes, time-sensitive event inside The Cursed Estate.
+# The player must choose the correct hiding spot to find the Photo and survive.
 def explore_estate(inventory, room_data):
     print("""\nThe air in the room suddenly drops to freezing.
-    The shadows strech across the walls, and you feel a chill run down your spine.
+    The shadows stretch across the walls, and you feel a chill run down your spine.
     Veronica's eyes widen in terror. 'They are coming! Find it quickly!'""")
-    print("""\nDarkenss is approaching...
+    print("""\nDarkens is approaching...
           Where do you look?""")
 
     print(
@@ -37,11 +39,13 @@ def explore_estate(inventory, room_data):
         print("The creeping shadows violently recoil, hissing as they fade back into the rotting walls.")
         print("You catch your breath. You survived.")
 
+        # Check if the room actually has the item before giving it
         item = room_data.get("item")
         if item:
             inventory.add_item(item)
             room_data["item"] = None
     else:
+        # Catches invalid inputs (typos, empty enters) as a fatal hesitation
         print("\nYou hesitate, paralyzed by fear.")
         print("The shadows swallow you whole before you can make a move.")
         print("\n*** GAME OVER ***")

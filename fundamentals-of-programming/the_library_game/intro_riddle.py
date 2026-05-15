@@ -1,6 +1,8 @@
 from game_formatting import slow_print
 
 
+# Game introductions
+# Displays the opening narrative and sets the atmosphere of the game
 def print_intro():
     current_room = "The Sanctuary"
 
@@ -16,6 +18,8 @@ Don’t waste precious time…
 …it is time to play the game.""")
 
 
+# The Sanctuary Riddle
+# Provides player with cryptic clues about where to find clues
 def the_riddle():
     current_room = "The Sanctuary"
     slow_print("Solve the riddle to find the truth...")
@@ -33,7 +37,7 @@ def the_riddle():
     slow_print("A house still bound to darker days.")
     print("...")
     slow_print("Then walk where echoes twist the mind")
-    slow_print("Where curious thoughts grow unconfines")
+    slow_print("Where curious thoughts grow unconfined")
     slow_print("Where histories are written in sacred black blood")
     print("...")
     slow_print("Beyond, where words were never penned,")

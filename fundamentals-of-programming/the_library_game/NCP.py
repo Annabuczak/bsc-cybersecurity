@@ -1,5 +1,23 @@
-# NCP.py
+# NPC DATA STRUCTURE
+# This file contains all Non-Playable Characters (NPCs) in the game.
+# It is purely a data file – no game logic should be written here.
 
+
+# Design Purpose:
+# Separates dialogue content from game logic (clean architecture)
+# Allows easy expansion of story and characters
+# Supports interactive dialogue trees
+# Keeps player.py focused only on handling behaviour
+
+# How it is used:
+# player.py reads this dictionary
+# Displays dialogue, hints, and items
+# Allows player to ask questions dynamically
+
+# Notes:
+# "gives" should be None or a valid item string (avoid using "None" as a string)
+# Question keys are strings ("1", "2", etc.) for input matching
+# Dialogue is written as multi-line strings for readability
 ncp = {
     "Safe Heaven": {
         "sempere": {
@@ -9,7 +27,7 @@ Before you can answer, Daniel shifts beside him.
 "Father..." he whispers, uneasy. But Sempere seems not to hear.
 His eyes are still on you.
 "Books remember more than people do," he says softly, almost to himself. 
-"Some books are not meant to be found twice" He says as he walks away.""",
+"Some books are not meant to be found twice," He says as he walks away.""",
             "hint": "Daniel looks at you, then at the books on the shelf",
             "gives": None,
             "questions": {

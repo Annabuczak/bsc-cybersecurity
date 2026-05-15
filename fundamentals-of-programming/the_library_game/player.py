@@ -207,7 +207,32 @@ def run_game(player):
                         ncp_choice = input("> ").strip()
 
                         if ncp_choice == "1":
+                            # 1. Main dialogue
                             print(f"\n{name.title()}: \"{npc.get('dialogue', '...')}\"")
+
+                            # 2. Check if NCP has extra questions
+                            questions = npc.get("questions")
+                            if questions:
+                                while True:
+                                    print(f"\nWhat would you like to ask {name.title()}?")
+
+                                    for q_num, q_data in questions.items():
+                                        print(f"{q_num}. {q_data['ask']}")
+
+                                    print("0. (Stop asking questions)")
+
+                                    q_choice = input("> ").strip()
+
+                                    if q_choice == "0":
+                                        print(f"\nYou nod to {name.title()} and step back.")
+                                        break
+
+                                    elif q_choice in questions:
+                                        print(f"\nYou ask: \"{questions[q_choice]['ask']}\"")
+                                        print(f"{name.title()}: \"{questions[q_choice]['reply']}\"")
+
+                                    else:
+                                        print("Invalid choice. Please pick a valid question number.")
 
                         elif ncp_choice == "2":
                             print(f"\n{name.title()}: \"{npc.get('hint', 'I have no advice for you.')}\"")
