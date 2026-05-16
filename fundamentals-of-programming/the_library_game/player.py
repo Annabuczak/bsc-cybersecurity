@@ -39,16 +39,22 @@ def save_game_wrapper(player):
     save_game(player, game_flags, portal_items)
 
 
+# Converts a room name into a corresponding flag key
+# Example: "Safe Heaven" → "safe_heaven_done"
 def room_flag_name(room_name):
     return room_name.lower().replace(" ", "_") + "_done"
 
 
+# Marks a room as completed in the global game_flags dictionary
+# Used to track player progression and update map visibility
 def mark_room_done(room_name):
     flag = room_flag_name(room_name)
     if flag in game_flags:
         game_flags[flag] = True
 
 
+# Checks if the game has reached a game over state
+# If so, informs the player and signals to exit the current game loop
 def stop_if_game_over():
     if game_flags.get("game_over"):
         print("\nThe dream releases you back to the main menu.")
@@ -56,6 +62,10 @@ def stop_if_game_over():
     return False
 
 
+# Main game loop controlling the entire gameplay flow.
+# Handles room navigation, player actions, NPC interactions,
+# puzzle triggers, inventory management, and progression logic.
+# Runs continuously until the player exits or reaches an ending.
 def run_game(player):
     # Keeps track of previous room to avoid re - printing description
     last_room = None
@@ -286,9 +296,9 @@ def run_game(player):
                                 room_data = rooms.get(player.current_room, {})
                                 item_is_room_reward = room_data.get("item") == item
                                 already_claimed = (
-                                    player.has_item(item)
-                                    or item in portal_items
-                                    or room_data.get("item") is None
+                                        player.has_item(item)
+                                        or item in portal_items
+                                        or room_data.get("item") is None
                                 )
 
                                 if item_is_room_reward and already_claimed:

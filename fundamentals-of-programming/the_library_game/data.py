@@ -3,6 +3,7 @@ from inventory import Inventory
 from player import Player
 
 
+# Load game in progress or starts new game
 def load_or_new_game():
     data = load_game()
 
