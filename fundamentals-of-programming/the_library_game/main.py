@@ -1,7 +1,18 @@
 # Main Menu
 # Control the entry point of application
 # Handles player creation, loading saved states, and exiting the game.
+import os
 
+total = 0
+
+for filename in os.listdir():
+    if filename.endswith(".py"):
+        with open(filename, "r") as file:
+            words = len(file.read().split())
+            print(f"{filename}: {words}")
+            total += words
+
+print("\nTotal:", total)
 # Import
 from save_load import load_game
 from inventory import Inventory
@@ -10,6 +21,7 @@ from game_state import game_flags, reset_game_flags
 from rooms import portal_items, reset_room_items, restore_room_items
 from intro_riddle import print_intro
 from player import run_game
+
 # Displays main menu options
 while True:
     print("1. New game")
