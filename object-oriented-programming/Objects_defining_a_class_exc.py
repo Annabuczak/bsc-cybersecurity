@@ -1,3 +1,6 @@
+import gc
+
+
 # This defines the School class.
 # A class is a blueprint/template for creating school objects.
 class School:
@@ -7,7 +10,7 @@ class School:
 
     # This is the __init__ method.
     # It runs automatically when a new School object is created.
-    # It sets up the starting data for each object.
+    # __init__ is the constructor. It sets up the object with initial data.
     def __init__(self, address, name, head_teacher, rating):
         # These are instance attributes.
         # Each School object gets its own address, name, head teacher and rating.
@@ -16,9 +19,13 @@ class School:
         self.head_teacher = head_teacher
         self.rating = rating
 
+    # This is the destructor.
+    # It may run when the object is destroyed.
+    def __del__(self):
+        print(f"{self.name} has been destroyed")
+
     # This is an instance method.
     # It belongs to the class and can use the object's attributes through self.
-    # It prints a description of the school.
     def description(self):
         print(
             f"{self.name} is located at {self.address} "
@@ -29,18 +36,22 @@ class School:
 
 
 # These lines create School objects.
-# school1 and school2 are objects/instances of the School class.
 school1 = School("123 Main Street", "Greenwood High", "Mr. Smith", "Outstanding")
 school2 = School("456 Elm Street", "Oakwood Primary", "Ms. Johnson", "Good")
 
 # These lines call the description() method for each object.
-# Python uses self to know which object's data to print.
 school1.description()
 school2.description()
 
 # These lines print individual instance attributes.
-# Attributes are data, so they do not use brackets.
 print(school1.name)
 print(school1.rating)
 print(school2.name)
 print(school2.rating)
+
+# This deletes the reference to school1.
+# If no other references point to that object, Python may destroy it.
+del school1
+
+# This asks Python to run garbage collection.
+gc.collect()
