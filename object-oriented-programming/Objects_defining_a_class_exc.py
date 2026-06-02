@@ -1,31 +1,45 @@
-# Class
-# Defines the School class / blueprint
+# This defines the School class.
+# A class is a blueprint/template for creating school objects.
 class School:
-    school_type = "secondary"  # This is a class attribute. It is shared by all objects of the class.
+    # This is a class attribute.
+    # It belongs to the class and is shared by all School objects.
+    school_type = "secondary"
 
-    # This sets up the starting attributes of each object.
-    def __init__(self, address, name, head_teacher, school_type, rating):
-        # These are attributes.
+    # This is the __init__ method.
+    # It runs automatically when a new School object is created.
+    # It sets up the starting data for each object.
+    def __init__(self, address, name, head_teacher, rating):
+        # These are instance attributes.
+        # Each School object gets its own address, name, head teacher and rating.
         self.address = address
         self.name = name
         self.head_teacher = head_teacher
         self.rating = rating
 
-    # This is a method. It describes the school.
+    # This is an instance method.
+    # It belongs to the class and can use the object's attributes through self.
+    # It prints a description of the school.
     def description(self):
         print(
-            f"{self.name} is located at {self.address} and the head teacher is {self.head_teacher}. This is {self.school_type} school. This schhol is {self.rating} rating.")
+            f"{self.name} is located at {self.address} "
+            f"and the head teacher is {self.head_teacher}. "
+            f"This is a {self.school_type} school. "
+            f"This school has a {self.rating} rating."
+        )
 
 
-# This creates a School object.
-school1 = School("123 Main Street", "Greenwood High", "Mr. Smith", "secondary", rating="Outstanding")
-school2 = School("456 Elm Street", "Oakwood Primary", "Ms. Johnson", "secondary", rating="Good")
-# This calls the description() method.
+# These lines create School objects.
+# school1 and school2 are objects/instances of the School class.
+school1 = School("123 Main Street", "Greenwood High", "Mr. Smith", "Outstanding")
+school2 = School("456 Elm Street", "Oakwood Primary", "Ms. Johnson", "Good")
+
+# These lines call the description() method for each object.
+# Python uses self to know which object's data to print.
 school1.description()
 school2.description()
-school1.rating = "Outstanding"
-school2.rating = "Good"
 
+# These lines print individual instance attributes.
+# Attributes are data, so they do not use brackets.
 print(school1.name)
 print(school1.rating)
 print(school2.name)
