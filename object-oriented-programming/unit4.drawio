@@ -4,6 +4,37 @@
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="wbyo3HuhCAC_yU22lBOG-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;fontFamily=Times New Roman;fontStyle=1;fontSize=15;" value="&lt;span data-token-index=&quot;0&quot; class=&quot;notion-enable-hover&quot; style=&quot;text-align: start;&quot;&gt;The St James&#39;s Shoe Company Online Shopping System&lt;/span&gt;" vertex="1">
+          <mxGeometry height="40" width="480" x="110" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="wbyo3HuhCAC_yU22lBOG-4" edge="1" parent="1" source="wbyo3HuhCAC_yU22lBOG-2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Times New Roman;fontSize=15;" target="wbyo3HuhCAC_yU22lBOG-3" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wbyo3HuhCAC_yU22lBOG-2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b0e3e6;strokeColor=#0e8088;fontFamily=Times New Roman;fontSize=15;" value="&lt;span style=&quot;text-align: start;&quot;&gt;Customer&amp;nbsp;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="30" width="140" x="20" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="wbyo3HuhCAC_yU22lBOG-3" parent="1" style="whiteSpace=wrap;html=1;rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;fontFamily=Times New Roman;fontSize=15;" value="&lt;span style=&quot;text-align: start;&quot;&gt;customer_id&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;text-align: start;&quot;&gt;&amp;nbsp; name&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;text-align: start;&quot;&gt;email&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;text-align: start;&quot;&gt;address&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="90" width="140" x="20" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="wbyo3HuhCAC_yU22lBOG-5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#cce5ff;strokeColor=#36393d;fontFamily=Times New Roman;fontSize=15;" value="&lt;span style=&quot;caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0); font-style: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: none; float: none; display: inline !important;&quot;&gt;register() | | update_details() | | place_order() | | cancel_order() | | track_order() calculate_discount()&lt;span class=&quot;Apple-converted-space&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="160" width="140" x="20" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="wbyo3HuhCAC_yU22lBOG-6" edge="1" parent="1" style="shape=flexArrow;endArrow=classic;html=1;rounded=1;fontFamily=Times New Roman;fontSize=15;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <Array as="points" />
+            <mxPoint x="89.5" y="440" as="sourcePoint" />
+            <mxPoint x="89.5" y="370" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wbyo3HuhCAC_yU22lBOG-7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b0e3e6;strokeColor=#0e8088;fontFamily=Times New Roman;fontSize=15;" value="&lt;font&gt;Premium Customer&amp;nbsp;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="30" width="140" x="20" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="wbyo3HuhCAC_yU22lBOG-8" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=15;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;span style=&quot;text-align: start;&quot;&gt;discount_rate membership_level &amp;nbsp;reward_points&amp;nbsp;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="90" width="140" x="20" y="480" as="geometry" />
+        </mxCell>
+        <mxCell id="wbyo3HuhCAC_yU22lBOG-9" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=15;fillColor=#cce5ff;strokeColor=#36393d;" value="&lt;span style=&quot;caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0); font-style: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: none; float: none; display: inline !important;&quot;&gt;apply_discount() | | earn_points() | | get_benefits()&lt;/span&gt;" vertex="1">
+          <mxGeometry height="90" width="140" x="20" y="570" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
