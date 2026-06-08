@@ -1,8 +1,8 @@
 # Customer class
-
+# "The St James's Shoe Company Online Shopping System"
 class Customer:
 
-    def __init__(self, customer_id: object, name: object, email: object, address: object) -> None:  # instance variables
+    def __init__(self, customer_id: int, name: str, email: str, address: str) -> None:  # instance variables
         self.customer_id = customer_id
         self.name = name
         self.email = email
@@ -35,7 +35,7 @@ customer2 = Customer(
     1002,
     "Tristian Kensington",
     "tristiankensington@example.com",
-    "25 Bolton St, London"
+    "23 Pall Mall, London"
 )
 
 customer3 = Customer(
@@ -56,13 +56,13 @@ customer5 = Customer(
     1005,
     "Cecil Churchill",
     "cecilchurchill@example.com",
-    " 9 Carlton Terrace, London"
+    "9 Carlton Terrace, London"
 )
 customer6 = Customer(
     1006,
-    "Tristian Kensington",
-    "tristiankensington@example.com",
-    "25 Bolton St, London"
+    "Peter Phillips",
+    "peterphillips@example.com",
+    "1 The Mall, London"
 )
 
 customer7 = Customer(
@@ -90,3 +90,16 @@ customer10 = Customer(
     "sebastianwindsor@example.com",
     "101 Knightsbridge, London"
 )
+
+customer1.register()
+customer2.register()
+customer3.register()
+customer4.register()
+customer5.register()
+customer6.register()
+customer7.register()
+customer8.register()
+customer9.register()
+customer10.register()
+customer1.update_details(email="john.new@example.com")
+customer2.update_details(name="Tristian Kensington", address="45 Regent Street, London")
