@@ -22,9 +22,17 @@ class Customer:
             self.address = address
         print(f"{self.name}'s details have been updated.")
 
-    def place_order(self):
+    def place_order(self, customer_id, product_id, quantity):
         print(
-            f"{self.customer_id} has placed an order for {self.product_id} in {self.size} number of units {self.quantity}.")
+            f"Customer {self.customer_id} has placed an order")
+
+    def cancel_order(self, customer_id, product_id):
+        print(
+            f"Customer {self.customer_id} has canceled an order")
+
+    def track_order(self, customer_id, product_id):
+        print(
+            f"Customer {self.customer_id} has received order number {product_id} tracking number xxx")
 
 
 customer1 = Customer(
@@ -107,6 +115,66 @@ customer9.register()
 customer10.register()
 customer1.update_details(email="john.new@example.com")
 customer2.update_details(name="Tristian Kensington", address="45 Regent Street, London")
+customer3.place_order(customer1.customer_id, customer2.customer_id, 100)
+customer4.cancel_order(customer1.customer_id, customer2.customer_id)
+customer5.cancel_order(customer1.customer_id, customer2.customer_id)
+customer6.track_order(customer1.customer_id, customer2.customer_id)
+
+
+# Class Premium Customer
+class PremiumCustomer(Customer):
+
+    def __init__(self, customer_id: int, name: str, email: str, address: str, discount_rate: float,
+                 membership_level, reward_points: str):
+        super().__init__(customer_id, name, email, address)
+        self.customer_id = customer_id
+        self.name = name
+        self.email = email
+        self.address = address
+        self.discount_rate = discount_rate
+        self.membership_level = membership_level
+        self.reward_points = reward_points
+
+    def apply_discount(self):
+        print(f"{self.name} receives a {self.discount_rate * 100}% discount.")
+
+
+premium_customer3 = PremiumCustomer(
+    1003,
+    "George Cavendish",
+    "georgecavendish@example.com",
+    "19 Piccadilly, London",
+    0.10,
+    "Gold",
+    500
+)
+
+premium_customer7 = PremiumCustomer(
+    1007,
+    "Eric Grosvenor",
+    "ericgrosvenor@example.com",
+    "2 Belgrave Sq, London",
+    0.15,
+    "Platinum",
+    1000
+)
+
+premium_customer9 = PremiumCustomer(
+    1009,
+    "Mark Hanover",
+    "markhanover@example.com",
+    "77 Park Lane, London",
+    0.05,
+    "Silver",
+    250
+)
+
+premium_customer3.register()
+premium_customer7.register()
+premium_customer9.register()
+premium_customer3.apply_discount()
+premium_customer7.apply_discount()
+premium_customer9.apply_discount()
 
 
 # Class shoes
@@ -123,7 +191,7 @@ class Shoes:
         self.stock_quantity += quantity
         print(f"Stock updated. Current stock: {self.stock_quantity}")
 
-    def get_details(self):
+    def get_details(self, product_id, brand, size, colour, price, stock_quantity):
         return f"Product ID: {self.product_id}, Brand: {self.brand}, Size: {self.size}, Colour: {self.colour}, Price: ${self.price}, Stock Quantity: {self.stock_quantity}"
 
 
