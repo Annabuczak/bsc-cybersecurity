@@ -11,8 +11,6 @@ class Customer:
         self.email = email
         self.address = address
 
-    # Methods for Customer class
-
     def register(self):
         print(f"{self.name} has registered with email {self.email}.")
 
@@ -116,11 +114,15 @@ customer7.register()
 customer8.register()
 customer9.register()
 customer10.register()
+
 customer1.update_details(email="john.new@example.com")
 customer2.update_details(name="Tristian Kensington", address="45 Regent Street, London")
+
 customer3.place_order(customer1.customer_id, customer2.customer_id, 100)
+
 customer4.cancel_order(customer1.customer_id, customer2.customer_id)
 customer5.cancel_order(customer1.customer_id, customer2.customer_id)
+
 customer6.track_order(customer1.customer_id, customer2.customer_id)
 
 
@@ -142,12 +144,16 @@ class PremiumCustomer(Customer):
         self.membership_level = membership_level
         self.reward_points = reward_points
 
+    def register(self):
+        print(f"{self.name} has registered as a {self.membership_level} premium customer.")
+
     def apply_discount(self, order_value):
         discount_amount = order_value * self.discount_rate
         print(
             f"{self.name} receives a {self.discount_rate * 100}% discount "
             f"and saves £{discount_amount:.2f}."
         )
+        return order_value - discount_amount
 
     def earn_points(self, amount_spent):
         points_earned = int(amount_spent)
@@ -186,6 +192,11 @@ premium_customer9 = PremiumCustomer(
     "Silver",
     250
 )
+discount = premium_customer3.apply_discount(1000)
+print(discount)
+
+customer1.register()
+premium_customer3.register()
 
 premium_customer3.register()
 premium_customer7.register()
@@ -200,7 +211,7 @@ premium_customer7.earn_points(1500)
 premium_customer9.earn_points(800)
 
 
-# Class shoes
+# PRODUCT CLASS
 class Shoes:
     def __init__(self, product_id, brand, size, colour, price, stock_quantity):
         self.product_id = product_id
@@ -211,8 +222,11 @@ class Shoes:
         self.stock_quantity = stock_quantity
 
     def update_stock(self, quantity):
-        self.stock_quantity += quantity
-        print(f"Stock updated. Current stock: {self.stock_quantity}")
+        if self.stock_quantity + quantity < 0:
+            print("Stock cannot go below 0.")
+        else:
+            self.stock_quantity += quantity
+            print(f"Stock updated. Current stock: {self.stock_quantity}")
 
     def get_details(self, product_id, brand, size, colour, price, stock_quantity):
         return f"Product ID: {self.product_id}, Brand: {self.brand}, Size: {self.size}, Colour: {self.colour}, Price: ${self.price}, Stock Quantity: {self.stock_quantity}"
@@ -231,17 +245,17 @@ shoes10 = Shoes(2010, "Monk Strap", 45, "Yellow", 940.00, 18)
 
 
 class Catalogue:
-    def __init__(self, catalogue_id: int, product_id: int) -> None:
+    def __init__(self, catalogue_id, product_id):
         self.catalogue_id = catalogue_id
         self.product_id = product_id
 
-    def browse(self) -> str:
+    def browse(self):
         return f"Catalogue ID: {self.catalogue_id}, Product ID: {self.product_id}"
 
-    def search_product(self) -> str:
+    def search_product(self):
         return f"Product ID: {self.product_id}, Catalogue ID: {self.catalogue_id}"
 
-    def view_product_details(self) -> str:
+    def view_product_details(self):
         return f"Catalogue ID: {self.catalogue_id}, Product ID: {self.product_id}"
 
 
@@ -282,7 +296,7 @@ class Administrator:
         print(f"Admin name : {self.name} updated Product ID: {product.product_id}.")
 
     def remove_product(self, product):
-        product.update_stock(100)
+        product.stock_quantity = 0
         print(f"Admin name: {self.name} removed Product ID: {product.product_id}.")
 
     def manage_order(self, product, quantity):
@@ -304,17 +318,25 @@ administrator.manage_order(shoes1, -1)
 
 
 class Order:
-    def __init__(self, order_id, order_date, order_status, total_cost):
+    def __init__(self, order_id, order_date, order_status, total_cost, quantity):
         self.order_id = order_id
         self.order_date = order_date
         self.order_status = order_status
         self.total_cost = total_cost
+        self.quantity = quantity
+        self.products = []
 
-    def add_product_to_the_order(self, product):
-        print(f"Product ID {product.product_id} has been added to Order ID {self.order_id}.")
+    def add_product_to_the_order(self, product, quantity):
+        self.products.append((product, quantity))
+        print(f"Product ID {product.product_id} has been added to Order ID {self.order_id} "
+              f"with quantity {quantity}.")
 
-    def calculate_total_cost(self):
-        print(f"Total Cost: {self.total_cost}")
+    def calculate_total(self):
+        self.total_cost = 0
+        for product, quantity in self.products:
+            self.total_cost += product.price * quantity
+        print(f"Order ID {self.order_id} total cost is £{self.total_cost:.2f}.")
+        return self.total_cost
 
     def cancel_order(self):
         print(f"Cancel Order ID: {self.order_id}.")
@@ -323,30 +345,63 @@ class Order:
         print(f"Track Order ID: {self.order_id}.")
 
 
-order1 = Order(4001, "2026-06-10", "Pending", 940.00)
-order2 = Order(4002, "2026-06-10", "Pending", 880.00)
-order3 = Order(4003, "2026-06-10", "Pending", 900.00)
-order4 = Order(4004, "2026-06-10", "Pending", 920.00)
-order5 = Order(4005, "2026-06-10", "Pending", 950.00)
+order1 = Order(4001, "2026-06-10", "Pending", 940.00, 1)
+order2 = Order(4002, "2026-06-10", "Pending", 880.00, 1)
+order3 = Order(4003, "2026-06-10", "Pending", 900.00, 1)
+order4 = Order(4004, "2026-06-10", "Pending", 920.00, 1)
+order5 = Order(4005, "2026-06-10", "Pending", 950.00, 1)
 
-order1.add_product_to_the_order(shoes1)
-order2.add_product_to_the_order(shoes2)
-order3.add_product_to_the_order(shoes3)
-order4.add_product_to_the_order(shoes4)
-order5.add_product_to_the_order(shoes5)
+order1.add_product_to_the_order(shoes1, 1)
+order2.add_product_to_the_order(shoes2, 1)
+order3.add_product_to_the_order(shoes3, 1)
+order4.add_product_to_the_order(shoes4, 1)
+order5.add_product_to_the_order(shoes5, 1)
 
-order1.calculate_total_cost()
-order2.calculate_total_cost()
-order3.calculate_total_cost()
-order4.calculate_total_cost()
-order5.calculate_total_cost()
-
-order1.cancel_order()
-order2.track_order()
+order1.calculate_total()
+order2.calculate_total()
+order3.calculate_total()
+order4.calculate_total()
+order5.calculate_total()
 
 
 class Payment:
-    def __init__(self, payment_id, amount, payment_status):
+    def __init__(self, payment_id, total_cost, payment_status):
         self.payment_id = payment_id
-        self.amount = amount
+        self.total_cost = total_cost
         self.payment_status = payment_status
+
+    def process_payment(self):
+        print(f"Payment ID: {self.payment_id}, Amount: £{self.total_cost}, Payment Status: {self.payment_status}")
+
+    def refund_payment(self):
+        print(f"Refund processed for Payment ID: {self.payment_id}.")
+
+
+payment1 = Payment(4001, 1000, "Pending")
+payment2 = Payment(4002, 1000, "Pending")
+
+payment1.process_payment()
+payment2.refund_payment()
+
+
+class Delivery:
+    def __init__(self, delivery_id, courier_name, tracking_number, delivery_status):
+        self.delivery_id = delivery_id
+        self.courier_name = courier_name
+        self.tracking_number = tracking_number
+        self.delivery_status = delivery_status
+
+    def update_status(self, delivery_status):
+        self.delivery_status = delivery_status
+        print(f"Delivery status: {delivery_status}.")
+
+    def provide_tracking(self):
+        print(f"Tracking number: {self.tracking_number}.")
+
+
+delivery1 = Delivery(5001, "Royal Mail", "James11track", "Pending")
+delivery2 = Delivery(6002, "DPD", "TJames456track", "Pending")
+delivery1.update_status("Delivered")
+delivery1.provide_tracking()
+delivery2.update_status("Delivered")
+delivery2.provide_tracking()
