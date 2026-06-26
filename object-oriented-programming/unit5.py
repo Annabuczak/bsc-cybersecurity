@@ -1,15 +1,20 @@
 try:
-    num = int(input("Enter a number: "))
-    print(10 / num)
-except ZeroDivisionError:
-    print("Cannot divide by zero.")
+    age = int(input("Enter your age: "))
 except ValueError:
-    print("Invalid input! Please enter a number.")
+    print("Sorry, that's not a valid age.")
 
 try:
-    file = open("data.txt", "r")
-    data = file.read()
-except FileNotFoundError:
-    print("File not found.")
+    number = 123 / 0
+except ZeroDivisionError:
+    print("Sorry, that's not a valid number.")
+file = open("file.txt", "w")
+try:
+    print(file.read())
 finally:
-    file.close()  # Ensures file is always closed.
+    file.close()
+
+age = -22
+
+if age < 0:
+    print("Sorry, that's not a valid age.")
+raise ValueError
