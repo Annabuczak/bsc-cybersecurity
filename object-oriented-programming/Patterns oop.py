@@ -46,3 +46,36 @@ print(config2.debug)
 print(config1 is config2)
 print(id(config1))
 print(id(config2))
+
+
+class WaitingRoomDisplay:
+    _instance = None
+
+    def __new__(cls, display, queue):
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+        return cls._instance
+
+    def __init__(self, display, queue):
+        if hasattr(self, "_initialized"):
+            return
+
+        self.display = display
+        self.queue = queue
+        self._initialized = True
+
+    def next_patient(self):
+        print(self.display)
+        print(f"Queue number: {self.queue[0]}")
+
+
+display1 = WaitingRoomDisplay("Buddy is next in the queue", [1])
+display2 = WaitingRoomDisplay("Cruella is next in the queue", [2])
+
+display1.next_patient()
+
+print(display1 is display2)
+print(display1.display)
+print(display2.display)
+print(display1.queue)
+print(display2.queue)
