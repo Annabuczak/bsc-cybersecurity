@@ -1,3 +1,5 @@
+# Singleton
+
 class Config:
     _instance = None
 
@@ -79,3 +81,112 @@ print(display1.display)
 print(display2.display)
 print(display1.queue)
 print(display2.queue)
+
+
+class OneOnly:
+    _singleton = None
+
+    def __new__(cls, *args, **kwargs):
+        if cls._singleton is None:
+            cls.singleton = super(OneOnly, cls).__new__(cls)
+        return cls._singleton
+
+
+a1 = OneOnly()
+a2 = OneOnly()
+print(a1 is a2)
+
+
+# Factory
+class DogToy:
+    def __init__(self, name):
+        self.name = name
+
+
+class DogToyFactory:
+    def create_toy(self, toy_name):
+        if toy_name == "ball":
+            return DogToy("Green Ball")
+        elif toy_name == "licky mat":
+            return DogToy("Blue Licky Mat")
+        elif toy_name == "rope":
+            return DogToy("Cotton Rope")
+        else:
+            return None
+
+
+factory = DogToyFactory()
+
+toy = factory.create_toy("ball")
+
+toy1 = factory.create_toy("ball")
+toy2 = factory.create_toy("licky mat")
+toy3 = factory.create_toy("rope")
+
+print(toy1.name)
+print(toy2.name)
+print(toy3.name)
+
+
+# Factory
+
+class Notification:
+    def send(self, message):
+        raise NotImplementedError("Subclasses must implement send()")
+
+
+class EmailNotification(Notification):
+    def send(self, message):
+        print(f"Sending email notification: {message}")
+
+
+class SMSNotification(Notification):
+    def send(self, message):
+        print(f"Sending SMS notification: {message}")
+
+
+class NotificationFactory:
+    @classmethod
+    def create_notification(cls, type_name):
+        if type_name == "email":
+            return EmailNotification()
+        elif type_name == "sms":
+            return SMSNotification()
+        else:
+            raise ValueError("Invalid notification type")
+
+
+email_notification = NotificationFactory.create_notification("email")
+sms_notification = NotificationFactory.create_notification("sms")
+
+email_notification.send("Hello, this is an email notification!")
+sms_notification.send("Hello, this is an SMS notification!")
+
+
+# adapter
+class PaymentProcessor:
+    def process_payment(self, amount):
+        raise NotImplementedError("Subclasses must implement process_payment()")
+
+
+class ThirdPartyPayment:
+    def make_transaction(self, value):
+        print(f"Third-party processing payment of {value}")
+
+
+class ThirdPartyPaymentAdapter(PaymentProcessor):
+    def __init__(self, third_party_payment):
+        self.third_party_payment = third_party_payment
+
+    def process_payment(self, amount):
+        self.third_party_payment.make_transaction(amount)
+
+
+def checkout(payment_processor, amount):
+    payment_processor.process_payment(amount)
+
+
+third_party_payment = ThirdPartyPayment()
+adapter = ThirdPartyPaymentAdapter(third_party_payment)
+
+checkout(adapter, 100)
