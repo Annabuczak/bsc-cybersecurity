@@ -286,3 +286,58 @@ pizza = Pizza()
 pizza = CheeseDecorator(pizza)
 pizza = OliveDecorator(pizza)
 print(f"Pizza is {pizza.get_cost()}")
+
+
+class IceCream:
+    def get_cost(self):
+        return 5.0
+
+
+class IceCreamDecorator(IceCream):
+    def __init__(self, ice_cream):
+        self.ice_cream = ice_cream
+
+    def get_cost(self):
+        return self.ice_cream.get_cost()
+
+
+class SprinklesDecorator(IceCreamDecorator):
+    def __init__(self, ice_cream):
+        super().__init__(ice_cream)
+
+    def get_cost(self):
+        return self.ice_cream.get_cost() + 1.0
+
+
+class ChocolateSauceDecorator(IceCreamDecorator):
+    def __init__(self, ice_cream):
+        super().__init__(ice_cream)
+
+    def get_cost(self):
+        return self.ice_cream.get_cost() + 1.5
+
+
+ice_cream = IceCream()
+ice_cream = ChocolateSauceDecorator(ice_cream)
+ice_cream = ChocolateSauceDecorator(ice_cream)
+print(f"Ice Cream is {ice_cream.get_cost()}")
+
+
+class DataService:
+    def get_data(self):
+        return "Important data"
+
+
+class LoggingDataServiceDecorator:
+    def __init__(self, data_service):
+        self.data_service = data_service
+
+    def get_data(self):
+        print("LOG: about to fetch data")
+        return self.data_service.get_data()
+
+
+data_service = DataService()
+logged_service = LoggingDataServiceDecorator(data_service)
+
+print(logged_service.get_data())
