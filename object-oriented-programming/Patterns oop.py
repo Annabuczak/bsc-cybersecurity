@@ -249,3 +249,23 @@ third_party_payment = ThirdPartyPayment()
 adapter = ThirdPartyPaymentAdapter(third_party_payment)
 
 adapter.process_payment(100)
+
+# Decorator
+from abc import ABC, abstractmethod
+
+
+class Pizza(ABC):
+
+    @abstractmethod
+    def get_cost(self):
+        pass
+
+
+class PizzaDecorator(Pizza):
+
+    def __init__(self, pizza):
+        self.pizza = pizza
+
+class Cheesedecorator(Pizza):
+
+    def get_cost(self):
