@@ -203,3 +203,49 @@ class SmartSpeakerAdapter:
 speaker = SmartSpeaker()
 adapter = SmartSpeakerAdapter(speaker)
 adapter.turn_on()
+
+
+class OldPrinter:
+    def output(self, document):
+        print(f"Printing: {document}")
+
+
+class PrinterAdapter:
+
+    def __init__(self, printer):
+        self.printer = printer
+
+    def print_document(self, document):
+        self.printer.output(document)
+
+
+printer = OldPrinter()
+adapter = PrinterAdapter(printer)
+adapter.print_document("Hello")
+
+from abc import ABC, abstractmethod
+
+
+class PaymentProcessor(ABC):
+    @abstractmethod
+    def process_payment(self, amount):
+        pass
+
+
+class ThirdPartyPayment:
+    def make_transaction(self, value):
+        print(f"Third-party processing payment of {value}")
+
+
+class ThirdPartyPaymentAdapter(PaymentProcessor):
+    def __init__(self, third_party):
+        self.third_party_payment = third_party
+
+    def process_payment(self, amount):
+        self.third_party_payment.make_transaction(amount)
+
+
+third_party_payment = ThirdPartyPayment()
+adapter = ThirdPartyPaymentAdapter(third_party_payment)
+
+adapter.process_payment(100)
