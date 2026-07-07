@@ -164,29 +164,42 @@ sms_notification.send("Hello, this is an SMS notification!")
 
 
 # adapter
-class PaymentProcessor:
-    def process_payment(self, amount):
-        raise NotImplementedError("Subclasses must implement process_payment()")
+class CiscoFirewall:
+    def transmit(self, packet):
+        print(f"Transmitting packet: {packet}")
 
 
-class ThirdPartyPayment:
-    def make_transaction(self, value):
-        print(f"Third-party processing payment of {value}")
+class FirewallAdapter:
+    def __init__(self, firewall):
+        self.firewall = firewall
+
+    def send_data(self, packet):
+        self.firewall.transmit(packet)
 
 
-class ThirdPartyPaymentAdapter(PaymentProcessor):
-    def __init__(self, third_party_payment):
-        self.third_party_payment = third_party_payment
-
-    def process_payment(self, amount):
-        self.third_party_payment.make_transaction(amount)
+firewall = CiscoFirewall()
+adapter = FirewallAdapter(firewall)
+adapter.send_data("Packet")
 
 
-def checkout(payment_processor, amount):
-    payment_processor.process_payment(amount)
+class SmartLight:
+    def turn_on(self, ):
+        print("Light is now ON")
 
 
-third_party_payment = ThirdPartyPayment()
-adapter = ThirdPartyPaymentAdapter(third_party_payment)
+class SmartSpeaker:
+    def power_up(self):
+        print("Speaker is now ON")
 
-checkout(adapter, 100)
+
+class SmartSpeakerAdapter:
+    def __init__(self, speaker):
+        self.speaker = speaker
+
+    def turn_on(self):
+        self.speaker.power_up()
+
+
+speaker = SmartSpeaker()
+adapter = SmartSpeakerAdapter(speaker)
+adapter.turn_on()
