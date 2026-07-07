@@ -341,3 +341,45 @@ data_service = DataService()
 logged_service = LoggingDataServiceDecorator(data_service)
 
 print(logged_service.get_data())
+
+
+# observer
+
+class Subscriber:
+    def __init__(self, name):
+        self.name = name
+
+    def update(self, message):
+        return f"{self.name} received: {message}"
+
+
+class Channel:
+    def __init__(self):
+        self.subscribers = []
+
+    def subscribe(self, subscriber):
+        self.subscribers.append(subscriber)
+
+    def notify(self, message):
+        for subscriber in self.subscribers:
+            print(subscriber.update(message))
+
+
+channel = Channel()
+
+names = ["Anna", "Louie", "John"]
+
+for name in names:
+    subscriber = Subscriber(name)
+    channel.subscribe(subscriber)
+
+new_user = Subscriber("Your Name")
+channel.subscribe(new_user)
+
+channel.notify("New video just landed")
+
+
+class Stock:
+    def __init__(self, name, price):
+        self.name = name
+        self.price = price
