@@ -425,3 +425,59 @@ stock.attach(email_alert)
 stock.attach(mobile_alert)
 
 stock.set_price(120)
+
+
+# Strategy
+class Scanner:
+    """Base Strategy"""
+
+    def scan(self, target):
+        raise NotImplementedError("Subclasses must implement scan().")
+
+
+class QuickScanner(Scanner):
+    def scan(self, target):
+        print(f"Performing a QUICK scan on {target}")
+
+
+class FullScanner(Scanner):
+    def scan(self, target):
+        print(f"Performing a FULL scan on {target}")
+
+
+class StealthScanner(Scanner):
+    def scan(self, target):
+        print(f"Performing a STEALTH scan on {target}")
+
+
+class VulnerabilityScanner:
+    """Context"""
+
+    def __init__(self, strategy=None):
+        self.strategy = strategy
+
+    def set_strategy(self, strategy):
+        self.strategy = strategy
+
+    def scan(self, target):
+        if self.strategy:
+            self.strategy.scan(target)
+        else:
+            print("No scanning strategy set.")
+
+
+# Create the strategies
+quick_scanner = QuickScanner()
+full_scanner = FullScanner()
+stealth_scanner = StealthScanner()
+
+# Create the Context
+scanner = VulnerabilityScanner(quick_scanner)
+
+scanner.scan("192.168.1.10")
+
+scanner.set_strategy(full_scanner)
+scanner.scan("192.168.1.10")
+
+scanner.set_strategy(stealth_scanner)
+scanner.scan("192.168.1.10")
