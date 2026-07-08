@@ -429,7 +429,6 @@ stock.set_price(120)
 
 # Strategy
 class Scanner:
-    """Base Strategy"""
 
     def scan(self, target):
         raise NotImplementedError("Subclasses must implement scan().")
