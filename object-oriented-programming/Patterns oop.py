@@ -383,3 +383,45 @@ class Stock:
     def __init__(self, name, price):
         self.name = name
         self.price = price
+        self.observers = []
+
+    def attach(self, observer):
+        self.observers.append(observer)
+
+    def detach(self, observer):
+        self.observers.remove(observer)
+
+    def notify_observers(self):
+        for observer in self.observers:
+            observer.notify(self)
+
+    def set_price(self, new_price):
+        self.price = new_price
+        self.notify_observers()
+
+
+class EmailAlert:
+    def __init__(self, email):
+        self.email = email
+
+    def notify(self, stock):
+        print(f"Email to {self.email}: {stock.name} is now {stock.price}")
+
+
+class MobileAlert:
+    def __init__(self, username):
+        self.username = username
+
+    def notify(self, stock):
+        print(f"Push notification to {self.username}: {stock.name} is now {stock.price}")
+
+
+stock = Stock("ABC", 100)
+
+email_alert = EmailAlert("user@example.com")
+mobile_alert = MobileAlert("Anna")
+
+stock.attach(email_alert)
+stock.attach(mobile_alert)
+
+stock.set_price(120)
