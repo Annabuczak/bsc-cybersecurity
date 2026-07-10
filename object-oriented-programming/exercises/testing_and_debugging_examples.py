@@ -137,3 +137,45 @@ def test_mark_done_changes_done_to_true():
     task = Task("Finish OOP")
     task.mark_done()
     assert task.done == True
+
+
+def apply_discount(price, discount_percent):
+    discount = price * (discount_percent / 100)
+    return price - discount
+
+
+price = 100
+discount_percent = 10
+print(apply_discount(price, discount_percent))
+
+from discount import apply_discount
+
+
+def test_apply_discount_takes_10_percent_off():
+    assert apply_discount(100, 10) == 90
+
+
+def test_apply_discount_takes_50_percent_off():
+    assert apply_discount(80, 50) == 40
+
+
+def calculate_shipping(order_total):
+    if order_total > 50:
+        return 0
+    else:
+        return 4.99
+
+
+from shipping import calculate_shipping
+
+
+def test_shipping_is_free_when_order_is_over_50():
+    assert calculate_shipping(60) == 0
+
+
+def test_shipping_is_free_when_order_is_exactly_50():
+    assert calculate_shipping(50) == 0
+
+
+def test_shipping_costs_4_99_when_order_is_under_50():
+    assert calculate_shipping(20) == 4.99
