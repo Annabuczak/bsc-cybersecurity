@@ -1,20 +1,31 @@
-"""Small examples for practising testing and debugging."""
-
-
 def calculate_total(price, quantity):
-    """Return the total cost for a quantity of items."""
+    return price + quantity
+
+
+price = 10
+quantity = 5
+total = calculate_total(price, quantity)
+print(total)
+
+
+# from shop.py
+def calculate_total(price, quantity):
     return price * quantity
 
 
-def apply_discount(price, discount_percent):
-    """Apply a percentage discount to a price."""
-    discount = price * (discount_percent / 100)
-    return price - discount
+price = 10
+quantity = 5
+total = calculate_total(price, quantity)
+print(total)
+# test
+from shop import calculate_total
+
+
+def test_calculate_total():
+    assert calculate_total(10, 5) == 50
 
 
 class BankAccount:
-    """Simple bank account used for unit-test examples."""
-
     def __init__(self, balance):
         self.balance = balance
 
@@ -22,14 +33,84 @@ class BankAccount:
         self.balance += amount
 
     def withdraw(self, amount):
-        if amount > self.balance:
-            raise ValueError("Insufficient funds")
         self.balance -= amount
 
 
-class Task:
-    """Simple to-do task used for object testing examples."""
+from bank_account import BankAccount
 
+
+def test_deposit_increases_balance():
+    account = BankAccount(100)
+    account.deposit(50)
+    assert account.balance == 150
+
+
+def test_withdraw_reduces_balance():
+    account = BankAccount(100)
+    account.withdraw(30)
+    assert account.balance == 70
+
+
+# A test usually looks like this:
+def test_something_should_happen():
+    object = Something()
+
+    object.do_something()
+
+    assert object.value == expected_result
+
+
+# rise error import pytest
+
+class BankAccount:
+    def __init__(self, balance):
+        self.balance = balance
+
+    def deposit(self, amount):
+        self.balance += amount
+
+    def withdraw(self, amount):
+        self.balance -= amount
+
+
+account = BankAccount(100)
+account.withdraw(200)
+print(account.balance)
+account.deposit(200)
+print(account.balance)
+
+from bank_account import BankAccount
+
+
+def test_withdraw_too_much_raises_error():
+    account = BankAccount(100)
+
+    with pytest.raises(ValueError):
+        account.withdraw(200)
+
+
+def apply_discount(price, discount_percent):
+    discount = price * (discount_percent / 100)
+    return price - discount
+
+
+price = 100
+discount_percent = 10
+print(apply_discount(price, discount_percent))
+
+from discount import apply_discount
+
+
+def test_apply_discount_takes_10_percent_off():
+    assert apply_discount(100, 10) == 90
+
+
+def test_apply_discount_takes_50_percent_off():
+    assert apply_discount(80, 50) == 40
+
+
+# test an object
+class Task:
     def __init__(self, name):
         self.name = name
         self.done = False
@@ -38,37 +119,21 @@ class Task:
         self.done = True
 
 
-def run_examples():
-    print(calculate_total(10, 5))
-    print(apply_discount(100, 10))
+name = "Anna"
+task = Task(name)
+print(task.name)
+task.mark_done()
+print(task.done)
 
-    account = BankAccount(100)
-    account.deposit(50)
-    account.withdraw(30)
-    print(account.balance)
+from todo import Task
 
+
+def test_task_starts_not_done():
+    task = Task("Finish OOP")
+    assert task.done == False
+
+
+def test_mark_done_changes_done_to_true():
     task = Task("Finish OOP")
     task.mark_done()
-    print(task.name, task.done)
-
-
-def check_age(age):
-    if age < 18:
-        raise ValueError("User must be 18 or over")
-
-    return True
-
-
-age = 15
-
-import pytest
-from age_checker import check_age
-
-
-def test_check_age_returns_true_for_adult():
-    assert check_age(18) is True
-
-
-def test_check_age_raises_error_for_child():
-    with pytest.raises(ValueError):
-        check_age(15)
+    assert task.done == True
