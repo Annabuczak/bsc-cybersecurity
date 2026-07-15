@@ -1,99 +1,82 @@
-# Scenario: Bike Repair Task Tracker
+# Animal Rescue Centre
 
-class Task:
-    def __init__(self, name=str, reward_amount=float, is_complete=bool):
+class Animal:
+    def __init__(self, name, age):
         self.name = name
-        self.reward_amount = reward_amount,
-        self.is_complete = is_complete
+        self.age = age
 
-    def describe(self):
-
-        if (self.is_complete):
-            print(f"Louie has completed: {self.name} and {self.reward_amount}")
-        else:
-            print(f"Louie has not completed: {self.name} and  did not earn {self.reward_amount}")
+    def show_info(self):
+        print(self.name, self.age)
 
 
-task_1 = Task("Take rubbish out", reward_amount=5.0, is_complete=True)
-task_2 = Task("Hoover living room", reward_amount=2.0, is_complete=False)
-task_3 = Task("Walked Buddy", reward_amount=3.0, is_complete=True)
-task_1.describe()
-task_2.describe()
-task_3.describe()
+animal_1 = Animal("Buddy", 1)
+animal_1.show_info()
+animal_2 = Animal("PussyCat", 2)
+animal_2.show_info()
 
 
-# Household Reward Tracker — Procedural Version
-class HouseholdTask:
-    def __init__(self, name, reward_amount=float, is_complete=bool):
-        self.name = name
-        self.reward_amount = name
-        self.is_complete = is_complete
+class Dog(Animal):
+    def __init__(self, name, age, breed):
+        super().__init__(name, age)
+        self.breed = breed
+
+    def show_info(self):
+        print(self.name, self.age, self.breed)
 
 
-class RewardTracker:
+class Cat(Animal):
+    def __init__(self, name, age, breed, indoor=True):
+        super().__init__(name, age)
+        self.breed = breed
+        self.ido = indoor
 
-    def __init__(self):
-
-        self.tasks = []
-
-    def add_task(self, HouseholdTask, ):
-        self.name.append(HouseholdTask)
-
-    def calculate_reward_amount(self):
-        if self.is_complete:
-            return self.reward_amount
-        else:
-            print(f"Louie has not completed: {self.name}")
-
-    def show_tasks(self):
-        if (self.is_complete):
-            print(f"Louie has completed: {self.name}")
-        else:
-            print(f"Louie has not completed: {self.name}")
-            for householdtasks in self.name:
-                print(householdtasks)
+    def show_info(self):
+        print(self.name, self.age, self.breed)
 
 
-house_task1 = HouseholdTask("Put laundry away", reward_amount=1.0, is_complete=True)
-house_task2 = HouseholdTask("Put bike away", reward_amount=3.0, is_complete=False)
-house_task3 = HouseholdTask("Fed Buddy", reward_amount=2.0, is_complete=True)
+Dog_1 = Dog("Buddy", 1, "KCS")
+Cat_1 = Cat("Pussycat", 2, "Main")
+Dog_1.show_info()
+Cat_1.show_info()
 
-reward_amount = [1.0, 3.0, 2.0]
-print(reward_amount)
+print(f'My dog name is {Dog_1.name}, he is {Dog_1.age} years old and he is a  {Dog_1.breed}')
+print(
+    f'My neighbours cat name is {Cat_1.name} he is {Cat_1.age} years old and he is a  {Cat_1.breed} he is indoor only cat{Cat_1.ido}')
 
-print(house_task1.name)
-print(house_task2.name)
-print(house_task3.name)
 
-total_earned = sum(reward_amount)
-print("Money earned this week " + str(total_earned))
+# Home Appliance Energy Cost Tracker
 
-total_owned = 110
-print("Money owned for bike repair: " + str(total_owned))
+class Appliance:
+    def __init__(self, cost_per_hour):
+        self.cost_per_hour = cost_per_hour
 
-total_earned -= total_owned
-print("Remining balance: " + str(total_earned))
-total_earned += total_owned
+    def calculate_cost(self):
+        return self.cost_per_hour
 
-# Weekly Behaviour Points
 
-day_name_point = {
-    "Monday": 8,
-    "Tuesday": 3,
-    "Wednesday": 10,
-    "Thursday": 5,
-    "Friday": 2,
+class Lamp(Appliance):
+    def calculate_cost(self):
+        return super().calculate_cost()
 
-}
-total_points_earned = sum(day_name_point.values())
-print(f'Total points earned this week: {total_points_earned}')
 
-average_points_earned = total_points_earned / len(day_name_point)
-print(f'Average points earned this week: {average_points_earned}')
-good_days = []
+class WashingMachine(Appliance):
+    def __init__(self, cost_per_hour, fixed_charge):
+        super().__init__(cost_per_hour)
+        self.fixed_charge = fixed_charge
 
-for day, points in day_name_point.items():
-    if points >= 6:
-        good_days.append(day)
+    def calculate_cost(self):
+        return self.fixed_charge + super().calculate_cost()
 
-print(f"Good days: {good_days}")
+
+cost_per_hour = 12
+fixed_charge = 2
+
+app = Appliance(cost_per_hour)
+app_1 = WashingMachine(12.0, 2)
+app_2 = Lamp(1)
+
+print(f"Standard cost of running appliance is {app.calculate_cost()}")
+print(f"Cost of running washing machine is {app_1.calculate_cost()}")
+print(f"Cost of running lamp is {app_2.calculate_cost()}")
+
+# Smart Home Alerts
